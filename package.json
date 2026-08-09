@@ -1,0 +1,13 @@
+{
+  "name": "belegungsplan-cavalaire",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Belegungsplan für das Ferienhaus in Cavalaire-sur-Mer",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

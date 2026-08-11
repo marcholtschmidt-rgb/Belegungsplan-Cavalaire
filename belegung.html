@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Belegungsplan Cavalaire</title>
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="icon-192.png" />
+<link rel="apple-touch-icon" href="icon-192.png" />
+<meta name="theme-color" content="#14313F" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Cavalaire" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Public+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js" crossorigin></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js" crossorigin></script>
+<style>
+
+:root{--bg:#FFF4E4;--ink:#14313F;--card:#fff;--line:#EADCC6;--sea:#0FA3A3;--coral:#FF6B3D;--sun:#FFC53D;--mute:#7B8B93}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Public Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;padding-bottom:env(safe-area-inset-bottom)}
+h1,h2,h3{font-family:'Bricolage Grotesque','Public Sans',sans-serif;margin:0;letter-spacing:-.02em}
+.mono{font-family:'Space Mono',monospace}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+input,select,textarea{font:inherit;color:inherit}
+a{color:var(--sea)}a:hover{color:var(--coral)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.hd{padding:calc(env(safe-area-inset-top, 0px) + 20px) 0 12px}
+@media(min-width:640px){.hd{padding-top:28px}}
+h1{font-size:clamp(2.1rem,5.5vw,3.4rem);font-weight:800;line-height:.98;margin:0}
+.hd-top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:20px}
+.brand{display:flex;align-items:center;gap:14px;min-width:0}
+.hd-actions{display:flex;gap:10px;flex-shrink:0}
+.icon-toggle{width:46px;height:46px;border-radius:999px;background:var(--card);border:1.5px solid var(--line);display:grid;place-items:center;color:var(--ink);flex-shrink:0}
+@media(hover:hover){.icon-toggle:hover{background:var(--sun)}}
+.icon-toggle[data-active="1"]{background:var(--sun);border-color:var(--sun)}
+.icon-toggle[disabled]{cursor:default;opacity:.55}
+@media(hover:hover){.icon-toggle[disabled]:hover{background:var(--card)}}
+.card.todaycard{display:flex;align-items:center;gap:10px;min-height:96px;padding:16px 14px}
+.date-row{display:flex;align-items:center;gap:7px;font-size:13.5px;font-weight:700;flex-shrink:0;white-space:nowrap}
+.today-divider{align-self:stretch;width:1.5px;background:var(--line)}
+.stats{display:flex;flex:1;justify-content:space-between;gap:4px;min-width:0}
+.stat{display:flex;flex-direction:column;align-items:center;gap:4px;padding:0 3px;position:relative;flex:1;min-width:0}
+.stat:not(:last-child)::after{content:"";position:absolute;right:0;top:0;bottom:0;width:1.5px;background:var(--line)}
+.stat .stat-val{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1rem;white-space:nowrap}
+.stat .stat-lbl{font-size:9.5px;color:var(--mute);white-space:normal;overflow-wrap:break-word;-webkit-hyphens:auto;hyphens:auto;line-height:1.2;text-align:center;max-width:100%}
+.grid{display:grid;grid-template-columns:1fr;gap:16px;padding-bottom:40px}
+.side{display:contents}
+.tiles{order:-1}
+@media(min-width:900px){.grid{grid-template-columns:minmax(0,1.55fr) minmax(330px,1fr);align-items:start}.side{display:flex;flex-direction:column;gap:16px;position:sticky;top:16px}.tiles{order:0}}
+@media(max-width:520px){.legend div:last-child{margin-left:0;width:100%}}
+.card{background:var(--card);border:1.5px solid var(--line);border-radius:22px;padding:18px}
+@media(min-width:640px){.card{padding:22px}}
+.tiles{display:grid;grid-template-columns:1fr;gap:12px}
+.tile{border-radius:22px;padding:16px 18px;color:#fff;display:flex;align-items:center;gap:16px;min-height:96px}
+.tile-ic{width:52px;height:52px;border-radius:99px;background:rgba(255,255,255,.22);display:grid;place-items:center;flex-shrink:0}
+.tile-txt{min-width:0}
+.tile .lbl{font-size:11px;letter-spacing:.13em;text-transform:uppercase;opacity:.75;margin:0}
+.tile .val{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1.6rem;line-height:1.1;margin:3px 0 2px}
+.tile .sub{font-size:13px;opacity:.85;margin:0;line-height:1.4}
+.calhead{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
+.seg{display:flex;background:var(--bg);border-radius:999px;padding:3px;gap:2px}
+.seg button{padding:8px 14px;border-radius:999px;font-size:12.5px;font-weight:600;color:var(--mute);min-height:36px}
+.seg button[data-on="1"]{background:var(--ink);color:#fff}
+.nav{display:flex;align-items:center;gap:4px}
+.nav button{width:40px;height:40px;border-radius:999px;background:var(--bg);display:grid;place-items:center}
+.nav button:hover{background:var(--sun)}
+.nav .today{width:auto;padding:0 15px;font-size:12.5px;font-weight:700}
+.dow{display:grid;grid-template-columns:repeat(7,1fr);margin-bottom:6px}
+.dow div{text-align:center;font-size:11px;letter-spacing:.08em;color:var(--mute);font-family:'Space Mono',monospace}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);row-gap:5px}
+.cell{position:relative;aspect-ratio:1;display:grid;place-items:center;cursor:pointer;user-select:none}
+.cell.void{cursor:default}
+.band{position:absolute;left:0;right:0;top:3px;bottom:3px}
+.num{position:relative;font-size:14px;font-weight:600;z-index:1}
+@media(max-width:420px){.num{font-size:12.5px}}
+.cell.past .num{opacity:.38}
+.cell.busy{cursor:not-allowed}
+.today-ring{position:absolute;left:50%;bottom:5px;transform:translateX(-50%);width:5px;height:5px;border-radius:99px;background:var(--ink);z-index:2}
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:18px;padding-top:14px;border-top:1.5px solid var(--line);font-size:12.5px;color:var(--mute)}
+.legend span.sw{width:16px;height:10px;border-radius:4px;display:inline-block}
+.legend div{display:flex;align-items:center;gap:7px}
+.yr{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media(min-width:560px){.yr{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:900px){.yr{grid-template-columns:repeat(4,1fr)}}
+.ym{background:var(--bg);border-radius:14px;padding:10px}
+.ym p{margin:0 0 7px;text-align:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:12.5px}
+.ycal{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.yd{aspect-ratio:1;border-radius:3px;background:#fff}
+h2{font-size:1.15rem;font-weight:600;margin-bottom:12px}
+.field{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:14px;background:#fff;font-size:15px;outline:none;min-height:46px}
+.field:focus{border-color:var(--sea)}
+.rangebox{display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:14px;padding:11px 13px;font-size:13.5px;min-height:48px}
+.rangebox b{font-family:'Space Mono',monospace;font-size:13.5px}
+.catrow{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cat{padding:11px 10px;border-radius:14px;border:1.5px solid var(--line);font-size:13px;font-weight:600;color:var(--mute);min-height:46px;display:flex;align-items:center;justify-content:center;gap:7px}
+.cat .dot{width:9px;height:9px;border-radius:99px}
+.btn{width:100%;min-height:50px;border-radius:14px;background:var(--ink);color:#fff;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn:hover{background:#0d2531}
+.btn[disabled]{opacity:.5;cursor:default}
+.btn.ghost{background:var(--bg);color:var(--ink)}
+.row{display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:14px;padding:10px 12px}
+.row .nm{font-size:14px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .dt{font-size:11.5px;color:var(--mute);font-family:'Space Mono',monospace}
+.iconbtn{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;color:var(--mute)}
+.iconbtn:hover{background:#fff;color:var(--ink)}
+.note{font-size:12.5px;line-height:1.45;color:var(--mute)}
+.err{font-size:13px;color:var(--coral);font-weight:600}
+.ok{font-size:13px;color:var(--sea);font-weight:600}
+.stack{display:flex;flex-direction:column;gap:10px}
+.pill{display:inline-flex;align-items:center;gap:6px;background:#FFF0D6;color:#8A5A17;border-radius:999px;padding:6px 11px;font-size:12px;font-weight:600}
+.foot{padding:8px 0 44px;font-size:12px;color:var(--mute);text-align:center;line-height:1.5;max-width:520px;margin:0 auto}
+
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+"use strict";
+const { useState, useEffect, useMemo } = React;
+function Icon(p) {
+    return React.createElement("svg", { width: p.size || 16, height: p.size || 16, viewBox: "0 0 24 24", fill: "none", stroke: p.color || "currentColor", strokeWidth: p.weight || 2, strokeLinecap: "round", strokeLinejoin: "round", style: p.style }, p.children);
+}
+const mk = (...d) => (p) => React.createElement(Icon, p, d.map((n, i) => React.createElement(n[0], Object.assign({ key: i }, n[1]))));
+const L = (x1, y1, x2, y2) => ["line", { x1, y1, x2, y2 }];
+const P = (d) => ["path", { d }];
+const C = (cx, cy, r) => ["circle", { cx, cy, r }];
+const Icons = {
+    Plus: mk(L(12, 5, 12, 19), L(5, 12, 19, 12)),
+    Trash: mk(P("M3 6h18"), P("M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2"), P("M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6")),
+    Left: mk(["polyline", { points: "15 18 9 12 15 6" }]),
+    Right: mk(["polyline", { points: "9 18 15 12 9 6" }]),
+    Sun: mk(C(12, 12, 4), L(12, 2, 12, 4), L(12, 20, 12, 22), L(4.93, 4.93, 6.34, 6.34), L(17.66, 17.66, 19.07, 19.07), L(2, 12, 4, 12), L(20, 12, 22, 12), L(4.93, 19.07, 6.34, 17.66), L(17.66, 6.34, 19.07, 4.93)),
+    Pin: mk(P("M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 1118 0z"), C(12, 10, 3)),
+    Home: mk(P("M3 11l9-8 9 8"), P("M5 10v10a1 1 0 001 1h12a1 1 0 001-1V10"), P("M9 21v-6h6v6")),
+    Car: mk(P("M5 11l1.5-4.5A2 2 0 018.4 5h7.2a2 2 0 011.9 1.5L19 11"), ["rect", { x: "1", y: "11", width: "22", height: "7", rx: "2" }], C(7, 18, 1.5), C(17, 18, 1.5)),
+    Calendar: mk(["rect", { x: "3", y: "4", width: "18", height: "18", rx: "2" }], L(16, 2, 16, 6), L(8, 2, 8, 6), L(3, 10, 21, 10)),
+    Moon: mk(P("M20 14.5A8.5 8.5 0 019.5 4a8.5 8.5 0 1010.5 10.5z")),
+    Pencil: mk(P("M12 20h9"), P("M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4L16.5 3.5z")),
+    X: mk(L(18, 6, 6, 18), L(6, 6, 18, 18)),
+    Check: mk(["polyline", { points: "20 6 9 17 4 12" }]),
+    Cloud: mk(P("M17.5 19a4.5 4.5 0 000-9 5.5 5.5 0 00-10.6 1.6A4 4 0 007 19h10.5z")),
+    Rain: mk(P("M17.5 15a4.5 4.5 0 000-9 5.5 5.5 0 00-10.6 1.6A4 4 0 007 15h10.5z"), L(8, 19, 8, 21), L(12, 19, 12, 21), L(16, 19, 16, 21)),
+    Storm: mk(P("M17.5 13a4.5 4.5 0 000-9 5.5 5.5 0 00-10.6 1.6A4 4 0 007 13h10.5z"), ["polyline", { points: "12,15 9,20 13,20 11,24" }]),
+    Fog: mk(P("M16 12a4 4 0 000-8 5 5 0 00-9.6 1.4A3.5 3.5 0 007 13h9z"), L(4, 17, 20, 17), L(4, 21, 20, 21)),
+    Drop: mk(P("M12 2.5s6.5 7.5 6.5 12a6.5 6.5 0 01-13 0c0-4.5 6.5-12 6.5-12z")),
+    Waves: mk(P("M2 8c1.5-1.2 3-1.2 4.5 0s3 1.2 4.5 0 3-1.2 4.5 0 3 1.2 4.5 0"), P("M2 13c1.5-1.2 3-1.2 4.5 0s3 1.2 4.5 0 3-1.2 4.5 0 3 1.2 4.5 0"), P("M2 18c1.5-1.2 3-1.2 4.5 0s3 1.2 4.5 0 3-1.2 4.5 0 3 1.2 4.5 0")),
+    Clock: mk(C(12, 12, 9), ["polyline", { points: "12,7 12,12 16,14" }]),
+    Gear: mk(C(12, 12, 3), P("M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z")),
+};
+function AppIcon({ size = 56 }) {
+    const dots = [];
+    const cols = 3, rows = 3;
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+            const isAccent = r === 2 && c === 2;
+            dots.push(React.createElement("circle", { key: `${r}-${c}`, cx: 17 + c * 15, cy: 30 + r * 11, r: 3.4, fill: isAccent ? "#FFC53D" : "#FFF4E4" }));
+        }
+    }
+    return (React.createElement("svg", { width: size, height: size, viewBox: "0 0 64 64", fill: "none" },
+        React.createElement("rect", { x: 2, y: 8, width: 60, height: 54, rx: 16, fill: "#0FA3A3" }),
+        React.createElement("rect", { x: 15, y: 0, width: 7, height: 15, rx: 3.5, fill: "#0FA3A3" }),
+        React.createElement("rect", { x: 42, y: 0, width: 7, height: 15, rx: 3.5, fill: "#0FA3A3" }),
+        dots));
+}
+const WEEKDAYS = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
+const MONTHS = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
+const MONTHS_SHORT = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"];
+const SUPABASE_URL = "https://rtfpduqyrarktmxaiise.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ0ZnBkdXF5cmFya3RteGFpaXNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYyODU2MTcsImV4cCI6MjEwMTg2MTYxN30.-0S-ysuAG3z4T5xueWgzSg1UGjbxL5SjJ2dyQM_kiY4";
+const SB = { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` };
+const SBJ = Object.assign({}, SB, { "Content-Type": "application/json" });
+const rpc = (name, body) => fetch(`${SUPABASE_URL}/rest/v1/rpc/${name}`, { method: "POST", headers: SBJ, body: JSON.stringify(body) });
+const toISO = (d) => { const dt = new Date(d); dt.setHours(0, 0, 0, 0); return `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, "0")}-${String(dt.getDate()).padStart(2, "0")}`; };
+const parseISO = (s) => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); };
+const addDays = (d, n) => { const dt = new Date(d); dt.setDate(dt.getDate() + n); return dt; };
+const shiftISO = (iso, n) => toISO(addDays(parseISO(iso), n));
+const isSameDay = (a, b) => toISO(a) === toISO(b);
+const fmtShort = (iso) => { const d = parseISO(iso); return `${String(d.getDate()).padStart(2, "0")}.${String(d.getMonth() + 1).padStart(2, "0")}.${d.getFullYear()}`; };
+const fmtDay = (iso) => { const d = parseISO(iso); return `${d.getDate()}. ${MONTHS_SHORT[d.getMonth()]}`; };
+const nights = (a, b) => Math.round((parseISO(b) - parseISO(a)) / 86400000);
+const rowToBooking = (r) => ({ id: r.id, guestName: r.guest_name, category: r.category, start: r.start_date, end: r.end_date, notes: r.notes || "" });
+function monthCells(year, month) {
+    const first = new Date(year, month, 1);
+    const off = (first.getDay() + 6) % 7;
+    const n = new Date(year, month + 1, 0).getDate();
+    const cells = [];
+    for (let i = 0; i < off; i++)
+        cells.push(null);
+    for (let d = 1; d <= n; d++)
+        cells.push(new Date(year, month, d));
+    return cells;
+}
+function weatherInfo(code) {
+    if (code === 0)
+        return { Icon: Icons.Sun, label: "Sonnig" };
+    if ([1, 2].includes(code))
+        return { Icon: Icons.Sun, label: "Leicht bewölkt" };
+    if (code === 3)
+        return { Icon: Icons.Cloud, label: "Bewölkt" };
+    if ([45, 48].includes(code))
+        return { Icon: Icons.Fog, label: "Neblig" };
+    if ([51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82].includes(code))
+        return { Icon: Icons.Rain, label: "Regen" };
+    if ([71, 73, 75, 77, 85, 86].includes(code))
+        return { Icon: Icons.Cloud, label: "Schnee" };
+    if ([95, 96, 99].includes(code))
+        return { Icon: Icons.Storm, label: "Gewitter" };
+    return { Icon: Icons.Sun, label: "" };
+}
+function useBelegungsplan() {
+    const today = useMemo(() => new Date(), []);
+    const todayISO = toISO(today);
+    const [loading, setLoading] = useState(true);
+    const [bookings, setBookings] = useState([]);
+    const [error, setError] = useState("");
+    const [saving, setSaving] = useState(false);
+    const [sent, setSent] = useState(false);
+    const [form, setForm] = useState({ guestName: "", category: "eigen", notes: "" });
+    const [sel, setSel] = useState({ start: null, end: null });
+    const [hover, setHover] = useState(null);
+    const [viewMonth, setViewMonth] = useState(new Date(today.getFullYear(), today.getMonth(), 1));
+    const [viewMode, setViewMode] = useState("month");
+    const [pin, setPin] = useState("");
+    const [unlocked, setUnlocked] = useState(false);
+    const [ownerError, setOwnerError] = useState("");
+    const [ownerBusy, setOwnerBusy] = useState(false);
+    const [requests, setRequests] = useState([]);
+    const [editingId, setEditingId] = useState(null);
+    const [pendingCount, setPendingCount] = useState(0);
+    const [weather, setWeather] = useState(null);
+    const [seaTemp, setSeaTemp] = useState(null);
+    useEffect(() => {
+        (async () => {
+            try {
+                const r = await fetch("https://api.open-meteo.com/v1/forecast?latitude=43.1725&longitude=6.5322&current=temperature_2m,relative_humidity_2m,weather_code,is_day&timezone=Europe%2FParis");
+                if (!r.ok)
+                    throw 0;
+                const d = await r.json();
+                setWeather({ temp: Math.round(d.current.temperature_2m), humidity: Math.round(d.current.relative_humidity_2m), code: d.current.weather_code, isDay: d.current.is_day === 1 });
+            }
+            catch (e) { }
+        })();
+        (async () => {
+            try {
+                const r = await fetch("https://marine-api.open-meteo.com/v1/marine?latitude=43.1725&longitude=6.5322&current=sea_surface_temperature&timezone=Europe%2FParis");
+                if (!r.ok)
+                    throw 0;
+                setSeaTemp(Math.round((await r.json()).current.sea_surface_temperature));
+            }
+            catch (e) { }
+        })();
+        (async () => {
+            try {
+                const r = await fetch(`${SUPABASE_URL}/rest/v1/bookings?select=*&order=start_date.asc`, { headers: SB });
+                if (!r.ok)
+                    throw new Error(`HTTP ${r.status}`);
+                setBookings((await r.json()).map(rowToBooking));
+            }
+            catch (e) {
+                setError(`Buchungen konnten nicht geladen werden (${e.message}).`);
+            }
+            finally {
+                setLoading(false);
+            }
+        })();
+        (async () => { try {
+            const r = await rpc("pending_count", {});
+            if (r.ok)
+                setPendingCount(await r.json());
+        }
+        catch (e) { } })();
+    }, []);
+    const bookingFor = (iso) => iso ? bookings.find((b) => iso >= b.start && iso < b.end) : null;
+    const rangeBlocked = (a, b, ignore) => bookings.some((x) => x.id !== ignore && a < x.end && b > x.start);
+    const selectDay = (iso) => {
+        if (!iso)
+            return;
+        if (bookingFor(iso) && bookingFor(iso).id !== editingId)
+            return;
+        setError("");
+        if (!sel.start || sel.end || iso <= sel.start) {
+            setSel({ start: iso, end: null });
+            return;
+        }
+        if (rangeBlocked(sel.start, iso, editingId)) {
+            setError("Der Zeitraum überschneidet sich mit einer Buchung.");
+            return;
+        }
+        setSel({ start: sel.start, end: iso });
+    };
+    const clearSel = () => { setSel({ start: null, end: null }); setHover(null); };
+    // Vorschau-Ende während des Hoverns
+    const previewEnd = (!sel.start || sel.end || !hover || hover <= sel.start) ? null : hover;
+    const rangeEnd = sel.end || previewEnd;
+    const dayState = (date) => {
+        if (!date)
+            return { empty: true };
+        const iso = toISO(date);
+        const b = bookingFor(iso);
+        const inSel = sel.start && rangeEnd ? (iso >= sel.start && iso <= rangeEnd) : iso === sel.start;
+        return {
+            iso, booking: b,
+            first: b && iso === b.start, last: b && iso === shiftISO(b.end, -1),
+            isToday: iso === todayISO, past: iso < todayISO,
+            inSel: !!inSel,
+            selFirst: iso === sel.start,
+            selLast: !!(rangeEnd && iso === rangeEnd) || (!rangeEnd && iso === sel.start),
+            preview: !!(previewEnd && !sel.end),
+        };
+    };
+    const reset = () => { setForm({ guestName: "", category: "eigen", notes: "" }); clearSel(); setEditingId(null); };
+    const submit = async () => {
+        setError("");
+        if (!form.guestName.trim())
+            return setError("Bitte einen Namen eintragen.");
+        if (!sel.start || !sel.end)
+            return setError("Bitte Zeitraum im Kalender wählen.");
+        if (rangeBlocked(sel.start, sel.end, editingId))
+            return setError("Der Zeitraum überschneidet sich mit einer Buchung.");
+        setSaving(true);
+        try {
+            if (editingId) {
+                const r = await rpc("owner_update_booking", { booking_id: editingId, pin, p_guest_name: form.guestName.trim(), p_category: form.category, p_start_date: sel.start, p_end_date: sel.end, p_notes: form.notes.trim() });
+                if (!r.ok)
+                    throw new Error(`HTTP ${r.status}`);
+                setBookings(bookings.map((b) => b.id === editingId ? Object.assign({}, b, { guestName: form.guestName.trim(), category: form.category, start: sel.start, end: sel.end, notes: form.notes.trim() }) : b).sort((a, b) => a.start < b.start ? -1 : 1));
+                reset();
+            }
+            else {
+                const r = await fetch(`${SUPABASE_URL}/rest/v1/bookings`, { method: "POST", headers: SBJ, body: JSON.stringify({ guest_name: form.guestName.trim(), category: form.category, start_date: sel.start, end_date: sel.end, notes: form.notes.trim() }) });
+                if (!r.ok)
+                    throw new Error(`HTTP ${r.status}`);
+                reset();
+                setSent(true);
+                setPendingCount((c) => c + 1);
+                setTimeout(() => setSent(false), 6000);
+            }
+        }
+        catch (e) {
+            setError(`Speichern fehlgeschlagen (${e.message}).`);
+        }
+        finally {
+            setSaving(false);
+        }
+    };
+    const startEdit = (b) => { setEditingId(b.id); setForm({ guestName: b.guestName, category: b.category, notes: b.notes || "" }); setSel({ start: b.start, end: b.end }); setViewMonth(new Date(parseISO(b.start).getFullYear(), parseISO(b.start).getMonth(), 1)); setError(""); };
+    const unlock = async () => {
+        setOwnerError("");
+        setOwnerBusy(true);
+        try {
+            const r = await rpc("owner_list_all", { pin });
+            if (!r.ok)
+                throw 0;
+            setRequests((await r.json()).filter((x) => x.status === "pending").map(rowToBooking));
+            setUnlocked(true);
+        }
+        catch (e) {
+            setOwnerError("Falscher PIN.");
+        }
+        finally {
+            setOwnerBusy(false);
+        }
+    };
+    const confirmRequest = async (id) => {
+        try {
+            const r = await rpc("owner_confirm_booking", { booking_id: id, pin });
+            if (!r.ok)
+                throw new Error("Fehler beim Bestätigen");
+            const req = requests.find((x) => x.id === id);
+            setRequests(requests.filter((x) => x.id !== id));
+            if (req)
+                setBookings([...bookings, req].sort((a, b) => a.start < b.start ? -1 : 1));
+            setPendingCount((c) => Math.max(0, c - 1));
+        }
+        catch (e) {
+            setOwnerError(e.message);
+        }
+    };
+    const rejectRequest = async (id) => {
+        try {
+            const r = await rpc("owner_delete_booking", { booking_id: id, pin });
+            if (!r.ok)
+                throw new Error("Fehler beim Ablehnen");
+            setRequests(requests.filter((x) => x.id !== id));
+            setPendingCount((c) => Math.max(0, c - 1));
+        }
+        catch (e) {
+            setOwnerError(e.message);
+        }
+    };
+    const deleteBooking = async (id) => {
+        const prev = bookings;
+        setBookings(bookings.filter((b) => b.id !== id));
+        try {
+            const r = await rpc("owner_delete_booking", { booking_id: id, pin });
+            if (!r.ok)
+                throw new Error(`HTTP ${r.status}`);
+        }
+        catch (e) {
+            setBookings(prev);
+            setError(`Löschen fehlgeschlagen (${e.message}).`);
+        }
+    };
+    const todaysBooking = bookingFor(todayISO);
+    const upcoming = bookings.filter((b) => b.start > todayISO);
+    const nextArrival = upcoming[0];
+    const yearNights = bookings.filter((b) => parseISO(b.start).getFullYear() === today.getFullYear()).reduce((s, b) => s + nights(b.start, b.end), 0);
+    const cells = useMemo(() => monthCells(viewMonth.getFullYear(), viewMonth.getMonth()), [viewMonth]);
+    const shift = (d) => setViewMonth(viewMode === "year" ? new Date(viewMonth.getFullYear() + d, viewMonth.getMonth(), 1) : new Date(viewMonth.getFullYear(), viewMonth.getMonth() + d, 1));
+    const goToday = () => setViewMonth(new Date(today.getFullYear(), today.getMonth(), 1));
+    return { today, todayISO, loading, bookings, error, setError, saving, sent, form, setForm, sel, setHover, dayState, selectDay, clearSel, submit, reset, editingId, startEdit, viewMonth, setViewMonth, viewMode, setViewMode, cells, shift, goToday, pin, setPin, unlocked, setUnlocked, ownerError, ownerBusy, unlock, requests, confirmRequest, rejectRequest, deleteBooking, pendingCount, weather, seaTemp, todaysBooking, nextArrival, yearNights, bookingFor };
+}
+const CAT = { eigen: { label: "Eigennutzung", color: "#0FA3A3" }, freunde: { label: "Familie & Freunde", color: "#FF6B3D" } };
+const INK = "#14313F", SUN = "#FFC53D";
+function Cell({ s, onPick, onHover }) {
+    if (s.empty)
+        return React.createElement("div", { className: "cell void" });
+    const cat = s.booking ? CAT[s.booking.category] || CAT.eigen : null;
+    const busy = !!s.booking;
+    let band = null;
+    if (cat)
+        band = { background: cat.color, borderRadius: `${s.first ? 12 : 0}px ${s.last ? 12 : 0}px ${s.last ? 12 : 0}px ${s.first ? 12 : 0}px` };
+    else if (s.inSel)
+        band = { background: s.preview ? "#14313F22" : INK, borderRadius: `${s.selFirst ? 12 : 0}px ${s.selLast ? 12 : 0}px ${s.selLast ? 12 : 0}px ${s.selFirst ? 12 : 0}px` };
+    const white = cat || (s.inSel && !s.preview);
+    return (React.createElement("div", { className: "cell" + (s.past ? " past" : "") + (busy ? " busy" : ""), onClick: () => onPick(s.iso), onMouseEnter: () => onHover(s.iso), title: s.booking ? `${s.booking.guestName} · ${cat.label}` : "" },
+        band && React.createElement("div", { className: "band", style: band }),
+        React.createElement("span", { className: "num", style: { color: white ? "#fff" : INK } }, parseISO(s.iso).getDate()),
+        s.isToday && React.createElement("span", { className: "today-ring", style: { background: white ? "#fff" : SUN } })));
+}
+function Tile({ bg, icon, label, value, sub }) {
+    const subLines = Array.isArray(sub) ? sub : [sub];
+    return (React.createElement("div", { className: "tile", style: { background: bg } },
+        React.createElement("span", { className: "tile-ic" }, icon),
+        React.createElement("div", { className: "tile-txt" },
+            React.createElement("p", { className: "lbl" }, label),
+            React.createElement("p", { className: "val" }, value),
+            subLines.filter(Boolean).map((line, i) => React.createElement("p", { key: i, className: "sub" }, line)))));
+}
+function App() {
+    const a = useBelegungsplan();
+    const [adminOpen, setAdminOpen] = useState(false);
+    const cat = (id) => CAT[id] || CAT.eigen;
+    const w = a.weather && weatherInfo(a.weather.code);
+    const nightCount = a.sel.start && a.sel.end ? nights(a.sel.start, a.sel.end) : 0;
+    const goHome = () => {
+        window.location.href = "index.html";
+    };
+    const toggleAdmin = () => {
+        if (adminOpen && a.unlocked) {
+            a.setUnlocked(false);
+            a.setPin("");
+        }
+        setAdminOpen(!adminOpen);
+    };
+    const daysToArrival = a.nextArrival ? nights(a.todayISO, a.nextArrival.start) : null;
+    const arrivalWhen = daysToArrival === 0 ? "heute" : daysToArrival === 1 ? "morgen" : `in ${daysToArrival} Tagen`;
+    const freeWhen = daysToArrival === 1 ? "noch 1 Tag frei" : daysToArrival !== null ? `noch ${daysToArrival} Tage frei` : "Haus ist frei";
+    const yearBookings = a.bookings.filter((b) => parseISO(b.start).getFullYear() === a.today.getFullYear());
+    const eigenNights = yearBookings.filter((b) => b.category === "eigen").reduce((s, b) => s + nights(b.start, b.end), 0);
+    const freundeNights = yearBookings.filter((b) => b.category === "freunde").reduce((s, b) => s + nights(b.start, b.end), 0);
+    const yearPercent = Math.round((a.yearNights / 365) * 100);
+    if (a.loading)
+        return React.createElement("div", { className: "wrap", style: { padding: "80px 20px", textAlign: "center", color: "#7B8B93" } }, "Belegungsplan wird geladen \u2026");
+    return (React.createElement("div", { className: "wrap" },
+        React.createElement("header", { className: "hd" },
+            React.createElement("div", { className: "hd-top" },
+                React.createElement("div", { className: "brand" },
+                    React.createElement(AppIcon, { size: 56 }),
+                    React.createElement("h1", null, "Belegung")),
+                React.createElement("div", { className: "hd-actions" },
+                    React.createElement("button", { className: "icon-toggle", onClick: goHome, "aria-label": "Startseite", title: "Startseite" },
+                        React.createElement(Icons.Home, { size: 18 })),
+                    React.createElement("button", { className: "icon-toggle", "data-active": adminOpen ? "1" : "0", onClick: toggleAdmin, "aria-label": "Admin", title: "Admin" },
+                        React.createElement(Icons.Gear, { size: 18 })))),
+            React.createElement("div", { className: "card todaycard" },
+                React.createElement("div", { className: "date-row" },
+                    React.createElement(Icons.Calendar, { size: 15, color: "#0FA3A3" }),
+                    a.today.toLocaleDateString("de-DE", { weekday: "long", day: "numeric", month: "long" })),
+                React.createElement("div", { className: "today-divider" }),
+                React.createElement("div", { className: "stats" },
+                    w && React.createElement("div", { className: "stat" },
+                        React.createElement(w.Icon, { size: 16, color: "#FFC53D" }),
+                        React.createElement("span", { className: "stat-val" },
+                            a.weather.temp,
+                            "\u00B0"),
+                        React.createElement("span", { className: "stat-lbl" }, w.label)),
+                    a.weather && React.createElement("div", { className: "stat" },
+                        React.createElement(Icons.Drop, { size: 16, color: "#0FA3A3" }),
+                        React.createElement("span", { className: "stat-val" },
+                            a.weather.humidity,
+                            "%"),
+                        React.createElement("span", { className: "stat-lbl" }, "Feuchtigkeit")),
+                    a.seaTemp !== null && React.createElement("div", { className: "stat" },
+                        React.createElement(Icons.Waves, { size: 16, color: "#0FA3A3" }),
+                        React.createElement("span", { className: "stat-val" },
+                            a.seaTemp,
+                            "\u00B0"),
+                        React.createElement("span", { className: "stat-lbl" }, "Wasser"))))),
+        adminOpen && (React.createElement("div", { className: "card", style: { marginBottom: 16 } },
+            React.createElement("h2", null, "Admin"),
+            !a.unlocked ? (React.createElement("div", { className: "stack" },
+                React.createElement("input", { className: "field mono", type: "password", placeholder: "PIN", value: a.pin, onChange: (e) => a.setPin(e.target.value), onKeyDown: (e) => e.key === "Enter" && a.unlock() }),
+                a.ownerError && React.createElement("p", { className: "err", style: { margin: 0 } }, a.ownerError),
+                React.createElement("button", { className: "btn ghost", onClick: a.unlock }, a.ownerBusy ? "Prüft …" : "Entsperren"))) : (React.createElement("div", { className: "stack" },
+                React.createElement("p", { className: "ok", style: { margin: 0 } }, "Entsperrt \u2013 Anfragen best\u00E4tigen, Buchungen bearbeiten und l\u00F6schen."),
+                a.requests.length === 0 ? React.createElement("p", { className: "note", style: { margin: 0 } }, "Keine offenen Anfragen.") : a.requests.map((r) => (React.createElement("div", { key: r.id, className: "row", style: { flexWrap: "wrap" } },
+                    React.createElement("span", { style: { width: 10, height: 10, borderRadius: 99, background: cat(r.category).color, flexShrink: 0 } }),
+                    React.createElement("div", { style: { flex: 1, minWidth: 0 } },
+                        React.createElement("p", { className: "nm", style: { margin: 0 } }, r.guestName),
+                        React.createElement("p", { className: "dt", style: { margin: 0 } },
+                            fmtShort(r.start),
+                            " \u2013 ",
+                            fmtShort(r.end),
+                            r.notes ? ` · ${r.notes}` : "")),
+                    React.createElement("div", { style: { display: "flex", gap: 8 } },
+                        React.createElement("button", { className: "iconbtn", style: { background: "#0FA3A3", color: "#fff" }, onClick: () => a.confirmRequest(r.id), "aria-label": "Best\u00E4tigen" },
+                            React.createElement(Icons.Check, { size: 15 })),
+                        React.createElement("button", { className: "iconbtn", style: { background: "#fff" }, onClick: () => a.rejectRequest(r.id), "aria-label": "Ablehnen" },
+                            React.createElement(Icons.X, { size: 15 })))))))))),
+        React.createElement("div", { className: "grid" },
+            React.createElement("section", { className: "card" },
+                React.createElement("div", { className: "calhead" },
+                    React.createElement("h2", { style: { fontSize: "1.5rem", fontWeight: 800, margin: 0 } }, a.viewMode === "month" ? `${MONTHS[a.viewMonth.getMonth()]} ${a.viewMonth.getFullYear()}` : a.viewMonth.getFullYear()),
+                    React.createElement("div", { style: { display: "flex", gap: 8, alignItems: "center" } },
+                        React.createElement("div", { className: "seg" },
+                            React.createElement("button", { "data-on": a.viewMode === "month" ? "1" : "0", onClick: () => a.setViewMode("month") }, "Monat"),
+                            React.createElement("button", { "data-on": a.viewMode === "year" ? "1" : "0", onClick: () => a.setViewMode("year") }, "Jahr")),
+                        React.createElement("div", { className: "nav" },
+                            React.createElement("button", { onClick: () => a.shift(-1), "aria-label": "Zur\u00FCck" },
+                                React.createElement(Icons.Left, { size: 16 })),
+                            React.createElement("button", { className: "today mono", onClick: a.goToday }, "Heute"),
+                            React.createElement("button", { onClick: () => a.shift(1), "aria-label": "Weiter" },
+                                React.createElement(Icons.Right, { size: 16 }))))),
+                a.viewMode === "month" ? (React.createElement("div", { onMouseLeave: () => a.setHover(null) },
+                    React.createElement("div", { className: "dow" }, WEEKDAYS.map((d) => React.createElement("div", { key: d }, d))),
+                    React.createElement("div", { className: "cal" }, a.cells.map((d, i) => React.createElement(Cell, { key: i, s: a.dayState(d), onPick: a.selectDay, onHover: a.setHover }))))) : (React.createElement("div", { className: "yr" }, MONTHS.map((m, mi) => (React.createElement("div", { key: m, className: "ym", role: "button", tabIndex: 0, onClick: () => { a.setViewMonth(new Date(a.viewMonth.getFullYear(), mi, 1)); a.setViewMode("month"); }, onKeyDown: (e) => { if (e.key === "Enter") {
+                        a.setViewMonth(new Date(a.viewMonth.getFullYear(), mi, 1));
+                        a.setViewMode("month");
+                    } }, style: { cursor: "pointer" } },
+                    React.createElement("p", null, m),
+                    React.createElement("div", { className: "ycal" }, monthCells(a.viewMonth.getFullYear(), mi).map((d, i) => {
+                        if (!d)
+                            return React.createElement("div", { key: i, style: { aspectRatio: 1 } });
+                        const b = a.bookingFor(toISO(d));
+                        const isT = toISO(d) === a.todayISO;
+                        return React.createElement("div", { key: i, className: "yd", style: { background: b ? cat(b.category).color : "#fff", boxShadow: isT ? "inset 0 0 0 2px #14313F" : "none" }, title: b ? b.guestName : "" });
+                    }))))))),
+                React.createElement("div", { className: "legend" },
+                    Object.keys(CAT).map((k) => React.createElement("div", { key: k },
+                        React.createElement("span", { className: "sw", style: { background: CAT[k].color } }),
+                        CAT[k].label)),
+                    React.createElement("div", { style: { marginLeft: "auto" } }, "Zeitraum: Tag antippen = Anreise, zweiter Tag = Abreise"))),
+            React.createElement("div", { className: "side" },
+                React.createElement("div", { className: "tiles" },
+                    React.createElement(Tile, { bg: a.todaysBooking ? cat(a.todaysBooking.category).color : "#0FA3A3", icon: React.createElement(Icons.Home, { size: 22, color: "#fff" }), label: "Heute", value: a.todaysBooking ? "Belegt" : "Frei", sub: a.todaysBooking ? `${a.todaysBooking.guestName} · bis ${fmtDay(a.todaysBooking.end)}` : freeWhen }),
+                    React.createElement(Tile, { bg: "#FF6B3D", icon: React.createElement(Icons.Car, { size: 22, color: "#fff" }), label: "Anreise", value: a.nextArrival ? fmtDay(a.nextArrival.start) : "—", sub: a.nextArrival ? `${a.nextArrival.guestName} · ${arrivalWhen}` : "Nichts geplant" }),
+                    React.createElement(Tile, { bg: "#14313F", icon: React.createElement(Icons.Moon, { size: 22, color: "#fff" }), label: `Nächte ${a.today.getFullYear()}`, value: a.yearNights, sub: [`${eigenNights} Eigen · ${freundeNights} Freunde`, `${yearPercent}% des Jahres belegt`] })),
+                React.createElement("div", { className: "card" },
+                    React.createElement("h2", null, a.editingId ? "Buchung bearbeiten" : "Zeitraum anfragen"),
+                    React.createElement("div", { className: "stack" },
+                        React.createElement("div", { className: "rangebox" },
+                            React.createElement(Icons.Calendar, { size: 16, color: a.sel.start ? "#14313F" : "#7B8B93" }),
+                            a.sel.start ? (React.createElement("span", { style: { flex: 1 } },
+                                React.createElement("b", null, fmtDay(a.sel.start)),
+                                a.sel.end ? React.createElement(React.Fragment, null,
+                                    " \u2192 ",
+                                    React.createElement("b", null, fmtDay(a.sel.end)),
+                                    " ",
+                                    React.createElement("span", { style: { color: "#7B8B93" } },
+                                        "\u00B7 ",
+                                        nightCount,
+                                        " ",
+                                        nightCount === 1 ? "Nacht" : "Nächte")) : React.createElement("span", { style: { color: "#7B8B93" } }, " \u2192 Abreise w\u00E4hlen"))) : React.createElement("span", { style: { flex: 1, color: "#7B8B93" } }, "Im Kalender Anreise antippen"),
+                            a.sel.start && React.createElement("button", { className: "iconbtn", onClick: a.clearSel, "aria-label": "Zur\u00FCcksetzen" },
+                                React.createElement(Icons.X, { size: 14 }))),
+                        React.createElement("input", { className: "field", placeholder: "Name", value: a.form.guestName, onChange: (e) => a.setForm(Object.assign(Object.assign({}, a.form), { guestName: e.target.value })) }),
+                        React.createElement("div", { className: "catrow" }, Object.keys(CAT).map((k) => (React.createElement("button", { key: k, className: "cat", onClick: () => a.setForm(Object.assign(Object.assign({}, a.form), { category: k })), style: a.form.category === k ? { borderColor: CAT[k].color, background: CAT[k].color + "18", color: "#14313F" } : {} },
+                            React.createElement("span", { className: "dot", style: { background: CAT[k].color } }),
+                            CAT[k].label)))),
+                        React.createElement("input", { className: "field", placeholder: "Notiz (optional)", value: a.form.notes, onChange: (e) => a.setForm(Object.assign(Object.assign({}, a.form), { notes: e.target.value })), onKeyDown: (e) => e.key === "Enter" && a.submit() }),
+                        a.error && React.createElement("p", { className: "err", style: { margin: 0 } }, a.error),
+                        a.sent && React.createElement("p", { className: "ok", style: { margin: 0 } }, "Anfrage gesendet \u2013 wartet auf Best\u00E4tigung."),
+                        React.createElement("div", { style: { display: "flex", gap: 8 } },
+                            React.createElement("button", { className: "btn", onClick: a.submit, disabled: a.saving },
+                                a.editingId ? React.createElement(Icons.Pencil, { size: 16, color: "#fff" }) : React.createElement(Icons.Plus, { size: 16, color: "#fff" }),
+                                a.saving ? "Speichert …" : a.editingId ? "Änderungen speichern" : "Anfrage senden"),
+                            a.editingId && React.createElement("button", { className: "btn ghost", style: { width: 54 }, onClick: a.reset, "aria-label": "Abbrechen" },
+                                React.createElement(Icons.X, { size: 16 }))))),
+                React.createElement("div", { className: "card" },
+                    React.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12, gap: 10 } },
+                        React.createElement("h2", { style: { margin: 0 } }, "Buchungen"),
+                        a.pendingCount > 0 && React.createElement("span", { className: "pill" },
+                            React.createElement(Icons.Clock, { size: 12 }),
+                            a.pendingCount,
+                            " offen")),
+                    a.bookings.length === 0 && React.createElement("p", { className: "note", style: { margin: 0 } }, "Noch keine Buchungen eingetragen."),
+                    React.createElement("div", { className: "stack", style: { maxHeight: 340, overflowY: "auto" } }, a.bookings.map((b) => (React.createElement("div", { key: b.id, className: "row" },
+                        React.createElement("span", { style: { width: 10, height: 10, borderRadius: 99, background: cat(b.category).color, flexShrink: 0 } }),
+                        React.createElement("div", { style: { flex: 1, minWidth: 0 } },
+                            React.createElement("p", { className: "nm", style: { margin: 0 } }, b.guestName),
+                            React.createElement("p", { className: "dt", style: { margin: 0 } },
+                                fmtShort(b.start),
+                                " \u2013 ",
+                                fmtShort(b.end),
+                                " \u00B7 ",
+                                nights(b.start, b.end),
+                                " N")),
+                        a.unlocked && React.createElement("button", { className: "iconbtn", onClick: () => a.startEdit(b), "aria-label": "Bearbeiten" },
+                            React.createElement(Icons.Pencil, { size: 15 })),
+                        a.unlocked && React.createElement("button", { className: "iconbtn", onClick: () => a.deleteBooking(b.id), "aria-label": "L\u00F6schen" },
+                            React.createElement(Icons.Trash, { size: 15 }))))))))),
+        React.createElement("p", { className: "foot" }, "Neue Buchungen werden als Anfrage gespeichert und erscheinen erst nach Best\u00E4tigung im Kalender. Bearbeiten und L\u00F6schen nur im Admin-Bereich.")));
+}
+ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(App, null));
+ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(App, null));
+
+</script>
+</body>
+</html>

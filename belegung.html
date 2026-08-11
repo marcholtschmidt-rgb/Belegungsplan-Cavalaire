@@ -150,19 +150,19 @@ const Icons = {
     Gear: mk(C(12, 12, 3), P("M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z")),
 };
 function AppIcon({ size = 56 }) {
-    const dots = [];
-    const cols = 3, rows = 3;
-    for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols; c++) {
-            const isAccent = r === 2 && c === 2;
-            dots.push(React.createElement("circle", { key: `${r}-${c}`, cx: 17 + c * 15, cy: 30 + r * 11, r: 3.4, fill: isAccent ? "#FFC53D" : "#FFF4E4" }));
-        }
-    }
-    return (React.createElement("svg", { width: size, height: size, viewBox: "0 0 64 64", fill: "none" },
-        React.createElement("rect", { x: 2, y: 8, width: 60, height: 54, rx: 16, fill: "#0FA3A3" }),
-        React.createElement("rect", { x: 15, y: 0, width: 7, height: 15, rx: 3.5, fill: "#0FA3A3" }),
-        React.createElement("rect", { x: 42, y: 0, width: 7, height: 15, rx: 3.5, fill: "#0FA3A3" }),
-        dots));
+    const dotSpecs = [
+        [13.6, 24.4, 2.3], [20.4, 24.4, 2.3], [27.6, 24.4, 2.3], [34.4, 24.4, 2.3],
+        [13.6, 31.4, 2.05], [20.4, 31.4, 2.05], [34.4, 31.4, 2.05],
+        [13.6, 38.2, 1.8], [20.4, 38.2, 1.8], [27.6, 38.2, 1.8], [34.4, 38.2, 1.8],
+    ];
+    return (React.createElement("svg", { width: size, height: size, viewBox: "0 0 48 48", fill: "none" },
+        React.createElement("defs", null,
+            React.createElement("linearGradient", { id: "calGrad", x1: "0", y1: "0", x2: "0.7", y2: "1" },
+                React.createElement("stop", { offset: "0", stopColor: "#63BDB2" }),
+                React.createElement("stop", { offset: "1", stopColor: "#2A6A7E" }))),
+        React.createElement("path", { fill: "url(#calGrad)", stroke: "url(#calGrad)", strokeWidth: 2.4, strokeLinejoin: "round", d: "M11 11 Q24 10.2 37 11 Q41.6 11.2 41.6 15.6 Q42.2 27 41.6 38.4 Q41.4 43 37 43 Q24 43.8 11 43 Q6.6 42.8 6.4 38.4 Q5.8 27 6.4 15.6 Q6.6 11.2 11 11 Z M15.4 5.6 Q17.2 4.9 18.6 5.6 Q19.4 6 19.4 8 Q19.4 12 18.6 12.6 Q17.2 13.2 15.4 12.6 Q14.6 12 14.6 8 Q14.6 6 15.4 5.6 Z M29.4 5.6 Q31.2 4.9 32.6 5.6 Q33.4 6 33.4 8 Q33.4 12 32.6 12.6 Q31.2 13.2 29.4 12.6 Q28.6 12 28.6 8 Q28.6 6 29.4 5.6 Z" }),
+        dotSpecs.map(([cx, cy, r], i) => React.createElement("circle", { key: i, cx, cy, r, fill: "#F5EFE3" })),
+        React.createElement("circle", { cx: 27.6, cy: 31.4, r: 2.8, fill: "#E3A857" })));
 }
 const WEEKDAYS = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
 const MONTHS = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];

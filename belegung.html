@@ -37,6 +37,9 @@ h1{font-size:clamp(2.1rem,5.5vw,3rem);line-height:1}
 .brand{display:flex;align-items:center;gap:16px;min-width:0}
 .hd-actions{display:flex;gap:10px;flex-shrink:0}
 .icon-toggle{width:46px;height:46px;border-radius:999px;background:var(--card);border:1px solid var(--line);display:grid;place-items:center;color:var(--ink);flex-shrink:0;transition:opacity .15s ease,background-color .15s ease}
+.hd-actions-fixed{position:fixed;top:calc(env(safe-area-inset-top, 0px) + 16px);right:20px;z-index:50;display:flex;gap:10px}
+.hd-actions-fixed .icon-toggle{box-shadow:0 2px 10px rgba(18,58,78,.14)}
+.icon-toggle-fixed{position:fixed;top:calc(env(safe-area-inset-top, 0px) + 16px);right:20px;z-index:50;box-shadow:0 2px 10px rgba(18,58,78,.14)}
 @media(hover:hover){.icon-toggle:hover{opacity:.75}}
 .icon-toggle[data-active="1"]{background:var(--ink);border-color:var(--ink);color:#FFFDF9}
 .icon-toggle[disabled]{cursor:default;opacity:.45}
@@ -478,14 +481,12 @@ function App() {
                 React.createElement("div", { className: "brand" },
                     React.createElement(AppIcon, { size: 60 }),
                     React.createElement("div", null,
-                        React.createElement("p", { className: "script" }, "Bienvenue"),
-                        React.createElement("h1", null, "Belegung"),
-                        React.createElement("p", { className: "eyebrow" }, "Cavalaire-sur-Mer \u00B7 C\u00F4te d\u2019Azur"))),
-                React.createElement("div", { className: "hd-actions" },
-                    React.createElement("button", { className: "icon-toggle", onClick: goHome, "aria-label": "Startseite", title: "Startseite" },
-                        React.createElement(Icons.Home, { size: 18 })),
-                    React.createElement("button", { className: "icon-toggle", "data-active": adminOpen ? "1" : "0", onClick: toggleAdmin, "aria-label": "Admin", title: "Admin" },
-                        React.createElement(Icons.Gear, { size: 18 })))),
+                        React.createElement("h1", null, "Belegung")))),
+        React.createElement("div", { className: "hd-actions-fixed" },
+            React.createElement("button", { className: "icon-toggle", "data-active": adminOpen ? "1" : "0", onClick: toggleAdmin, "aria-label": "Admin", title: "Admin" },
+                React.createElement(Icons.Gear, { size: 18 })),
+            React.createElement("button", { className: "icon-toggle", onClick: goHome, "aria-label": "Startseite", title: "Startseite" },
+                React.createElement(Icons.Home, { size: 18 }))),
             React.createElement("div", { className: "card todaycard" },
                 React.createElement("div", { className: "date-row" },
                     React.createElement(Icons.Calendar, { size: 15, color: "#2F8F86" }),

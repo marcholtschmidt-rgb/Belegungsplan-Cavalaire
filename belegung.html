@@ -20,7 +20,8 @@
 --cardfill:radial-gradient(120% 90% at 100% 0%, rgba(47,143,134,.09) 0%, rgba(47,143,134,0) 55%), linear-gradient(165deg, #FFFDF9 0%, #FAF2E4 100%)}
 *{box-sizing:border-box}
 html{overflow-x:hidden;min-height:100%;background:var(--bg)}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;padding-bottom:env(safe-area-inset-bottom);overflow-x:hidden;max-width:100vw;min-height:100vh}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;padding-bottom:env(safe-area-inset-bottom);overflow-x:hidden;max-width:100vw;min-height:100vh;opacity:0;transition:opacity .25s ease}
+body.app-ready{opacity:1}
 h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;margin:0;letter-spacing:.01em}
 .mono{font-family:'IBM Plex Mono',monospace}
 button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
@@ -456,8 +457,10 @@ function Tile({ bg, icon, label, value, sub }) {
 function App() {
     const a = useBelegungsplan();
     const [adminOpen, setAdminOpen] = useState(false);
+    useEffect(() => {
+        document.body.classList.add("app-ready");
+    }, []);
     const cat = (id) => CAT[id] || CAT.eigen;
-    const w = a.weather && weatherInfo(a.weather.code);
     const nightCount = a.sel.start && a.sel.end ? nights(a.sel.start, a.sel.end) : 0;
     const goHome = () => {
         window.location.href = "index.html";
@@ -485,31 +488,7 @@ function App() {
                     React.createElement("button", { className: "icon-toggle", "data-active": adminOpen ? "1" : "0", onClick: toggleAdmin, "aria-label": "Admin", title: "Admin" },
                         React.createElement(Icons.Gear, { size: 18 })))),
         React.createElement("button", { className: "icon-toggle icon-toggle-fixed", onClick: goHome, "aria-label": "Startseite", title: "Startseite" },
-            React.createElement(Icons.Home, { size: 18 })),
-            React.createElement("div", { className: "card todaycard" },
-                React.createElement("div", { className: "date-row" },
-                    React.createElement(Icons.Calendar, { size: 15, color: "#2F8F86" }),
-                    a.today.toLocaleDateString("de-DE", { weekday: "long", day: "numeric", month: "long" })),
-                React.createElement("div", { className: "today-divider" }),
-                React.createElement("div", { className: "stats" },
-                    w && React.createElement("div", { className: "stat" },
-                        React.createElement(w.Icon, { size: 16, color: "#E3A857" }),
-                        React.createElement("span", { className: "stat-val" },
-                            a.weather.temp,
-                            "\u00B0"),
-                        React.createElement("span", { className: "stat-lbl" }, w.label)),
-                    a.weather && React.createElement("div", { className: "stat" },
-                        React.createElement(Icons.Drop, { size: 16, color: "#2F8F86" }),
-                        React.createElement("span", { className: "stat-val" },
-                            a.weather.humidity,
-                            "%"),
-                        React.createElement("span", { className: "stat-lbl" }, "Feuchtigkeit")),
-                    a.seaTemp !== null && React.createElement("div", { className: "stat" },
-                        React.createElement(Icons.Waves, { size: 16, color: "#2F8F86" }),
-                        React.createElement("span", { className: "stat-val" },
-                            a.seaTemp,
-                            "\u00B0"),
-                        React.createElement("span", { className: "stat-lbl" }, "Wasser"))))),
+            React.createElement(Icons.Home, { size: 18 }))),
         adminOpen && (React.createElement("div", { className: "card", style: { marginBottom: 16 } },
             React.createElement("h2", null, "Admin"),
             !a.unlocked ? (React.createElement("div", { className: "stack" },
@@ -566,7 +545,7 @@ function App() {
                     React.createElement("div", { style: { marginLeft: "auto" } }, "Zeitraum: Tag antippen = Anreise, zweiter Tag = Abreise"))),
             React.createElement("div", { className: "side" },
                 React.createElement("div", { className: "tiles" },
-                    React.createElement(Tile, { bg: "#A9BFB7", icon: React.createElement(Icons.Home, { size: 22, color: "#123A4E" }), label: "Heute", value: a.todaysBooking ? "Belegt" : "Frei", sub: a.todaysBooking ? `${a.todaysBooking.guestName} · bis ${fmtDay(a.todaysBooking.end)}` : freeWhen }),
+                    React.createElement(Tile, { bg: "#A9BFB7", icon: React.createElement(Icons.Home, { size: 22, color: "#123A4E" }), label: `Heute · ${a.today.toLocaleDateString("de-DE", { day: "numeric", month: "short" })}`, value: a.todaysBooking ? "Belegt" : "Frei", sub: a.todaysBooking ? `${a.todaysBooking.guestName} · bis ${fmtDay(a.todaysBooking.end)}` : freeWhen }),
                     React.createElement(Tile, { bg: "#A9BFB7", icon: React.createElement(Icons.Car, { size: 22, color: "#123A4E" }), label: "Anreise", value: a.nextArrival ? fmtDay(a.nextArrival.start) : "—", sub: a.nextArrival ? `${a.nextArrival.guestName} · ${arrivalWhen}` : "Nichts geplant" })),
                 React.createElement("div", { className: "card" },
                     React.createElement("h2", null, a.editingId ? "Buchung bearbeiten" : "Zeitraum anfragen"),

@@ -120,7 +120,7 @@ a{color:inherit;text-decoration:none}
   })();
   (async () => {
     try {
-      const r = await fetch("https://marine-api.open-meteo.com/v1/marine?latitude=43.1725&longitude=6.5322&current=sea_surface_temperature&timezone=Europe%2FParis");
+      const r = await fetch("https://marine-api.open-meteo.com/v1/marine?latitude=43.10&longitude=6.58&current=sea_surface_temperature&cell_selection=sea&timezone=Europe%2FParis");
       if (!r.ok) throw 0;
       const d = await r.json();
       document.getElementById("wxSea").textContent = Math.round(d.current.sea_surface_temperature) + "° Wasser";

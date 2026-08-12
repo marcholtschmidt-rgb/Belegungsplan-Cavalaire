@@ -207,23 +207,6 @@ function monthCells(year, month) {
         cells.push(new Date(year, month, d));
     return cells;
 }
-function weatherInfo(code) {
-    if (code === 0)
-        return { Icon: Icons.Sun, label: "Sonnig" };
-    if ([1, 2].includes(code))
-        return { Icon: Icons.Sun, label: "Leicht bewölkt" };
-    if (code === 3)
-        return { Icon: Icons.Cloud, label: "Bewölkt" };
-    if ([45, 48].includes(code))
-        return { Icon: Icons.Fog, label: "Neblig" };
-    if ([51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82].includes(code))
-        return { Icon: Icons.Rain, label: "Regen" };
-    if ([71, 73, 75, 77, 85, 86].includes(code))
-        return { Icon: Icons.Cloud, label: "Schnee" };
-    if ([95, 96, 99].includes(code))
-        return { Icon: Icons.Storm, label: "Gewitter" };
-    return { Icon: Icons.Sun, label: "" };
-}
 function useBelegungsplan() {
     const today = useMemo(() => new Date(), []);
     const todayISO = toISO(today);
@@ -244,28 +227,7 @@ function useBelegungsplan() {
     const [requests, setRequests] = useState([]);
     const [editingId, setEditingId] = useState(null);
     const [pendingCount, setPendingCount] = useState(0);
-    const [weather, setWeather] = useState(null);
-    const [seaTemp, setSeaTemp] = useState(null);
     useEffect(() => {
-        (async () => {
-            try {
-                const r = await fetch("https://api.open-meteo.com/v1/forecast?latitude=43.1725&longitude=6.5322&current=temperature_2m,relative_humidity_2m,weather_code,is_day&timezone=Europe%2FParis");
-                if (!r.ok)
-                    throw 0;
-                const d = await r.json();
-                setWeather({ temp: Math.round(d.current.temperature_2m), humidity: Math.round(d.current.relative_humidity_2m), code: d.current.weather_code, isDay: d.current.is_day === 1 });
-            }
-            catch (e) { }
-        })();
-        (async () => {
-            try {
-                const r = await fetch("https://marine-api.open-meteo.com/v1/marine?latitude=43.1725&longitude=6.5322&current=sea_surface_temperature&timezone=Europe%2FParis");
-                if (!r.ok)
-                    throw 0;
-                setSeaTemp(Math.round((await r.json()).current.sea_surface_temperature));
-            }
-            catch (e) { }
-        })();
         (async () => {
             try {
                 const r = await fetch(`${SUPABASE_URL}/rest/v1/bookings?select=*&order=start_date.asc`, { headers: SB });
@@ -425,7 +387,7 @@ function useBelegungsplan() {
     const cells = useMemo(() => monthCells(viewMonth.getFullYear(), viewMonth.getMonth()), [viewMonth]);
     const shift = (d) => setViewMonth(viewMode === "year" ? new Date(viewMonth.getFullYear() + d, viewMonth.getMonth(), 1) : new Date(viewMonth.getFullYear(), viewMonth.getMonth() + d, 1));
     const goToday = () => setViewMonth(new Date(today.getFullYear(), today.getMonth(), 1));
-    return { today, todayISO, loading, bookings, error, setError, saving, sent, form, setForm, sel, setHover, dayState, selectDay, clearSel, submit, reset, editingId, startEdit, viewMonth, setViewMonth, viewMode, setViewMode, cells, shift, goToday, pin, setPin, unlocked, setUnlocked, ownerError, ownerBusy, unlock, requests, confirmRequest, rejectRequest, deleteBooking, pendingCount, weather, seaTemp, todaysBooking, nextArrival, yearNights, bookingFor };
+    return { today, todayISO, loading, bookings, error, setError, saving, sent, form, setForm, sel, setHover, dayState, selectDay, clearSel, submit, reset, editingId, startEdit, viewMonth, setViewMonth, viewMode, setViewMode, cells, shift, goToday, pin, setPin, unlocked, setUnlocked, ownerError, ownerBusy, unlock, requests, confirmRequest, rejectRequest, deleteBooking, pendingCount, todaysBooking, nextArrival, yearNights, bookingFor };
 }
 const CAT = { eigen: { label: "Eigennutzung", color: "#2F8F86" }, freunde: { label: "Familie & Freunde", color: "#D97748" } };
 const INK = "#123A4E", SUN = "#E3A857";

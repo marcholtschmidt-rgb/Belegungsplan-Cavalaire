@@ -32,6 +32,11 @@ a{color:inherit;text-decoration:none}
 
 .caption{position:absolute;bottom:calc(env(safe-area-inset-bottom, 0px) + 26px);left:0;right:0;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:0.75rem;letter-spacing:0.1em;color:var(--mute);animation:fadeUp .8s ease-out 1.9s both}
 
+.weather-stat{position:absolute;left:20px;font-family:'IBM Plex Mono',monospace;font-size:0.75rem;letter-spacing:0.1em;color:var(--mute);opacity:0;animation:fadeUp .8s ease-out 2s both;white-space:nowrap}
+.weather-air{top:calc(env(safe-area-inset-top, 0px) + 110px)}
+.weather-hum{top:50%;transform:translateY(-50%)}
+.weather-sea{bottom:105px}
+
 @keyframes sfIn { 0% { opacity:0; transform:scale(.55) rotate(-28deg); } 60% { opacity:1; } 100% { opacity:1; transform:scale(1) rotate(0deg); } }
 @keyframes sfSway { 0% { transform:rotate(0deg) translateY(0); } 25% { transform:rotate(-2.5deg) translateY(-2px); } 50% { transform:rotate(0deg) translateY(-4px); } 75% { transform:rotate(2.5deg) translateY(-2px); } 100% { transform:rotate(0deg) translateY(0); } }
 @keyframes fadeIn { from { opacity:0; } to { opacity:.92; } }
@@ -96,8 +101,32 @@ a{color:inherit;text-decoration:none}
     <div class="tide-row" style="animation:tideDrift 8s linear infinite reverse"><svg viewBox="0 0 400 190" preserveAspectRatio="none"><path d="M0 136c50 0 50 14 100 14s50-14 100-14 50 14 100 14 50-14 100-14 50 14 100 14 50-14 100-14 50 14 100 14V190H0Z" fill="#123A4E" opacity="0.12"></path></svg><svg viewBox="0 0 400 190" preserveAspectRatio="none"><path d="M0 136c50 0 50 14 100 14s50-14 100-14 50 14 100 14 50-14 100-14 50 14 100 14 50-14 100-14 50 14 100 14V190H0Z" fill="#123A4E" opacity="0.12"></path></svg></div>
   </div>
 
+  <div class="weather-stat weather-air" id="wxAir">–° Luft</div>
+  <div class="weather-stat weather-hum" id="wxHum">–% Feuchte</div>
+  <div class="weather-stat weather-sea" id="wxSea">–° Wasser</div>
+
   <div class="caption">Cavalaire-sur-Mer · Côte d'Azur</div>
 </div>
+
+<script>
+  (async () => {
+    try {
+      const r = await fetch("https://api.open-meteo.com/v1/forecast?latitude=43.1725&longitude=6.5322&current=temperature_2m,relative_humidity_2m&timezone=Europe%2FParis");
+      if (!r.ok) throw 0;
+      const d = await r.json();
+      document.getElementById("wxAir").textContent = Math.round(d.current.temperature_2m) + "° Luft";
+      document.getElementById("wxHum").textContent = Math.round(d.current.relative_humidity_2m) + "% Feuchte";
+    } catch (e) {}
+  })();
+  (async () => {
+    try {
+      const r = await fetch("https://marine-api.open-meteo.com/v1/marine?latitude=43.1725&longitude=6.5322&current=sea_surface_temperature&timezone=Europe%2FParis");
+      if (!r.ok) throw 0;
+      const d = await r.json();
+      document.getElementById("wxSea").textContent = Math.round(d.current.sea_surface_temperature) + "° Wasser";
+    } catch (e) {}
+  })();
+</script>
 
 </body>
 </html>

@@ -20,6 +20,7 @@ a{color:#2F8F86;text-decoration:none}
 a:hover{color:#123A4E}
 @keyframes tideDrift{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes dotPulse{0%{transform:scale(1)}50%{transform:scale(1.13)}100%{transform:scale(1)}}
+@keyframes scrollHint{0%,100%{transform:translateY(0);opacity:0.55}50%{transform:translateY(8px);opacity:1}}
 .icon-toggle{position:absolute;top:calc(env(safe-area-inset-top,0px) + 16px);right:16px;width:44px;height:44px;border-radius:999px;background:#FFFDF9;border:1.5px solid #E7DFCF;display:grid;place-items:center;color:#123A4E;z-index:2}
 .icon-toggle:hover{background:#F5EFE3}
 </style>
@@ -82,7 +83,7 @@ a:hover{color:#123A4E}
   <header style="position:relative; overflow:hidden; padding:56px 20px 0">
     <div style="position:absolute; top:-40px; left:50%; width:520px; height:520px; margin-left:-260px; border-radius:999px; background:radial-gradient(circle, rgba(47,143,134,0.28) 0%, rgba(245,239,227,0) 72%); pointer-events:none"></div>
 
-    <div style="position:relative; max-width:672px; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:18px; padding-bottom:170px">
+    <div style="position:relative; max-width:672px; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:18px; padding-bottom:230px">
       <svg viewBox="-6 -6 340 344" style="width:246px; height:249px">
         <use href="#rgFr"></use>
         <g transform="translate(277 303) rotate(-6) scale(1.4) translate(-24 -24)">
@@ -99,6 +100,13 @@ a:hover{color:#123A4E}
         <span style="width:24px; height:1px; background:#123A4E"></span>
       </div>
       <p style="max-width:560px; text-align:center; font-size:1rem; line-height:1.65; color:#123A4E; margin:6px 0 0; text-wrap:pretty">Cavalaire-sur-Mer liegt im Golfe de Saint-Tropez: vier Kilometer feiner Sandstrand, klares Wasser, ein lebendiger Yachthafen und die grünen Hügel des Massif des Maures direkt vor der Tür.</p>
+    </div>
+
+    <div style="position:absolute; left:0; right:0; bottom:190px; display:flex; justify-content:center; pointer-events:none; z-index:1">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#2F8F86" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation:scrollHint 1.8s ease-in-out infinite">
+        <path d="M12 4v14"></path>
+        <path d="M6 13l6 6 6-6"></path>
+      </svg>
     </div>
 
     <div style="position:absolute; left:0; right:0; bottom:0; height:190px; overflow:hidden; pointer-events:none">

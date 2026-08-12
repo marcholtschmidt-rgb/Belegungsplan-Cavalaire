@@ -19,8 +19,8 @@
 :root{--bg:#F5EFE3;--ink:#123A4E;--card:#FFFDF9;--line:#E7DFCF;--sea:#2F8F86;--coral:#D97748;--sun:#E3A857;--mute:#7C8B93;
 --cardfill:radial-gradient(120% 90% at 100% 0%, rgba(47,143,134,.09) 0%, rgba(47,143,134,0) 55%), linear-gradient(165deg, #FFFDF9 0%, #FAF2E4 100%)}
 *{box-sizing:border-box}
-html{overflow-x:hidden}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;padding-bottom:env(safe-area-inset-bottom);overflow-x:hidden;max-width:100vw}
+html{overflow-x:hidden;min-height:100%;background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;padding-bottom:env(safe-area-inset-bottom);overflow-x:hidden;max-width:100vw;min-height:100vh}
 h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;margin:0;letter-spacing:.01em}
 .mono{font-family:'IBM Plex Mono',monospace}
 button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}

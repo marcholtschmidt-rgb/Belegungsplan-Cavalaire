@@ -545,7 +545,7 @@ function App() {
                     React.createElement("div", { style: { marginLeft: "auto" } }, "Zeitraum: Tag antippen = Anreise, zweiter Tag = Abreise"))),
             React.createElement("div", { className: "side" },
                 React.createElement("div", { className: "tiles" },
-                    React.createElement(Tile, { bg: "#A9BFB7", icon: React.createElement(Icons.Home, { size: 22, color: "#123A4E" }), label: `Heute · ${a.today.toLocaleDateString("de-DE", { day: "numeric", month: "short" })}`, value: a.todaysBooking ? "Belegt" : "Frei", sub: a.todaysBooking ? `${a.todaysBooking.guestName} · bis ${fmtDay(a.todaysBooking.end)}` : freeWhen }),
+                    React.createElement(Tile, { bg: "#A9BFB7", icon: React.createElement(Icons.Home, { size: 22, color: "#123A4E" }), label: `Heute · ${a.today.toLocaleDateString("de-DE", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}`, value: a.todaysBooking ? "Belegt" : "Frei", sub: a.todaysBooking ? `${a.todaysBooking.guestName} · bis ${fmtDay(a.todaysBooking.end)}` : freeWhen }),
                     React.createElement(Tile, { bg: "#A9BFB7", icon: React.createElement(Icons.Car, { size: 22, color: "#123A4E" }), label: "Anreise", value: a.nextArrival ? fmtDay(a.nextArrival.start) : "—", sub: a.nextArrival ? `${a.nextArrival.guestName} · ${arrivalWhen}` : "Nichts geplant" })),
                 React.createElement("div", { className: "card" },
                     React.createElement("h2", null, a.editingId ? "Buchung bearbeiten" : "Zeitraum anfragen"),

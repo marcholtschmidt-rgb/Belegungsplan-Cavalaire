@@ -24,6 +24,21 @@ a:hover{color:#123A4E}
 .icon-toggle{position:fixed;top:calc(env(safe-area-inset-top,0px) + 16px);right:20px;width:44px;height:44px;border-radius:999px;background:#FFFDF9;border:1.5px solid #E7DFCF;display:grid;place-items:center;color:#123A4E;z-index:50;box-shadow:0 2px 10px rgba(18,58,78,.14)}
 .icon-toggle:hover{background:#F5EFE3}
 </style>
+<style>
+  .beach-grid{display:flex;flex-direction:column;gap:12px}
+  .beach{display:flex;flex-direction:column;gap:0}
+  .beach-btn{display:block;width:100%;padding:0;border:0;background:none;cursor:pointer;font:inherit;color:inherit;-webkit-tap-highlight-color:transparent}
+  .beach-media{position:relative;display:block;width:100%;height:132px;border-radius:16px;overflow:hidden;border:1px solid #E7DFCF;transition:opacity .15s ease,height .25s ease}
+  .beach-btn[aria-expanded="true"] .beach-media{height:auto;aspect-ratio:16/10}
+  .beach-btn:hover .beach-media{opacity:.9}
+  .beach-btn[aria-expanded="true"] .beach-media{border-radius:16px 16px 0 0}
+  .beach-scrim{position:absolute;inset:auto 0 0 0;height:62%;background:linear-gradient(to top,rgba(18,58,78,.78) 0%,rgba(18,58,78,.34) 46%,rgba(18,58,78,0) 100%)}
+  .beach-name{position:absolute;left:14px;right:44px;bottom:11px;font-family:Fraunces,Georgia,serif;font-weight:600;font-size:1.1rem;line-height:1.15;color:#FFFDF9;text-align:left;text-shadow:0 1px 2px rgba(0,0,0,.25)}
+  .beach-chev{position:absolute;right:12px;bottom:11px;width:24px;height:24px;display:grid;place-items:center;color:#FFFDF9;transition:transform .15s ease}
+  .beach-btn[aria-expanded="true"] .beach-chev{transform:rotate(180deg)}
+  .beach-text{background:radial-gradient(120% 90% at 100% 0%, rgba(47,143,134,.09) 0%, rgba(47,143,134,0) 55%), linear-gradient(165deg,#FFFDF9 0%,#FAF2E4 100%);border:1px solid #E7DFCF;border-top:0;border-radius:0 0 16px 16px;padding:12px 14px}
+  .beach-text p{margin:0;font-size:0.94rem;line-height:1.6;color:#123A4E;text-wrap:pretty}
+</style>
 </head>
 <body>
 <div style="font-family:Inter, system-ui, sans-serif; color:#123A4E; background:#F5EFE3; min-height:100vh">
@@ -125,30 +140,85 @@ a:hover{color:#123A4E}
       </div>
       <div style="background:radial-gradient(120% 90% at 100% 0%, rgba(47,143,134,0.09) 0%, rgba(47,143,134,0) 55%), linear-gradient(165deg, #FFFDF9 0%, #FAF2E4 100%); border:1px solid #E7DFCF; border-radius:16px; padding:24px; overflow:hidden; display:flex; flex-direction:column; gap:18px">
         <p style="margin:0; font-size:0.94rem; line-height:1.6; text-wrap:pretty">Die Bucht ist von Cap Lardier und Cap Cavalaire geschützt und bietet vier Kilometer feinen, weichen Sand mit klarem Wasser. In der Hochsaison sind alle Strände beaufsichtigt.</p>
-        <a href="https://www.cavalairesurmer.fr/wp-content/uploads/2024/05/Plan-des-plages-2024.pdf" target="_blank" rel="noopener" style="display:block; border-radius:12px; overflow:hidden; border:1px solid #E7DFCF; line-height:0">
-          <img src="strand-karte.jpg" alt="Karte der Strände von Cavalaire-sur-Mer" style="width:100%; height:auto; display:block" />
+        <a href="https://www.cavalairesurmer.fr/wp-content/uploads/2024/05/Plan-des-plages-2024.pdf" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:10px; border:1px solid #E7DFCF; border-radius:12px; padding:12px 14px; background:#FFFDF9; color:#123A4E">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#2F8F86" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M12 21s-7-4.35-7-10a7 7 0 0114 0c0 5.65-7 10-7 10z"></path><circle cx="12" cy="11" r="2.5"></circle></svg>
+          <span style="font-size:0.94rem; line-height:1.4">Offizielle Strandkarte als PDF öffnen</span>
         </a>
-        <p style="margin:-8px 0 0; font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.05em; color:#7C8B93">Offizielle Strandkarte (PDF) · Tippen zum Vergrößern/Herunterladen</p>
-        <div style="display:flex; flex-direction:column; gap:16px">
-          <div style="display:flex; flex-direction:column; gap:4px">
-            <h3 style="font-family:Fraunces, Georgia, serif; font-weight:600; font-size:1.1rem; margin:0">Plage du Centre-Ville</h3>
-            <p style="margin:0; font-size:0.94rem; line-height:1.6; color:#123A4E">Direkt im Zentrum, mit Blick auf den Hafen. Drei Stege ragen ins Meer – ideal für Jollensegeln, Jetski, Schleppbojen, Tauchen und Parasailing.</p>
+        <div class="beach-grid">
+          <div class="beach">
+            <button type="button" class="beach-btn" aria-expanded="false" aria-controls="beach-text-0">
+              <span class="beach-media">
+                <img src="assets/plage-centre-ville.jpg" alt="Plage du Centre-Ville" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block" />
+                <span class="beach-scrim"></span>
+                <span class="beach-name">Plage du Centre-Ville</span>
+                <span class="beach-chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
+                </span>
+              </span>
+            </button>
+            <div class="beach-text" id="beach-text-0" hidden>
+              <p>Direkt im Zentrum, mit Blick auf den Hafen. Drei Stege ragen ins Meer – ideal für Jollensegeln, Jetski, Schleppbojen, Tauchen und Parasailing.</p>
+            </div>
           </div>
-          <div style="display:flex; flex-direction:column; gap:4px">
-            <h3 style="font-family:Fraunces, Georgia, serif; font-weight:600; font-size:1.1rem; margin:0">Plage du Parc</h3>
-            <p style="margin:0; font-size:0.94rem; line-height:1.6">Erreichbar mit dem kostenlosen Shuttle, Fahrrad oder zu Fuß. Bekannt für Sommersport wie Wassergymnastik und kostenlose Bücher am Strand (nur in der Saison).</p>
+          <div class="beach">
+            <button type="button" class="beach-btn" aria-expanded="false" aria-controls="beach-text-1">
+              <span class="beach-media">
+                <img src="assets/plage-parc.jpg" alt="Plage du Parc" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block" />
+                <span class="beach-scrim"></span>
+                <span class="beach-name">Plage du Parc</span>
+                <span class="beach-chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
+                </span>
+              </span>
+            </button>
+            <div class="beach-text" id="beach-text-1" hidden>
+              <p>Erreichbar mit dem kostenlosen Shuttle, Fahrrad oder zu Fuß. Bekannt für Sommersport wie Wassergymnastik und kostenlose Bücher am Strand (nur in der Saison).</p>
+            </div>
           </div>
-          <div style="display:flex; flex-direction:column; gap:4px">
-            <h3 style="font-family:Fraunces, Georgia, serif; font-weight:600; font-size:1.1rem; margin:0">Plage des Dauphins</h3>
-            <p style="margin:0; font-size:0.94rem; line-height:1.6">Etwas ruhiger und von Schirmkiefern gesäumt. Der Beach Point des Yachtclubs bietet in der Saison Dinghy-Segeln, Windsurfen, Kajak und Paddleboard zur Miete oder als Kurs an.</p>
+          <div class="beach">
+            <button type="button" class="beach-btn" aria-expanded="false" aria-controls="beach-text-2">
+              <span class="beach-media">
+                <img src="assets/plage-dauphin.png" alt="Plage des Dauphins" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block" />
+                <span class="beach-scrim"></span>
+                <span class="beach-name">Plage des Dauphins</span>
+                <span class="beach-chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
+                </span>
+              </span>
+            </button>
+            <div class="beach-text" id="beach-text-2" hidden>
+              <p>Etwas ruhiger und von Schirmkiefern gesäumt. Der Beach Point des Yachtclubs bietet in der Saison Dinghy-Segeln, Windsurfen, Kajak und Paddleboard zur Miete oder als Kurs an.</p>
+            </div>
           </div>
-          <div style="display:flex; flex-direction:column; gap:4px">
-            <h3 style="font-family:Fraunces, Georgia, serif; font-weight:600; font-size:1.1rem; margin:0">Plage de Pardigon</h3>
-            <p style="margin:0; font-size:0.94rem; line-height:1.6">Am Ortseingang, großzügige Fläche mit Parkplatz (im Sommer kostenpflichtig) und schattigem Pinienwald im Hintergrund – gut zum Ruhen und ungestörten Schwimmen.</p>
+          <div class="beach">
+            <button type="button" class="beach-btn" aria-expanded="false" aria-controls="beach-text-3">
+              <span class="beach-media">
+                <img src="assets/plage-pardigon.jpg" alt="Plage de Pardigon" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block" />
+                <span class="beach-scrim"></span>
+                <span class="beach-name">Plage de Pardigon</span>
+                <span class="beach-chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
+                </span>
+              </span>
+            </button>
+            <div class="beach-text" id="beach-text-3" hidden>
+              <p>Am Ortseingang, großzügige Fläche mit Parkplatz (im Sommer kostenpflichtig) und schattigem Pinienwald im Hintergrund – gut zum Ruhen und ungestörten Schwimmen.</p>
+            </div>
           </div>
-          <div style="display:flex; flex-direction:column; gap:4px">
-            <h3 style="font-family:Fraunces, Georgia, serif; font-weight:600; font-size:1.1rem; margin:0">Plage de Bonporteau</h3>
-            <p style="margin:0; font-size:0.94rem; line-height:1.6">Der wilde Strand: eine kleine, geschützte Bucht am Ende einer Allee aus Eukalyptus, Tamarisken und Washingtonia-Palmen. Unbeaufsichtigt, Zugang nur über einen steilen Fußweg – dafür besonders klares Wasser und ein Unterwasser-Naturschutzgebiet mit eigenem Meerespfad.</p>
+          <div class="beach">
+            <button type="button" class="beach-btn" aria-expanded="false" aria-controls="beach-text-4">
+              <span class="beach-media">
+                <img src="assets/plage-bonporteau.jpg" alt="Plage de Bonporteau" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block" />
+                <span class="beach-scrim"></span>
+                <span class="beach-name">Plage de Bonporteau</span>
+                <span class="beach-chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
+                </span>
+              </span>
+            </button>
+            <div class="beach-text" id="beach-text-4" hidden>
+              <p>Der wilde Strand: eine kleine, geschützte Bucht am Ende einer Allee aus Eukalyptus, Tamarisken und Washingtonia-Palmen. Unbeaufsichtigt, Zugang nur über einen steilen Fußweg – dafür besonders klares Wasser und ein Unterwasser-Naturschutzgebiet mit eigenem Meerespfad.</p>
+            </div>
           </div>
         </div>
         <div style="border-top:1px solid #E7DFCF; padding-top:16px; display:flex; flex-direction:column; gap:10px">
@@ -312,6 +382,27 @@ a:hover{color:#123A4E}
     navbar: ['zoom', 'fullscreen'],
     defaultZoomLvl: 0,
   });
+</script>
+<script>
+(function () {
+  var btns = Array.prototype.slice.call(document.querySelectorAll(".beach-btn"));
+  function close(btn) {
+    btn.setAttribute("aria-expanded", "false");
+    document.getElementById(btn.getAttribute("aria-controls")).hidden = true;
+  }
+  btns.forEach(function (btn) {
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      var open = btn.getAttribute("aria-expanded") === "true";
+      btns.forEach(close);
+      if (!open) {
+        btn.setAttribute("aria-expanded", "true");
+        document.getElementById(btn.getAttribute("aria-controls")).hidden = false;
+      }
+    });
+  });
+  document.addEventListener("click", function () { btns.forEach(close); });
+})();
 </script>
 </body>
 </html>

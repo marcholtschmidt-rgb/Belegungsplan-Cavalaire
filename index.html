@@ -4,6 +4,12 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>Cavalaire</title>
+<script>
+  if (sessionStorage.getItem("cavalaire_start_seen")) {
+    document.documentElement.classList.add("no-anim");
+  }
+  sessionStorage.setItem("cavalaire_start_seen", "1");
+</script>
 <link rel="manifest" href="manifest.json" />
 <link rel="icon" href="icon-192-v2.png" />
 <link rel="apple-touch-icon" href="icon-192-v2.png" />
@@ -45,6 +51,15 @@ a{color:inherit;text-decoration:none}
 @keyframes dotPulse { 0% { transform:scale(1); } 50% { transform:scale(1.13); } 100% { transform:scale(1); } }
 @keyframes glow { from { opacity:0; transform:scale(.7); } to { opacity:1; transform:scale(1); } }
 @keyframes tideDrift { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+
+/* Beim Zurück-Navigieren von einer Unterseite: Startanimationen überspringen, sofort fertigen Zustand zeigen */
+html.no-anim .glow{animation:none!important;opacity:1!important;transform:scale(1)!important}
+html.no-anim .nav-item{animation:none!important;opacity:1!important;transform:translateY(0)!important}
+html.no-anim a[href="cavalaire.html"] > div{animation:none!important;opacity:1!important;transform:scale(1) rotate(0deg)!important}
+html.no-anim [style*="dotPulse"]{animation:dotPulse 4.5s ease-in-out infinite!important;opacity:.92!important}
+html.no-anim .tide{animation:none!important;opacity:1!important;transform:translateY(0)!important}
+html.no-anim .caption{animation:none!important;opacity:1!important;transform:translateY(0)!important}
+html.no-anim .weather-stat{animation:none!important;opacity:1!important}
 </style>
 </head>
 <body>

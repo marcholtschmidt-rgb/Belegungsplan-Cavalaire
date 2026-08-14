@@ -437,8 +437,6 @@ function App() {
     const daysToArrival = a.nextArrival ? nights(a.todayISO, a.nextArrival.start) : null;
     const arrivalWhen = daysToArrival === 0 ? "heute" : daysToArrival === 1 ? "morgen" : `in ${daysToArrival} Tagen`;
     const freeWhen = daysToArrival === 1 ? "noch 1 Tag frei" : daysToArrival !== null ? `noch ${daysToArrival} Tage frei` : "Haus ist frei";
-    if (a.loading)
-        return React.createElement("div", { className: "wrap", style: { padding: "80px 20px", textAlign: "center", color: "#7C8B93" } }, "Belegungsplan wird geladen \u2026");
     return (React.createElement("div", { className: "wrap" },
         React.createElement("header", { className: "hd" },
             React.createElement("div", { className: "hd-top" },

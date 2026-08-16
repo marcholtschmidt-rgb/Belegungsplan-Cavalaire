@@ -12,19 +12,26 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photo-sphere-viewer@4/dist/photo-sphere-viewer.min.css" />
 <style>
 :root{--bg:#F5EFE3;--ink:#123A4E;--teal:#2F8F86;--mute:#7C8B93;--line:#E7DFCF}
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;background:var(--bg);font-family:'Inter',system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;display:flex;align-items:center;justify-content:center;padding:24px}
+body{margin:0;min-height:100vh;background:var(--bg);font-family:'Inter',system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:24px}
 a{color:var(--teal);text-decoration:none}
 a:hover{color:var(--ink)}
+.wrap{max-width:480px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:18px;padding-top:24px}
 .card{max-width:420px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:18px}
 h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:2rem;margin:0}
 p{margin:0;line-height:1.6;color:var(--mute)}
 .back{font-family:'IBM Plex Mono',monospace;font-size:0.8rem;letter-spacing:0.05em;border:1.5px solid var(--line);border-radius:999px;padding:10px 20px}
+.pano-section{width:100%;text-align:left;display:flex;flex-direction:column;gap:10px;margin-top:8px}
+.pano-section h2{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.3rem;margin:0;color:var(--ink)}
+.pano{width:100%;height:280px;border-radius:16px;overflow:hidden;background:#000;border:1px solid var(--line)}
+.pano-tag{font-family:'IBM Plex Mono',monospace;font-size:0.75rem;color:var(--mute);margin:0}
 </style>
 </head>
 <body>
+<div class="wrap">
 <div class="card">
   <svg viewBox="0 0 48 48" style="width:96px;height:96px">
     <defs>
@@ -35,7 +42,28 @@ p{margin:0;line-height:1.6;color:var(--mute)}
   </svg>
   <h1>Maison</h1>
   <p>Diese Seite ist noch im Aufbau. Hier entstehen bald praktische Informationen rund ums Haus – Wichtiges für Gäste, Anleitungen, Kontakte und Hausregeln.</p>
-  <a class="back" href="index.html">← Zur Startseite</a>
 </div>
+
+<div class="pano-section">
+  <h2>360°-Eindrücke</h2>
+  <p style="color:var(--mute); font-size:0.94rem; line-height:1.6">Der Rundblick von der Terrasse – zum Umschauen ziehen.</p>
+  <div id="viewer" class="pano"></div>
+  <p class="pano-tag">Blick von der Terrasse</p>
+</div>
+
+<a class="back" href="index.html">← Zur Startseite</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.147/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/uevent@2/browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photo-sphere-viewer@4/dist/photo-sphere-viewer.min.js"></script>
+<script>
+  new PhotoSphereViewer.Viewer({
+    container: document.querySelector('#viewer'),
+    panorama: 'assets/terrasse-360.jpg',
+    navbar: ['zoom', 'fullscreen'],
+    defaultZoomLvl: 0,
+  });
+</script>
 </body>
 </html>

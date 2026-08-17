@@ -379,11 +379,19 @@ a:hover{color:#123A4E}
 <script src="https://cdn.jsdelivr.net/npm/uevent@2/browser.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/photo-sphere-viewer@4/dist/photo-sphere-viewer.min.js"></script>
 <script>
-  new PhotoSphereViewer.Viewer({
+  const psvViewer = new PhotoSphereViewer.Viewer({
     container: document.querySelector('#viewer'),
-    panorama: 'assets/terrasse-360-v2.jpg',
+    panorama: 'assets/terrasse-360-v3.jpg',
     navbar: ['zoom', 'fullscreen'],
     defaultZoomLvl: 0,
+  });
+  ['fullscreenchange', 'webkitfullscreenchange'].forEach((evt) => {
+    document.addEventListener(evt, () => {
+      setTimeout(() => {
+        psvViewer.autoSize();
+        psvViewer.needsUpdate();
+      }, 150);
+    });
   });
 </script>
 <script>

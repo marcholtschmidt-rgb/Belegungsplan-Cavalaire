@@ -368,6 +368,7 @@ a:hover{color:#123A4E}
         <p style="margin:0; font-size:0.94rem; line-height:1.6">Der Rundblick von der Terrasse – zum Umschauen ziehen.</p>
         <div id="viewer" style="width:100%; height:300px; border-radius:12px; overflow:hidden; background:#123A4E; border:1px solid #E7DFCF"></div>
         <p style="margin:0; font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.05em; color:#7C8B93">Blick von der Terrasse</p>
+        <p id="gpuDebug" style="margin:4px 0 0; font-family:'IBM Plex Mono', monospace; font-size:0.7rem; color:#D97748"></p>
       </div>
     </section>
 
@@ -393,6 +394,14 @@ a:hover{color:#123A4E}
       }, 150);
     });
   });
+  try {
+    const testCanvas = document.createElement('canvas');
+    const gl = testCanvas.getContext('webgl') || testCanvas.getContext('experimental-webgl');
+    const maxTex = gl.getParameter(gl.MAX_TEXTURE_SIZE);
+    document.getElementById('gpuDebug').textContent = 'Diagnose: max. Textur-Größe dieses Geräts = ' + maxTex + 'px';
+  } catch (e) {
+    document.getElementById('gpuDebug').textContent = 'Diagnose fehlgeschlagen: ' + e.message;
+  }
 </script>
 <script>
 (function () {

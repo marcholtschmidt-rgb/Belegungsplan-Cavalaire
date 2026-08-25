@@ -381,7 +381,14 @@ a:hover{color:#123A4E}
 <script>
   const psvViewer = new PhotoSphereViewer.Viewer({
     container: document.querySelector('#viewer'),
-    panorama: 'assets/aussicht-360.jpg',
+    adapter: PhotoSphereViewer.EquirectangularTilesAdapter,
+    panorama: {
+      width: 7680,
+      cols: 8,
+      rows: 4,
+      baseUrl: 'assets/aussicht-360-low.jpg',
+      tileUrl: (col, row) => `assets/tiles/aussicht_${col}_${row}.jpg`,
+    },
     navbar: ['zoom', 'fullscreen'],
     defaultZoomLvl: 0,
   });

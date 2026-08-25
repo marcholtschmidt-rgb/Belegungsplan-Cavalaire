@@ -12,7 +12,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photo-sphere-viewer@4/dist/photo-sphere-viewer.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core/index.min.css" />
 <style>
 :root{--bg:#F5EFE3;--ink:#123A4E;--teal:#2F8F86;--mute:#7C8B93;--line:#E7DFCF}
 *{box-sizing:border-box}
@@ -54,14 +54,22 @@ p{margin:0;line-height:1.6;color:var(--mute)}
 <a class="back" href="index.html">← Zur Startseite</a>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/three@0.147/build/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/uevent@2/browser.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/photo-sphere-viewer@4/dist/photo-sphere-viewer.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/photo-sphere-viewer@4/dist/adapters/equirectangular-tiles.min.js"></script>
-<script>
-  const psvViewer = new PhotoSphereViewer.Viewer({
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three/build/three.module.js",
+    "@photo-sphere-viewer/core": "https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core/index.module.js",
+    "@photo-sphere-viewer/equirectangular-tiles-adapter": "https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/equirectangular-tiles-adapter/index.module.js"
+  }
+}
+</script>
+<script type="module">
+  import { Viewer } from '@photo-sphere-viewer/core';
+  import { EquirectangularTilesAdapter } from '@photo-sphere-viewer/equirectangular-tiles-adapter';
+
+  const psvViewer = new Viewer({
     container: document.querySelector('#viewer'),
-    adapter: PhotoSphereViewer.EquirectangularTilesAdapter,
+    adapter: EquirectangularTilesAdapter,
     panorama: {
       width: 7680,
       cols: 8,
@@ -76,7 +84,6 @@ p{margin:0;line-height:1.6;color:var(--mute)}
     document.addEventListener(evt, () => {
       setTimeout(() => {
         psvViewer.autoSize();
-        psvViewer.needsUpdate();
       }, 150);
     });
   });

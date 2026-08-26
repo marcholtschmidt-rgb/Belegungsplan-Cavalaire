@@ -34,14 +34,7 @@ p{margin:0;line-height:1.6;color:var(--mute)}
 .info-section h2{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.3rem;margin:0;color:var(--ink)}
 .wifi-card{display:flex;align-items:center;gap:16px;padding:16px;border:1px solid var(--line);border-radius:16px;background:#FFFDF9}
 .wifi-icon{width:56px;height:56px;flex:none}
-.wifi-rows{display:flex;flex-direction:column;gap:8px;flex:1;min-width:0}
-.wifi-row{display:flex;align-items:center;gap:10px;width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--bg);font:inherit;color:inherit;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.wifi-row:hover{border-color:var(--teal)}
-.wifi-text{display:flex;flex-direction:column;gap:1px;flex:1;min-width:0}
-.wifi-label{font-family:'IBM Plex Mono',monospace;font-size:0.68rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--mute)}
-.wifi-value{font-family:'IBM Plex Mono',monospace;font-size:0.95rem;color:var(--ink);overflow-wrap:anywhere}
-.wifi-copy{flex:none;color:var(--mute)}
-.wifi-row.copied .wifi-copy{color:var(--teal)}
+.wifi-note{margin:0;font-size:0.94rem;line-height:1.6;color:var(--ink)}
 .wifi-hint{font-size:0.85rem;color:var(--mute);margin:0}
 </style>
 </head>
@@ -77,24 +70,9 @@ p{margin:0;line-height:1.6;color:var(--mute)}
       <circle cx="24" cy="40.6" r="3.1" fill="url(#gWifi)"/>
       <g fill="#F5EFE3" opacity="0.92"><circle cx="24" cy="10.6" r="1.5"/><circle cx="13.4" cy="16.4" r="1.2"/><circle cx="34.6" cy="16.4" r="1.2"/><circle cx="24" cy="20.8" r="1.4"/><circle cx="17.4" cy="24.4" r="1.1"/><circle cx="30.6" cy="24.4" r="1.1"/><circle cx="24" cy="31.4" r="1.2"/></g>
     </svg>
-    <div class="wifi-rows">
-      <button type="button" class="wifi-row" data-copy="PLATZHALTER-NETZWERK">
-        <span class="wifi-text">
-          <span class="wifi-label">Netzwerk</span>
-          <span class="wifi-value">PLATZHALTER-NETZWERK</span>
-        </span>
-        <svg class="wifi-copy" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-      </button>
-      <button type="button" class="wifi-row" data-copy="PLATZHALTER-PASSWORT">
-        <span class="wifi-text">
-          <span class="wifi-label">Passwort</span>
-          <span class="wifi-value">PLATZHALTER-PASSWORT</span>
-        </span>
-        <svg class="wifi-copy" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-      </button>
-    </div>
+    <p class="wifi-note">Im ganzen Haus gibt es WLAN. Die Zugangsdaten bekommst du von uns, sobald deine Buchung bestätigt ist.</p>
   </div>
-  <p class="wifi-hint">Zum Kopieren antippen.</p>
+  <p class="wifi-hint">Noch keinen Zeitraum angefragt? <a href="belegung.html">Zum Belegungsplan</a></p>
 </div>
 
 <div class="pano-section">
@@ -138,31 +116,6 @@ p{margin:0;line-height:1.6;color:var(--mute)}
       setTimeout(() => {
         psvViewer.autoSize();
       }, 150);
-    });
-  });
-</script>
-<script>
-  document.querySelectorAll('.wifi-row').forEach((row) => {
-    row.addEventListener('click', async () => {
-      const value = row.dataset.copy;
-      try {
-        await navigator.clipboard.writeText(value);
-      } catch {
-        const tmp = document.createElement('textarea');
-        tmp.value = value;
-        document.body.appendChild(tmp);
-        tmp.select();
-        document.execCommand('copy');
-        tmp.remove();
-      }
-      const label = row.querySelector('.wifi-label');
-      const original = label.textContent;
-      label.textContent = 'kopiert';
-      row.classList.add('copied');
-      setTimeout(() => {
-        label.textContent = original;
-        row.classList.remove('copied');
-      }, 1400);
     });
   });
 </script>

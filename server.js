@@ -27,6 +27,12 @@ const server = http.createServer((req, res) => {
     return res.end("Forbidden");
   }
 
+  // Dokumentation (README & Co.) gehoert nicht auf die Webseite
+  if (path.extname(filePath).toLowerCase() === ".md") {
+    res.writeHead(404);
+    return res.end("Not found");
+  }
+
   fs.readFile(filePath, (err, data) => {
     if (err) {
       // Fallback to index.html for unknown routes (single-page app behavior)

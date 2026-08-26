@@ -51,6 +51,19 @@ Diese Punkte sind bewusst so entschieden – nicht ungefragt ändern:
 - **`assets/aussicht-360.jpg`, `terrasse-360.jpg`, `-v2`, `-v3`
   bleiben liegen.** Sie werden im Code nicht referenziert, sind aber die
   Vorlagen für die Panorama-Kacheln. Nicht als "ungenutzt" aufräumen.
+- **WLAN-Zugangsdaten stehen nicht auf der Webseite.** Ein
+  automatischer Versand per SMS oder E-Mail nach bestaetigter Buchung
+  wurde geprueft und verworfen: Bei wenigen Buchungen im Jahr lohnt
+  der Aufwand (externer Versanddienst, Edge Function, Datenbank-
+  Trigger) nicht. Der Eigentuemer teilt die Daten persoenlich mit;
+  `maison.html` weist darauf hin. Nicht ungefragt automatisieren.
+- **Rechte auf `public.bookings` sind bewusst eng gesetzt.** `anon`
+  und `authenticated` haben nur SELECT auf die vorhandenen Spalten und
+  INSERT auf die fuenf Formularfelder. Alles Weitere laeuft ueber die
+  `owner_*`-Funktionen. Eine neu angelegte Spalte ist damit nicht
+  automatisch oeffentlich lesbar - sie muss einzeln freigegeben
+  werden, und der Kalender fragt in `belegung.html` bewusst einzelne
+  Spalten statt `select=*` ab.
 - **Keine eigene Domain.** Der Hinweis in hPanel ist bekannt; die
   `hostingersite.com`-Adresse genügt vorerst.
 

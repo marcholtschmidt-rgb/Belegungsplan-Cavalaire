@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Der Ofen</title>
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="icon-192-v2.png" />
+<link rel="apple-touch-icon" href="icon-192-v2.png" />
+<meta name="theme-color" content="#123A4E" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" />
+<style>
+body{background:#F5EFE3;margin:0}
+a{color:#2F8F86;text-decoration:none}
+a:hover{color:#123A4E}
+@keyframes tideDrift{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes dotPulse{0%{transform:scale(1)}50%{transform:scale(1.13)}100%{transform:scale(1)}}
+.navbtns{position:fixed;top:calc(env(safe-area-inset-top,0px) + 16px);right:20px;display:flex;gap:10px;z-index:50}
+.icon-toggle{width:44px;height:44px;border-radius:999px;background:#FFFDF9;border:1.5px solid #E7DFCF;display:grid;place-items:center;color:#123A4E;box-shadow:0 2px 10px rgba(18,58,78,.14)}
+.icon-toggle:hover{background:#F5EFE3}
+</style>
+</head>
+<body>
+<div class="navbtns">
+  <a href="maison.html" class="icon-toggle" aria-label="Zurück zu Maison" title="Zurück zu Maison">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+  </a>
+  <a href="index.html" class="icon-toggle" aria-label="Startseite" title="Startseite">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5"/><path d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10"/></svg>
+  </a>
+</div>
+<div style="font-family:Inter, system-ui, sans-serif; color:#123A4E; background:#F5EFE3; min-height:100vh">
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <linearGradient id="ofGrad" x1="0" y1="0" x2="0.7" y2="1"><stop offset="0" stop-color="#63BDB2"></stop><stop offset="1" stop-color="#2A6A7E"></stop></linearGradient>
+      <g id="ofPanel" fill="url(#ofGrad)" stroke="url(#ofGrad)" stroke-width="2.2" stroke-linejoin="round">
+        <path d="M16.4 4.4 Q24 3.8 31.6 4.4 Q35.6 4.6 35.6 8.6 Q36.2 24 35.6 39.4 Q35.6 43.4 31.6 43.6 Q24 44.2 16.4 43.6 Q12.4 43.4 12.4 39.4 Q11.8 24 12.4 8.6 Q12.4 4.6 16.4 4.4 Z"></path>
+      </g>
+      <g id="ofPanelDots" fill="#F5EFE3"><circle cx="19.4" cy="16.4" r="1.9"></circle><circle cx="28.6" cy="16.4" r="1.9"></circle><circle cx="19.4" cy="23.4" r="1.9"></circle><circle cx="28.6" cy="23.4" r="1.9"></circle><circle cx="19.4" cy="30.4" r="1.9"></circle><circle cx="28.6" cy="30.4" r="1.9"></circle><circle cx="24" cy="37.4" r="1.6"></circle></g>
+      <circle id="ofPanelGold" cx="24" cy="9.6" r="2.6" fill="#E3A857"></circle>
+    </defs>
+  </svg>
+
+  <header style="position:relative; overflow:hidden; padding:calc(env(safe-area-inset-top,0px) + 88px) 20px 0">
+    <div style="position:absolute; top:-70px; left:50%; width:480px; height:480px; margin-left:-240px; border-radius:999px; background:radial-gradient(circle, rgba(47,143,134,0.28) 0%, rgba(245,239,227,0) 72%); pointer-events:none"></div>
+
+    <div style="position:relative; max-width:672px; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:14px; padding-bottom:96px">
+      <h1 style="font-family:Fraunces, Georgia, serif; font-weight:600; font-size:2.4rem; line-height:1; margin:0">Der Ofen</h1>
+      <div style="display:flex; align-items:center; gap:12px">
+        <span style="width:24px; height:1px; background:#123A4E"></span>
+        <span style="font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase; color:#2F8F86">Kurzanleitung · Küche</span>
+        <span style="width:24px; height:1px; background:#123A4E"></span>
+      </div>
+      <p style="max-width:520px; text-align:center; font-size:1rem; line-height:1.65; margin:6px 0 0; text-wrap:pretty">Alles, was für einen Abend gebraucht wird: Knöpfe herausdrücken, Funktion wählen, Temperatur bestätigen.</p>
+    </div>
+
+    <div style="position:absolute; left:0; right:0; bottom:0; height:120px; overflow:hidden; pointer-events:none">
+      <div style="position:absolute; top:0; bottom:0; left:0; width:200%; display:flex; animation:tideDrift 20s linear infinite"><svg viewBox="0 0 400 120" preserveAspectRatio="none" style="width:50%; height:100%; flex:none; display:block"><path d="M0 20c50 0 50 10 100 10s50-10 100-10 50 10 100 10 50-10 100-10V120H0Z" fill="#2F8F86" opacity="0.07"></path></svg><svg viewBox="0 0 400 120" preserveAspectRatio="none" style="width:50%; height:100%; flex:none; display:block"><path d="M0 20c50 0 50 10 100 10s50-10 100-10 50 10 100 10 50-10 100-10V120H0Z" fill="#2F8F86" opacity="0.07"></path></svg></div>
+      <div style="position:absolute; top:0; bottom:0; left:0; width:200%; display:flex; animation:tideDrift 15s linear infinite reverse"><svg viewBox="0 0 400 120" preserveAspectRatio="none" style="width:50%; height:100%; flex:none; display:block"><path d="M0 48c50 0 50 12 100 12s50-12 100-12 50 12 100 12 50-12 100-12V120H0Z" fill="#2F8F86" opacity="0.10"></path></svg><svg viewBox="0 0 400 120" preserveAspectRatio="none" style="width:50%; height:100%; flex:none; display:block"><path d="M0 48c50 0 50 12 100 12s50-12 100-12 50 12 100 12 50-12 100-12V120H0Z" fill="#2F8F86" opacity="0.10"></path></svg></div>
+      <div style="position:absolute; top:0; bottom:0; left:0; width:200%; display:flex; animation:tideDrift 11s linear infinite"><svg viewBox="0 0 400 120" preserveAspectRatio="none" style="width:50%; height:100%; flex:none; display:block"><path d="M0 78c50 0 50 14 100 14s50-14 100-14 50 14 100 14 50-14 100-14V120H0Z" fill="#2F8F86" opacity="0.14"></path></svg><svg viewBox="0 0 400 120" preserveAspectRatio="none" style="width:50%; height:100%; flex:none; display:block"><path d="M0 78c50 0 50 14 100 14s50-14 100-14 50 14 100 14 50-14 100-14V120H0Z" fill="#2F8F86" opacity="0.14"></path></svg></div>
+      <div style="position:absolute; top:0; bottom:0; left:0; width:200%; display:flex; animation:tideDrift 8s linear infinite reverse"><svg viewBox="0 0 400 120" preserveAspectRatio="none" style="width:50%; height:100%; flex:none; display:block"><path d="M0 104c50 0 50 12 100 12s50-12 100-12 50 12 100 12 50-12 100-12V120H0Z" fill="#123A4E" opacity="0.12"></path></svg><svg viewBox="0 0 400 120" preserveAspectRatio="none" style="width:50%; height:100%; flex:none; display:block"><path d="M0 104c50 0 50 12 100 12s50-12 100-12 50 12 100 12 50-12 100-12V120H0Z" fill="#123A4E" opacity="0.12"></path></svg></div>
+    </div>
+  </header>
+
+  <main style="max-width:672px; margin:0 auto; padding:8px 20px 72px; display:flex; flex-direction:column; gap:36px">
+
+    <section style="display:flex; flex-direction:column; gap:14px">
+      <h2 style="font-family:Fraunces, Georgia, serif; font-weight:600; font-size:1.4rem; margin:0">Das Bedienfeld</h2>
+      <div style="background:radial-gradient(120% 90% at 100% 0%, rgba(47,143,134,0.09) 0%, rgba(47,143,134,0) 55%), linear-gradient(165deg, #FFFDF9 0%, #FAF2E4 100%); border:1px solid #E7DFCF; border-radius:16px; padding:24px; display:flex; flex-direction:column; gap:20px">
+
+        <div style="background:#FFFDF9; border:1px solid #E7DFCF; border-radius:12px; padding:14px 12px">
+          <div style="display:grid; place-items:center; min-height:150px; border:1px dashed #C9BFA8; border-radius:10px; background:#F5EFE3; padding:20px; text-align:center"><span style="font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.08em; text-transform:uppercase; color:#7C8B93">Foto folgt<br><span style="text-transform:none; letter-spacing:0; font-size:0.8rem">Bedienfeld des Ofens mit den Positionen A bis G</span></span></div>
+        </div>
+
+        <div style="display:flex; flex-direction:column">
+          <div style="display:flex; align-items:baseline; gap:12px; padding:11px 0; border-top:1px solid #E7DFCF">
+            <span style="font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:0.875rem; color:#2F8F86; flex:none; width:20px">A</span>
+            <span style="font-size:0.94rem; line-height:1.5">Versenkbarer Auswahlknopf, links – wählt die Funktion</span>
+          </div>
+          <div style="display:flex; align-items:baseline; gap:12px; padding:11px 0; border-top:1px solid #E7DFCF">
+            <span style="font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:0.875rem; color:#2F8F86; flex:none; width:20px">B</span>
+            <span style="font-size:0.94rem; line-height:1.5">Zurück-Taste</span>
+          </div>
+          <div style="display:flex; align-items:baseline; gap:12px; padding:11px 0; border-top:1px solid #E7DFCF">
+            <span style="font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:0.875rem; color:#2F8F86; flex:none; width:20px">C</span>
+            <span style="font-size:0.94rem; line-height:1.5">Licht</span>
+          </div>
+          <div style="display:flex; align-items:baseline; gap:12px; padding:11px 0; border-top:1px solid #E7DFCF">
+            <span style="font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:0.875rem; color:#2F8F86; flex:none; width:20px">D</span>
+            <span style="font-size:0.94rem; line-height:1.5">Display</span>
+          </div>
+          <div style="display:flex; align-items:baseline; gap:12px; padding:11px 0; border-top:1px solid #E7DFCF">
+            <span style="font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:0.875rem; color:#2F8F86; flex:none; width:20px">E</span>
+            <span style="font-size:0.94rem; line-height:1.5">Bestätigungstaste OK – jeder Schritt wird hiermit bestätigt</span>
+          </div>
+          <div style="display:flex; align-items:baseline; gap:12px; padding:11px 0; border-top:1px solid #E7DFCF">
+            <span style="font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:0.875rem; color:#2F8F86; flex:none; width:20px">F</span>
+            <span style="font-size:0.94rem; line-height:1.5">Kurzzeitwecker</span>
+          </div>
+          <div style="display:flex; align-items:baseline; gap:12px; padding:11px 0; border-top:1px solid #E7DFCF">
+            <span style="font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:0.875rem; color:#2F8F86; flex:none; width:20px">G</span>
+            <span style="font-size:0.94rem; line-height:1.5">Versenkbarer Einstellknopf, rechts (− / +) – Temperatur und Zeit</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="display:flex; flex-direction:column; gap:14px">
+      <h2 style="font-family:Fraunces, Georgia, serif; font-weight:600; font-size:1.4rem; margin:0">Die versenkbaren Knöpfe</h2>
+      <div style="background:radial-gradient(120% 90% at 100% 0%, rgba(47,143,134,0.09) 0%, rgba(47,143,134,0) 55%), linear-gradient(165deg, #FFFDF9 0%, #FAF2E4 100%); border:1px solid #E7DFCF; border-radius:16px; padding:24px; display:flex; flex-direction:column; gap:16px">
+        <p style="margin:0; font-size:0.94rem; line-height:1.6; text-wrap:pretty">Die Knöpfe A und G liegen im Ruhezustand flach in der Blende.</p>
+        <div style="background:#FFFDF9; border:1px solid #E7DFCF; border-radius:12px; padding:14px 12px">
+          <div style="display:grid; place-items:center; min-height:150px; border:1px dashed #C9BFA8; border-radius:10px; background:#F5EFE3; padding:20px; text-align:center"><span style="font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.08em; text-transform:uppercase; color:#7C8B93">Foto folgt<br><span style="text-transform:none; letter-spacing:0; font-size:0.8rem">Knopf in der Mitte drücken, dann drehen</span></span></div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:14px">
+          <div style="display:flex; gap:14px; align-items:flex-start">
+            <span style="font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:0.8rem; flex:none; width:26px; height:26px; border-radius:999px; background:#123A4E; color:#FFFDF9; display:grid; place-items:center">1</span>
+            <p style="margin:0; font-size:0.94rem; line-height:1.6">Auf die Mitte des Knopfes drücken – er kommt heraus.</p>
+          </div>
+          <div style="display:flex; gap:14px; align-items:flex-start">
+            <span style="font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:0.8rem; flex:none; width:26px; height:26px; border-radius:999px; background:#123A4E; color:#FFFDF9; display:grid; place-items:center">2</span>
+            <p style="margin:0; font-size:0.94rem; line-height:1.6">In die gewünschte Stellung drehen.</p>
+          </div>
+          <div style="display:flex; gap:14px; align-items:flex-start">
+            <span style="font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:0.8rem; flex:none; width:26px; height:26px; border-radius:999px; background:#123A4E; color:#FFFDF9; display:grid; place-items:center">3</span>
+            <p style="margin:0; font-size:0.94rem; line-height:1.6">Nach dem Garen beide Knöpfe auf die Nullstellung zurückdrehen und mittig hineindrücken, damit sie wieder versenkt sind.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="display:flex; flex-direction:column; gap:14px">
+      <h2 style="font-family:Fraunces, Georgia, serif; font-weight:600; font-size:1.4rem; margin:0">Eine Funktion starten</h2>
+      <div style="background:radial-gradient(120% 90% at 100% 0%, rgba(47,143,134,0.09) 0%, rgba(47,143,134,0) 55%), linear-gradient(165deg, #FFFDF9 0%, #FAF2E4 100%); border:1px solid #E7DFCF; border-radius:16px; padding:24px; display:flex; flex-direction:column; gap:18px">
+        <div style="display:flex; flex-direction:column; gap:16px">
+          <div style="display:flex; gap:14px; align-items:flex-start">
+            <span style="font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:0.8rem; flex:none; width:26px; height:26px; border-radius:999px; background:#2F8F86; color:#FFFDF9; display:grid; place-items:center">1</span>
+            <div style="display:flex; flex-direction:column; gap:3px">
+              <h3 style="font-family:Fraunces, Georgia, serif; font-weight:600; font-size:1.1rem; margin:0">Funktion wählen</h3>
+              <p style="margin:0; font-size:0.94rem; line-height:1.6">Mit Knopf <b style="font-family:'IBM Plex Mono', monospace; color:#2F8F86">A</b> die gewünschte Funktion einstellen, mit <b style="font-family:'IBM Plex Mono', monospace; color:#2F8F86">E</b> bestätigen.</p>
+            </div>
+          </div>
+          <div style="display:flex; gap:14px; align-items:flex-start">
+            <span style="font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:0.8rem; flex:none; width:26px; height:26px; border-radius:999px; background:#2F8F86; color:#FFFDF9; display:grid; place-items:center">2</span>
+            <div style="display:flex; flex-direction:column; gap:3px">
+              <h3 style="font-family:Fraunces, Georgia, serif; font-weight:600; font-size:1.1rem; margin:0">Temperatur setzen</h3>
+              <p style="margin:0; font-size:0.94rem; line-height:1.6">Die Temperatur blinkt – mit Knopf <b style="font-family:'IBM Plex Mono', monospace; color:#2F8F86">G</b> einstellen, mit <b style="font-family:'IBM Plex Mono', monospace; color:#2F8F86">E</b> bestätigen.</p>
+            </div>
+          </div>
+          <div style="display:flex; gap:14px; align-items:flex-start">
+            <span style="font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:0.8rem; flex:none; width:26px; height:26px; border-radius:999px; background:#2F8F86; color:#FFFDF9; display:grid; place-items:center">3</span>
+            <div style="display:flex; flex-direction:column; gap:3px">
+              <h3 style="font-family:Fraunces, Georgia, serif; font-weight:600; font-size:1.1rem; margin:0">Garzeit – oder sofort los</h3>
+              <p style="margin:0; font-size:0.94rem; line-height:1.6">Die Garzeit erscheint im Display. Mit <b style="font-family:'IBM Plex Mono', monospace; color:#2F8F86">G</b> anpassen oder unverändert lassen und mit <b style="font-family:'IBM Plex Mono', monospace; color:#2F8F86">E</b> bestätigen – der Ofen startet sofort.</p>
+            </div>
+          </div>
+          <div style="display:flex; gap:14px; align-items:flex-start">
+            <span style="font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:0.8rem; flex:none; width:26px; height:26px; border-radius:999px; background:#2F8F86; color:#FFFDF9; display:grid; place-items:center">4</span>
+            <div style="display:flex; flex-direction:column; gap:3px">
+              <h3 style="font-family:Fraunces, Georgia, serif; font-weight:600; font-size:1.1rem; margin:0">Später fertig werden</h3>
+              <p style="margin:0; font-size:0.94rem; line-height:1.6">Wurde eine Garzeit gewählt, zeigt das Display die erwartete Endzeit. Mit <b style="font-family:'IBM Plex Mono', monospace; color:#2F8F86">G</b> verschieben und mit <b style="font-family:'IBM Plex Mono', monospace; color:#2F8F86">E</b> die Startvorwahl bestätigen.</p>
+            </div>
+          </div>
+        </div>
+        <div style="border-top:1px solid #E7DFCF; padding-top:14px; display:flex; gap:12px; align-items:baseline">
+          <span style="font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase; color:#7C8B93; flex:none; width:74px">Merksatz</span>
+          <span style="font-size:0.875rem; line-height:1.55">Funktion → Temperatur → Zeit. Nach jedem Schritt <b style="font-family:'IBM Plex Mono', monospace; color:#2F8F86">E</b>.</span>
+        </div>
+      </div>
+    </section>
+
+    <section style="display:flex; flex-direction:column; gap:14px">
+      <h2 style="font-family:Fraunces, Georgia, serif; font-weight:600; font-size:1.4rem; margin:0">Gut zu wissen</h2>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:12px">
+        <div style="background:#FFFDF9; border:1px solid #E7DFCF; border-radius:12px; padding:16px; display:flex; flex-direction:column; gap:6px">
+          <div style="font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase; color:#2F8F86">Kurzzeitwecker</div>
+          <p style="margin:0; font-size:0.875rem; line-height:1.55">Taste <b style="font-family:'IBM Plex Mono', monospace">F</b> läuft unabhängig vom Garprogramm – er schaltet den Ofen nicht ab.</p>
+        </div>
+        <div style="background:#FFFDF9; border:1px solid #E7DFCF; border-radius:12px; padding:16px; display:flex; flex-direction:column; gap:6px">
+          <div style="font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase; color:#2F8F86">Verstellt?</div>
+          <p style="margin:0; font-size:0.875rem; line-height:1.55">Taste <b style="font-family:'IBM Plex Mono', monospace">B</b> geht einen Schritt zurück, ohne die Einstellung zu speichern.</p>
+        </div>
+        <div style="background:#FFFDF9; border:1px solid #E7DFCF; border-radius:12px; padding:16px; display:flex; flex-direction:column; gap:6px">
+          <div style="font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase; color:#D97748">Zum Schluss</div>
+          <p style="margin:0; font-size:0.875rem; line-height:1.55">Beide Knöpfe auf Null zurückdrehen und versenken – sonst bleibt der Ofen scheinbar aktiv.</p>
+        </div>
+      </div>
+    </section>
+
+    <p style="margin:0; font-size:0.8rem; line-height:1.6; color:#7C8B93; text-wrap:pretty">Zusammengefasst aus der Originalanleitung IKEA ANRÄTTA (00411718). Alle Angaben ohne Gewähr – bei Reinigung, Pyrolyse, Einbau und Sicherheitshinweisen bitte die vollständige Anleitung lesen.</p>
+  </main>
+</div>
+</body>
+</html>

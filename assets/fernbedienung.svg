@@ -1,0 +1,105 @@
+<svg viewBox="0 0 300 1060" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fernbedienung Sony RMT-TX102D">
+  <rect x="8" y="8" width="284" height="1044" rx="30" fill="#FFFDF9" stroke="#123A4E" stroke-width="2.6"/>
+  <rect id="input" x="30" y="30" width="40" height="20" rx="10.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <g transform="translate(43 34)"><rect x="0" y="1.5" width="9" height="9" rx="1.6" fill="none" stroke="#123A4E" stroke-width="1.4"/><path d="M10.5 6h5M13 3.5 15.5 6 13 8.5" fill="none" stroke="#123A4E" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <rect id="oval" x="80" y="30" width="110" height="20" rx="10.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <circle id="power" cx="248" cy="42" r="21" fill="none" stroke="#123A4E" stroke-width="2"/>
+  <g transform="translate(248 42)"><path d="M0 -9 V-1" stroke="#123A4E" stroke-width="2" stroke-linecap="round"/><path d="M-6 -6 A 8.5 8.5 0 1 0 6 -6" fill="none" stroke="#123A4E" stroke-width="2" stroke-linecap="round"/></g>
+  <text x="30" y="70" text-anchor="start" font-family="Inter,sans-serif" font-weight="600" font-size="7.5" letter-spacing="0.4" fill="#123A4E">DIGITAL/</text>
+  <text x="30" y="80" text-anchor="start" font-family="Inter,sans-serif" font-weight="600" font-size="7.5" letter-spacing="0.4" fill="#123A4E">ANALOG</text>
+  <text x="268" y="70" text-anchor="end" font-family="Inter,sans-serif" font-weight="600" font-size="7.5" letter-spacing="0.4" fill="#123A4E">SYNCMENU</text>
+  <rect id="bar" x="30" y="86" width="236" height="16" rx="8.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <rect id="k1" x="26" y="116" width="72" height="34" rx="17.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <text x="62.0" y="139.12" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="17" fill="#123A4E">1</text>
+  <rect id="k2" x="110" y="116" width="72" height="34" rx="17.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <text x="146.0" y="139.12" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="17" fill="#123A4E">2</text>
+  <rect id="k3" x="194" y="116" width="72" height="34" rx="17.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <text x="230.0" y="139.12" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="17" fill="#123A4E">3</text>
+  <rect id="k4" x="26" y="160" width="72" height="34" rx="17.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <text x="62.0" y="183.12" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="17" fill="#123A4E">4</text>
+  <rect id="k5" x="110" y="160" width="72" height="34" rx="17.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <text x="146.0" y="183.12" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="17" fill="#123A4E">5</text>
+  <rect id="k6" x="194" y="160" width="72" height="34" rx="17.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <text x="230.0" y="183.12" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="17" fill="#123A4E">6</text>
+  <rect id="k7" x="26" y="204" width="72" height="34" rx="17.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <text x="62.0" y="227.12" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="17" fill="#123A4E">7</text>
+  <rect id="k8" x="110" y="204" width="72" height="34" rx="17.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <text x="146.0" y="227.12" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="17" fill="#123A4E">8</text>
+  <rect id="k9" x="194" y="204" width="72" height="34" rx="17.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <text x="230.0" y="227.12" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="17" fill="#123A4E">9</text>
+  <rect id="kEXIT" x="26" y="248" width="72" height="34" rx="17.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <text x="62.0" y="268.96" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="11" fill="#123A4E">EXIT</text>
+  <rect id="k0" x="110" y="248" width="72" height="34" rx="17.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <text x="146.0" y="271.12" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="17" fill="#123A4E">0</text>
+  <rect id="kTXT" x="194" y="248" width="72" height="34" rx="17.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <text x="230.0" y="268.96" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="11" fill="#123A4E">TXT</text>
+  <rect x="26" y="300" width="54" height="16" rx="8" fill="#D14343" stroke="#123A4E" stroke-width="1.4"/>
+  <rect x="88" y="300" width="54" height="16" rx="8" fill="#3E9E5E" stroke="#123A4E" stroke-width="1.4"/>
+  <rect x="150" y="300" width="54" height="16" rx="8" fill="#E3C044" stroke="#123A4E" stroke-width="1.4"/>
+  <rect x="212" y="300" width="54" height="16" rx="8" fill="#9FB8DD" stroke="#123A4E" stroke-width="1.4"/>
+  <rect id="nx" x="96" y="326" width="108" height="30" rx="15.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <text x="150.0" y="346.76" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="16" fill="#123A4E">NX</text>
+  <rect id="info" x="105" y="370" width="90" height="18" rx="9.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <g transform="translate(150 379)" font-family="Inter,sans-serif" font-size="8" font-weight="600" fill="#123A4E"><text x="-14" y="3" text-anchor="middle">i+</text><text x="12" y="3" text-anchor="middle">?</text></g>
+  <g stroke="#123A4E" stroke-width="1.8" stroke-linecap="round"><path d="M238 374 h20M238 379 h20M238 384 h20"/></g>
+  <circle cx="150" cy="470" r="78" fill="none" stroke="#123A4E" stroke-width="2"/>
+  <circle cx="150" cy="470" r="50" fill="none" stroke="#123A4E" stroke-width="1.4" opacity="0.45"/>
+  <circle cx="150" cy="432" r="13" fill="none"/>
+  <g transform="translate(150 432) rotate(0)"><path d="M0 -5 L5 3 L-5 3 Z" fill="#123A4E"/></g>
+  <circle cx="150" cy="508" r="13" fill="none"/>
+  <g transform="translate(150 508) rotate(180)"><path d="M0 -5 L5 3 L-5 3 Z" fill="#123A4E"/></g>
+  <circle cx="112" cy="470" r="13" fill="none"/>
+  <g transform="translate(112 470) rotate(270)"><path d="M0 -5 L5 3 L-5 3 Z" fill="#123A4E"/></g>
+  <circle cx="188" cy="470" r="13" fill="none"/>
+  <g transform="translate(188 470) rotate(90)"><path d="M0 -5 L5 3 L-5 3 Z" fill="#123A4E"/></g>
+  <circle id="ok" cx="150" cy="470" r="26" fill="none" stroke="#123A4E" stroke-width="2"/>
+  <g stroke="#123A4E" stroke-width="2" stroke-linecap="round"><path d="M141 470 h18M150 461 v18"/></g>
+  <text transform="translate(56 436) rotate(-70)" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="9" letter-spacing="0.5" fill="#123A4E">SLEEP</text>
+  <text transform="translate(244 436) rotate(70)" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="9" letter-spacing="0.5" fill="#123A4E">GUIDE</text>
+  <text transform="translate(56 516) rotate(-110)" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="9" letter-spacing="0.5" fill="#123A4E">RETURN</text>
+  <text transform="translate(244 516) rotate(110)" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="9" letter-spacing="0.5" fill="#123A4E">OPTIONS</text>
+  <rect id="home" x="104" y="556" width="92" height="26" rx="13" fill="#FFFDF9" stroke="#123A4E" stroke-width="1.8"/>
+  <text x="150" y="574" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="13" fill="#123A4E">HOME</text>
+  <path d="M32 616 l16 -10 v20 z" fill="none" stroke="#123A4E" stroke-width="1.8" stroke-linejoin="round"/>
+  <text x="268" y="614" text-anchor="end" font-family="Inter,sans-serif" font-weight="600" font-size="11" letter-spacing="0.4" fill="#123A4E">PROG</text>
+  <rect id="vol+" x="26" y="626" width="72" height="42" rx="21.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <text x="62.0" y="654.92" text-anchor="middle" font-family="Inter,sans-serif" font-weight="400" font-size="22" fill="#123A4E">+</text>
+  <rect id="vol-" x="26" y="674" width="72" height="42" rx="21.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <text x="62.0" y="702.92" text-anchor="middle" font-family="Inter,sans-serif" font-weight="400" font-size="22" fill="#123A4E">−</text>
+  <rect id="prog+" x="202" y="626" width="72" height="42" rx="21.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <text x="238.0" y="654.92" text-anchor="middle" font-family="Inter,sans-serif" font-weight="400" font-size="22" fill="#123A4E">+</text>
+  <rect id="prog-" x="202" y="674" width="72" height="42" rx="21.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <text x="238.0" y="702.92" text-anchor="middle" font-family="Inter,sans-serif" font-weight="400" font-size="22" fill="#123A4E">−</text>
+  <rect id="jump" x="122" y="630" width="56" height="20" rx="10.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <g transform="translate(150 640)" fill="none" stroke="#123A4E" stroke-width="1.5" stroke-linecap="round"><path d="M-7 -2 a7 7 0 1 1 2 5"/><path d="M-8 -5 v4 h4"/></g>
+  <rect id="mute" x="122" y="672" width="56" height="20" rx="10.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <g transform="translate(150 682)" fill="none" stroke="#123A4E" stroke-width="1.5" stroke-linecap="round"><path d="M-9 -3 h4 l4 -4 v14 l-4 -4 h-4 z"/><path d="M3 -3 l7 7M10 -3 l-7 7"/></g>
+  <text x="28" y="730" text-anchor="start" font-family="Inter,sans-serif" font-weight="600" font-size="9" letter-spacing="0.4" fill="#123A4E">AUDIO</text>
+  <text x="272" y="730" text-anchor="end" font-family="Inter,sans-serif" font-weight="600" font-size="9" letter-spacing="0.4" fill="#123A4E">TITLE LIST</text>
+  <rect x="138" y="722" width="24" height="12" rx="2.5" fill="none" stroke="#123A4E" stroke-width="1.5"/><path d="M142 730 h8M154 730 h4" stroke="#123A4E" stroke-width="1.5" stroke-linecap="round"/>
+  <rect id="audio" x="26" y="738" width="72" height="16" rx="8.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <rect id="sub" x="122" y="738" width="56" height="16" rx="8.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <rect id="title" x="202" y="738" width="72" height="16" rx="8.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <rect id="pbrew" x="26" y="772" width="72" height="28" rx="14.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <g transform="translate(62 786)" fill="#123A4E"><path d="M0 -6 L-8 0 L0 6 Z"/><path d="M9 -6 L1 0 L9 6 Z"/></g>
+  <rect id="pbplay" x="114" y="772" width="72" height="28" rx="14.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <g transform="translate(150 786)" fill="#123A4E"><path d="M-5 -7 L8 0 L-5 7 Z"/></g>
+  <rect id="pbff" x="202" y="772" width="72" height="28" rx="14.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <g transform="translate(238 786)" fill="#123A4E"><path d="M0 -6 L8 0 L0 6 Z"/><path d="M-9 -6 L-1 0 L-9 6 Z"/></g>
+  <rect id="pbprev" x="26" y="812" width="72" height="28" rx="14.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <g transform="translate(62 826)" fill="#123A4E"><rect x="-10" y="-6" width="2.6" height="12"/><path d="M8 -6 L-2 0 L8 6 Z"/></g>
+  <rect id="pbpause" x="114" y="812" width="72" height="28" rx="14.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <g transform="translate(150 826)" fill="#123A4E"><rect x="-6" y="-6" width="4" height="12"/><rect x="2" y="-6" width="4" height="12"/></g>
+  <rect id="pbnext" x="202" y="812" width="72" height="28" rx="14.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <g transform="translate(238 826)" fill="#123A4E"><rect x="7.4" y="-6" width="2.6" height="12"/><path d="M-8 -6 L2 0 L-8 6 Z"/></g>
+  <rect id="pbrec" x="26" y="852" width="72" height="28" rx="14.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <g transform="translate(62 866)" fill="#D14343"><circle r="7"/></g>
+  <rect id="pbstop" x="114" y="852" width="72" height="28" rx="14.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <g transform="translate(150 866)" fill="#123A4E"><rect x="-6" y="-6" width="12" height="12" rx="1"/></g>
+  <rect id="pbgrid" x="202" y="852" width="72" height="28" rx="14.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
+  <g transform="translate(238 866)" fill="none" stroke="#123A4E" stroke-width="1.6"><rect x="-9" y="-7" width="18" height="14" rx="2"/><path d="M-9 -2h18M-9 3h18M-3 -7v14M3 -7v14"/></g>
+  <text x="30" y="848" text-anchor="start" font-family="Inter,sans-serif" font-weight="600" font-size="8" letter-spacing="0.4" fill="#D14343">REC</text>
+  <path d="M100 968 H200" stroke="#123A4E" stroke-width="1.4" opacity="0.5"/>
+  <text x="150" y="994" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="13" fill="#123A4E">TV</text>
+  <text x="150" y="1014" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="10" letter-spacing="0.5" fill="#7C8B93">RMT-TX102D</text>
+</svg>

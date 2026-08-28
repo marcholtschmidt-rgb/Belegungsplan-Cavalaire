@@ -5,9 +5,9 @@
   <rect id="oval" x="80" y="30" width="110" height="20" rx="10.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
   <circle id="power" cx="248" cy="42" r="21" fill="none" stroke="#123A4E" stroke-width="2"/>
   <g transform="translate(248 42)"><path d="M0 -9 V-1" stroke="#123A4E" stroke-width="2" stroke-linecap="round"/><path d="M-6 -6 A 8.5 8.5 0 1 0 6 -6" fill="none" stroke="#123A4E" stroke-width="2" stroke-linecap="round"/></g>
-  <text x="30" y="70" text-anchor="start" font-family="Inter,sans-serif" font-weight="600" font-size="7.5" letter-spacing="0.4" fill="#123A4E">DIGITAL/</text>
-  <text x="30" y="80" text-anchor="start" font-family="Inter,sans-serif" font-weight="600" font-size="7.5" letter-spacing="0.4" fill="#123A4E">ANALOG</text>
-  <text x="268" y="70" text-anchor="end" font-family="Inter,sans-serif" font-weight="600" font-size="7.5" letter-spacing="0.4" fill="#123A4E">SYNCMENU</text>
+  <text x="30" y="72" text-anchor="start" font-family="Inter,sans-serif" font-weight="600" font-size="10" letter-spacing="0.4" fill="#123A4E">DIGITAL/</text>
+  <text x="30" y="84" text-anchor="start" font-family="Inter,sans-serif" font-weight="600" font-size="10" letter-spacing="0.4" fill="#123A4E">ANALOG</text>
+  <text x="248" y="78" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="10" letter-spacing="0.4" fill="#123A4E">SYNC MENU</text>
   <rect id="bar" x="30" y="86" width="236" height="16" rx="8.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
   <rect id="k1" x="26" y="116" width="72" height="34" rx="17.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
   <text x="62.0" y="139.12" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="17" fill="#123A4E">1</text>
@@ -54,13 +54,13 @@
   <g transform="translate(188 470) rotate(90)"><path d="M0 -5 L5 3 L-5 3 Z" fill="#123A4E"/></g>
   <circle id="ok" cx="150" cy="470" r="26" fill="none" stroke="#123A4E" stroke-width="2"/>
   <g stroke="#123A4E" stroke-width="2" stroke-linecap="round"><path d="M141 470 h18M150 461 v18"/></g>
-  <text transform="translate(56 436) rotate(-70)" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="9" letter-spacing="0.5" fill="#123A4E">SLEEP</text>
-  <text transform="translate(244 436) rotate(70)" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="9" letter-spacing="0.5" fill="#123A4E">GUIDE</text>
-  <text transform="translate(56 516) rotate(-110)" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="9" letter-spacing="0.5" fill="#123A4E">RETURN</text>
-  <text transform="translate(244 516) rotate(110)" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="9" letter-spacing="0.5" fill="#123A4E">OPTIONS</text>
+  <text transform="translate(105 426) rotate(-45)" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="8.5" letter-spacing="0.3" fill="#123A4E">SLEEP</text>
+  <text transform="translate(195 426) rotate(45)" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="8.5" letter-spacing="0.3" fill="#123A4E">GUIDE</text>
+  <text transform="translate(104 517) rotate(45)" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="8.5" letter-spacing="0.3" fill="#123A4E">RETURN</text>
+  <text transform="translate(196 517) rotate(-45)" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="8.5" letter-spacing="0.3" fill="#123A4E">OPTIONS</text>
   <rect id="home" x="104" y="556" width="92" height="26" rx="13" fill="#FFFDF9" stroke="#123A4E" stroke-width="1.8"/>
   <text x="150" y="574" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="13" fill="#123A4E">HOME</text>
-  <path d="M32 616 l16 -10 v20 z" fill="none" stroke="#123A4E" stroke-width="1.8" stroke-linejoin="round"/>
+  <path d="M28 620 L54 602 L54 620 Z" fill="none" stroke="#123A4E" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
   <text x="268" y="614" text-anchor="end" font-family="Inter,sans-serif" font-weight="600" font-size="11" letter-spacing="0.4" fill="#123A4E">PROG</text>
   <rect id="vol+" x="26" y="626" width="72" height="42" rx="21.0" fill="none" stroke="#123A4E" stroke-width="1.6"/>
   <text x="62.0" y="654.92" text-anchor="middle" font-family="Inter,sans-serif" font-weight="400" font-size="22" fill="#123A4E">+</text>

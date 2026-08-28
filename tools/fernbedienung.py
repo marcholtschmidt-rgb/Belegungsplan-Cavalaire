@@ -22,8 +22,8 @@ def bau(hervor=()):
     pill("oval", 80, 30, 110, 20)
     o.append(f'<circle id="power" cx="248" cy="42" r="21" fill="{TEAL if "power" in h else "none"}" stroke="{INK}" stroke-width="2"/>')
     o.append(f'<g transform="translate(248 42)"><path d="M0 -9 V-1" stroke="{CREAM if "power" in h else INK}" stroke-width="2" stroke-linecap="round"/><path d="M-6 -6 A 8.5 8.5 0 1 0 6 -6" fill="none" stroke="{CREAM if "power" in h else INK}" stroke-width="2" stroke-linecap="round"/></g>')
-    lab(30, 70, "DIGITAL/"); lab(30, 80, "ANALOG")
-    lab(268, 70, "SYNCMENU", anchor="end")
+    lab(30, 72, "DIGITAL/", fs=10); lab(30, 84, "ANALOG", fs=10)
+    lab(248, 78, "SYNC MENU", fs=10, anchor="middle")
     pill("bar", 30, 86, 236, 16)
 
     # Zifferntasten
@@ -54,14 +54,16 @@ def bau(hervor=()):
         o.append(f'<g transform="translate({cx+dx} {cy+dy}) rotate({rot})"><path d="M0 -5 L5 3 L-5 3 Z" fill="{c}"/></g>')
     o.append(f'<circle id="ok" cx="{cx}" cy="{cy}" r="26" fill="{fill("ok")}" stroke="{INK}" stroke-width="2"/>')
     o.append(f'<g stroke="{ink("ok")}" stroke-width="2" stroke-linecap="round"><path d="M{cx-9} {cy} h18M{cx} {cy-9} v18"/></g>')
-    for t, x, y, rot, anchor in (("SLEEP",56,436,-70,"middle"), ("GUIDE",244,436,70,"middle"),
-                                 ("RETURN",56,516,-110,"middle"), ("OPTIONS",244,516,110,"middle")):
-        o.append(f'<text transform="translate({x} {y}) rotate({rot})" text-anchor="{anchor}" font-family="Inter,sans-serif" font-weight="600" font-size="9" letter-spacing="0.5" fill="{INK}">{t}</text>')
+    # Die vier Tasten liegen im Ring zwischen innerem und aeusserem Kreis
+    for t, x, y, rot in (("SLEEP", 105, 426, -45), ("GUIDE", 195, 426, 45),
+                         ("RETURN", 104, 517, 45), ("OPTIONS", 196, 517, -45)):
+        o.append(f'<text transform="translate({x} {y}) rotate({rot})" text-anchor="middle" '
+                 f'font-family="Inter,sans-serif" font-weight="600" font-size="8.5" letter-spacing="0.3" fill="{INK}">{t}</text>')
     o.append(f'<rect id="home" x="104" y="556" width="92" height="26" rx="13" fill="{SAGE if "home" in h else CREAM}" stroke="{INK}" stroke-width="1.8"/>')
     o.append(f'<text x="150" y="574" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="13" fill="{INK}">HOME</text>')
 
     # Lautstärke und Programm
-    o.append(f'<path d="M32 616 l16 -10 v20 z" fill="none" stroke="{INK}" stroke-width="1.8" stroke-linejoin="round"/>')
+    o.append(f'<path d="M28 620 L54 602 L54 620 Z" fill="none" stroke="{INK}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>')
     lab(268, 614, "PROG", fs=11, anchor="end")
     for bid, x, y, t in (("vol+",26,626,"+"), ("vol-",26,674,"−"), ("prog+",202,626,"+"), ("prog-",202,674,"−")):
         pill(bid, x, y, 72, 42, t, fs=22, weight="400")

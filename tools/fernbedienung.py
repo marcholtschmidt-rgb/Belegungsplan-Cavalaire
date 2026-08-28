@@ -22,9 +22,10 @@ def bau(hervor=()):
     pill("oval", 80, 30, 110, 20)
     o.append(f'<circle id="power" cx="248" cy="42" r="21" fill="{TEAL if "power" in h else "none"}" stroke="{INK}" stroke-width="2"/>')
     o.append(f'<g transform="translate(248 42)"><path d="M0 -9 V-1" stroke="{CREAM if "power" in h else INK}" stroke-width="2" stroke-linecap="round"/><path d="M-6 -6 A 8.5 8.5 0 1 0 6 -6" fill="none" stroke="{CREAM if "power" in h else INK}" stroke-width="2" stroke-linecap="round"/></g>')
-    lab(30, 72, "DIGITAL/", fs=10); lab(30, 84, "ANALOG", fs=10)
-    lab(248, 78, "SYNC MENU", fs=10, anchor="middle")
-    pill("bar", 30, 86, 236, 16)
+    lab(30, 68, "DIGITAL/", fs=10); lab(30, 79, "ANALOG", fs=10)
+    lab(248, 76, "SYNC MENU", fs=10, anchor="middle")
+    pill("digital", 30, 84, 40, 20)
+    pill("sync", 228, 84, 40, 20)
 
     # Zifferntasten
     zahlen = [("1","2","3"), ("4","5","6"), ("7","8","9"), ("EXIT","0","TXT")]
@@ -63,8 +64,8 @@ def bau(hervor=()):
     o.append(f'<text x="150" y="574" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="13" fill="{INK}">HOME</text>')
 
     # Lautstärke und Programm
-    o.append(f'<path d="M28 620 L54 602 L54 620 Z" fill="none" stroke="{INK}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>')
-    lab(268, 614, "PROG", fs=11, anchor="end")
+    o.append(f'<path d="M49 620 L75 602 L75 620 Z" fill="none" stroke="{INK}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>')
+    lab(238, 614, "PROG", fs=11, anchor="middle")
     for bid, x, y, t in (("vol+",26,626,"+"), ("vol-",26,674,"−"), ("prog+",202,626,"+"), ("prog-",202,674,"−")):
         pill(bid, x, y, 72, 42, t, fs=22, weight="400")
     pill("jump", 122, 630, 56, 20)

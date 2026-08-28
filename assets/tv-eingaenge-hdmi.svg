@@ -1,0 +1,44 @@
+<svg viewBox="0 0 600 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Eingangsmenü des Fernsehers, HDMI 1 / ARC ist ausgewählt">
+  <defs>
+    <g id="tuner">
+      <rect x="1.5" y="6" width="15" height="13" rx="2.5" fill="none" stroke="#123A4E" stroke-width="1.9"/>
+      <path d="M17 8.5a5 5 0 0 1 4.6 4.4M17.6 4.2a9 9 0 0 1 8.2 8" fill="none" stroke="#123A4E" stroke-width="1.9" stroke-linecap="round"/>
+    </g>
+  </defs>
+  <rect width="600" height="420" rx="10" fill="#FFFDF9"/>
+  <rect x="40" y="26" width="520" height="368" rx="5" fill="none" stroke="#123A4E" stroke-width="2.4"/>
+  <text x="72" y="72" font-family="Fraunces,Georgia,serif" font-weight="600" font-size="27" fill="#123A4E">Eingänge</text>
+  <path d="M56 92 H544" stroke="#123A4E" stroke-width="2"/>
+  <g font-family="Inter,'Segoe UI',sans-serif" font-size="21" fill="#123A4E">
+    <g transform="translate(84 106)"><use href="#tuner"/><text x="8" y="17" font-size="9" font-weight="600" fill="#123A4E">D</text></g>
+    <text x="150" y="130">Digital</text>
+    <path d="M84 145 H516" stroke="#E7DFCF" stroke-width="1.6"/>
+
+    <g transform="translate(84 155)"><use href="#tuner"/><text x="8" y="17" font-size="9" font-weight="600" fill="#123A4E">A</text></g>
+    <text x="150" y="179">Analog</text>
+    <path d="M84 194 H516" stroke="#E7DFCF" stroke-width="1.6"/>
+
+    <g transform="translate(84 204)">
+      <rect x="1.5" y="7" width="21" height="11" rx="2.5" fill="none" stroke="#123A4E" stroke-width="1.9"/>
+      <g stroke="#123A4E" stroke-width="1.6"><path d="M6 10v5M9 10v5M12 10v5M15 10v5M18 10v5"/></g>
+    </g>
+    <text x="150" y="228">AV</text>
+    <path d="M84 243 H516" stroke="#E7DFCF" stroke-width="1.6"/>
+
+    <rect x="66" y="246" width="468" height="46" rx="6" fill="#123A4E"/>
+    <g transform="translate(84 253)"><path d="M3 9h18a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H7l-4-3z" fill="none" stroke="#FFFDF9" stroke-width="1.9" stroke-linejoin="round"/></g>
+    <text x="150" y="277" font-weight="600" fill="#FFFDF9">HDMI 1 / ARC</text>
+    
+
+    
+    <g transform="translate(84 302)"><path d="M3 9h18a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H7l-4-3z" fill="none" stroke="#123A4E" stroke-width="1.9" stroke-linejoin="round"/></g>
+    <text x="150" y="326">SATELIT</text>
+    <path d="M84 341 H516" stroke="#E7DFCF" stroke-width="1.6"/>
+
+    <g transform="translate(84 351)">
+      <rect x="1.5" y="4" width="15" height="11" rx="2" fill="none" stroke="#123A4E" stroke-width="1.9"/>
+      <rect x="10" y="10" width="12.5" height="9" rx="2" fill="#FFFDF9" stroke="#123A4E" stroke-width="1.9"/>
+    </g>
+    <text x="150" y="375">Bildschirm spiegeln</text>
+  </g>
+</svg>

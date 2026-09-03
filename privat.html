@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Persönlich</title>
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="icon-192-v2.png" />
+<link rel="apple-touch-icon" href="icon-192-v2.png" />
+<meta name="theme-color" content="#123A4E" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" />
+<style>
+:root{--bg:#F5EFE3;--ink:#123A4E;--teal:#2F8F86;--mute:#7C8B93;--line:#E7DFCF;--koralle:#D97748}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+body{margin:0;min-height:100vh;background:var(--bg);font-family:'Inter',system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:24px}
+a{color:var(--teal);text-decoration:none}
+a:hover{color:var(--ink)}
+.navbtns{position:fixed;top:calc(env(safe-area-inset-top,0px) + 16px);right:20px;display:flex;gap:10px;z-index:50}
+.icon-toggle{width:44px;height:44px;border-radius:999px;background:#FFFDF9;border:1.5px solid var(--line);display:grid;place-items:center;color:var(--ink);box-shadow:0 2px 10px rgba(18,58,78,.14)}
+.icon-toggle:hover{background:var(--bg)}
+.wrap{max-width:480px;margin:0 auto;display:flex;flex-direction:column;gap:18px;padding-top:56px}
+h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:2rem;margin:0;text-align:center}
+.karte{padding:24px;border:1px solid var(--line);border-radius:16px;background:radial-gradient(120% 90% at 100% 0%, rgba(47,143,134,0.09) 0%, rgba(47,143,134,0) 55%), linear-gradient(165deg, #FFFDF9 0%, #FAF2E4 100%);display:flex;flex-direction:column;gap:14px}
+.feld{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:#FFFDF9;font:inherit;font-family:'IBM Plex Mono',monospace;color:var(--ink)}
+.knopf{padding:12px 18px;border:0;border-radius:999px;background:var(--ink);color:#FFFDF9;font:inherit;font-weight:600;cursor:pointer}
+.knopf:disabled{opacity:.5;cursor:default}
+.fehler{margin:0;font-size:0.9rem;color:var(--koralle)}
+.text{margin:0;font-size:0.94rem;line-height:1.6;text-wrap:pretty}
+.mute{color:var(--mute)}
+.info-section{display:flex;flex-direction:column;gap:16px;margin-top:8px}
+.info-section h2{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.5rem;margin:0}
+.warnung{padding:14px 16px;border:1px solid var(--koralle);border-left-width:4px;border-radius:10px;background:#FFFDF9}
+.warnung p{margin:0;font-size:0.88rem;line-height:1.55}
+.galerie{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.galerie figure{margin:0;display:flex;flex-direction:column;gap:6px}
+.galerie img{width:100%;height:auto;border-radius:10px;border:1px solid var(--line);display:block}
+.galerie figcaption{font-size:0.8rem;line-height:1.45;color:var(--mute)}
+.platzhalter{display:grid;place-items:center;min-height:120px;border:1px dashed #C9BFA8;border-radius:10px;background:var(--bg);padding:16px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:0.75rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--mute)}
+ul.liste{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:0.94rem;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="navbtns">
+  <a href="maison.html" class="icon-toggle" aria-label="Zurück zu Maison" title="Zurück zu Maison">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+  </a>
+  <a href="index.html" class="icon-toggle" aria-label="Startseite" title="Startseite">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5"/><path d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10"/></svg>
+  </a>
+</div>
+
+<div class="wrap">
+  <h1>Persönlich</h1>
+
+  <div class="karte" id="tor">
+    <p class="text mute">Dieser Bereich ist mit dem Admin-PIN geschützt.</p>
+    <input class="feld" id="pin" type="password" inputmode="numeric" placeholder="PIN" autocomplete="current-password" />
+    <button class="knopf" id="oeffnen">Öffnen</button>
+    <p class="fehler" id="fehler" hidden>Falscher PIN.</p>
+  </div>
+
+  <div id="inhalt" hidden>
+    <div class="warnung">
+      <p><strong>Nicht für Vertrauliches.</strong> Diese Seite liegt im öffentlichen Repository und wird von Hostinger ausgeliefert. Der PIN verhindert, dass jemand zufällig darüber stolpert – er verhindert nicht, dass jemand die Adresse direkt aufruft oder in den Quelltext schaut. Keine Passwörter, Zugangsdaten oder persönlichen Daten Dritter hier ablegen.</p>
+    </div>
+
+    <div class="info-section">
+      <h2>Im Haus gelassen</h2>
+      <div class="karte">
+        <p class="text">Was in Cavalaire bleibt und nicht wieder mit nach Hause muss.</p>
+        <ul class="liste">
+          <li>3 × Matelas (Strandmatten)</li>
+          <li>3 × Flipflops</li>
+          <li>1 × Pareo</li>
+          <li>1 × Tunika (marine)</li>
+          <li>1 × Poncho, Strand</li>
+          <li>1 × Strandtasche, bunt</li>
+          <li>1 × Strandtäschchen mit Perlen</li>
+          <li>1 × Strandportemonnaie, rosa</li>
+        </ul>
+        <div class="galerie">
+          <figure><div class="platzhalter">Foto folgt<br>Stapel auf dem Bett</div></figure>
+          <figure><div class="platzhalter">Foto folgt<br>Täschchen mit Perlen</div></figure>
+          <figure><div class="platzhalter">Foto folgt<br>Handschriftliche Liste</div></figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL = "https://rtfpduqyrarktmxaiise.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ0ZnBkdXF5cmFya3RteGFpaXNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYyODU2MTcsImV4cCI6MjEwMTg2MTYxN30.-0S-ysuAG3z4T5xueWgzSg1UGjbxL5SjJ2dyQM_kiY4";
+const tor = document.getElementById("tor");
+const inhalt = document.getElementById("inhalt");
+const feld = document.getElementById("pin");
+const knopf = document.getElementById("oeffnen");
+const fehler = document.getElementById("fehler");
+
+async function oeffnen() {
+  const pin = feld.value.trim();
+  if (!pin) return;
+  knopf.disabled = true;
+  fehler.hidden = true;
+  try {
+    // Die Pruefung macht die Datenbank; der PIN steht nicht in dieser Datei.
+    const r = await fetch(`${SUPABASE_URL}/rest/v1/rpc/owner_list_all`, {
+      method: "POST",
+      headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ pin }),
+    });
+    if (!r.ok) throw new Error("abgelehnt");
+    tor.hidden = true;
+    inhalt.hidden = false;
+  } catch (e) {
+    fehler.hidden = false;
+    feld.value = "";
+    feld.focus();
+  } finally {
+    knopf.disabled = false;
+  }
+}
+knopf.addEventListener("click", oeffnen);
+feld.addEventListener("keydown", (e) => { if (e.key === "Enter") oeffnen(); });
+</script>
+</body>
+</html>

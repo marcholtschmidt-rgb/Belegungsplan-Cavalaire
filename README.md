@@ -197,6 +197,14 @@ Der PIN steht bewusst nicht in dieser Datei – siehe `CLAUDE.md`.
 
 Nach jedem Deployment die PWA auf dem Smartphone **komplett schließen und neu öffnen**, sonst bleibt der alte Stand im Cache.
 
+## Supabase wach halten
+
+Supabase pausiert Projekte im Free-Tarif, wenn sie über sieben Tage zu wenig Datenbankaktivität zeigen. Der Belegungsplan würde dann keine Buchungen mehr laden und der persönliche Bereich sich nicht mehr entsperren, bis das Projekt im Dashboard wieder aufgeweckt wird (möglich bis 90 Tage danach, ohne Datenverlust).
+
+Dagegen läuft `.github/workflows/supabase-wachhalten.yml`: täglich um 06:17 UTC ein Aufruf von `pending_count()` über die REST-Schnittstelle. Das zählt als Nutzeranfrage und genügt. Antwortet die Datenbank nicht mit 200, schlägt der Ablauf fehl und GitHub schickt eine Mail – ein bereits pausiertes Projekt fällt so auf. Der Ablauf lässt sich unter *Actions* auch von Hand starten.
+
+**Ein Haken:** GitHub schaltet geplante Abläufe ab, wenn ein Repository 60 Tage ohne Aktivität bleibt, und meldet das per Mail. Wird hier längere Zeit nichts committet, muss der Ablauf unter *Actions* wieder eingeschaltet werden.
+
 ## Bekannte Einschränkungen
 
 - Der PIN wird im Klartext in einer Datenbankfunktion verglichen – ausreichend für einen privaten Familienkalender, kein Hochsicherheitsstandard

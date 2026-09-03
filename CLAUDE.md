@@ -64,6 +64,10 @@ Diese Punkte sind bewusst so entschieden – nicht ungefragt ändern:
   automatisch oeffentlich lesbar - sie muss einzeln freigegeben
   werden, und der Kalender fragt in `belegung.html` bewusst einzelne
   Spalten statt `select=*` ab.
+- **Das Supabase-Projekt wird wach gehalten.** Der Free-Tarif
+  pausiert nach sieben ruhigen Tagen;
+  `.github/workflows/supabase-wachhalten.yml` stellt deshalb taeglich
+  eine Anfrage. Nicht als "unnoetige Automatik" entfernen.
 - **Keine eigene Domain.** Der Hinweis in hPanel ist bekannt; die
   `hostingersite.com`-Adresse genügt vorerst.
 

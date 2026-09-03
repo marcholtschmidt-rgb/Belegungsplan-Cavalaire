@@ -70,7 +70,19 @@ ul.liste{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;f
       <p><strong>Inhalte liegen in der Datenbank.</strong> Sie stehen nicht im Repository und nicht auf dem Webserver – ohne richtigen PIN gibt die Datenbank nichts heraus. Zwei Reste bleiben: Der PIN ist in der Git-Historie auffindbar, und die drei Fotos waren vorher im Repository, sind dort also weiterhin in alten Ständen enthalten.</p>
     </div>
 
-    <div id="eintraege"></div></div>
+    <div id="eintraege"></div>
+
+    <div class="info-section" style="margin-top:24px">
+      <h2>PIN ändern</h2>
+      <div class="karte">
+        <p class="text mute">Der PIN gilt für den Admin-Bereich des Belegungsplans und für diese Seite. Die Datenbank speichert nur einen Hash – niemand kann ihn auslesen, auch ich nicht.</p>
+        <input class="feld" id="neu1" type="password" placeholder="Neuer PIN, mindestens 6 Zeichen" autocomplete="new-password" />
+        <input class="feld" id="neu2" type="password" placeholder="Neuer PIN wiederholen" autocomplete="new-password" />
+        <button class="knopf" id="pinAendern">PIN ändern</button>
+        <p class="fehler" id="pinFehler" hidden></p>
+        <p class="text" id="pinOk" hidden style="color:var(--teal)">PIN geändert. Beim nächsten Öffnen gilt der neue.</p>
+      </div>
+    </div></div>
 </div>
 
 <script>
@@ -161,6 +173,35 @@ async function oeffnen() {
     knopf.disabled = false;
   }
 }
+const neu1 = document.getElementById("neu1");
+const neu2 = document.getElementById("neu2");
+const pinKnopf = document.getElementById("pinAendern");
+const pinFehler = document.getElementById("pinFehler");
+const pinOk = document.getElementById("pinOk");
+
+async function pinAendern() {
+  pinFehler.hidden = true;
+  pinOk.hidden = true;
+  const a = neu1.value.trim(), b = neu2.value.trim();
+  if (a.length < 6) { pinFehler.textContent = "Mindestens 6 Zeichen."; pinFehler.hidden = false; return; }
+  if (a !== b)      { pinFehler.textContent = "Die beiden Eingaben stimmen nicht überein."; pinFehler.hidden = false; return; }
+  pinKnopf.disabled = true;
+  try {
+    const r = await rpc("owner_set_pin", { alt: pinImSpeicher, neu: a });
+    if (!r.ok) throw new Error("abgelehnt");
+    pinImSpeicher = a;          // damit Fotos weiter nachgeladen werden koennen
+    neu1.value = ""; neu2.value = "";
+    pinOk.hidden = false;
+  } catch (e) {
+    pinFehler.textContent = "Ändern fehlgeschlagen. Noch einmal versuchen.";
+    pinFehler.hidden = false;
+  } finally {
+    pinKnopf.disabled = false;
+  }
+}
+pinKnopf.addEventListener("click", pinAendern);
+neu2.addEventListener("keydown", (e) => { if (e.key === "Enter") pinAendern(); });
+
 knopf.addEventListener("click", oeffnen);
 feld.addEventListener("keydown", (e) => { if (e.key === "Enter") oeffnen(); });
 </script>

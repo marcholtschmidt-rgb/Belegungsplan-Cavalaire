@@ -41,11 +41,16 @@ Diese Punkte sind bewusst so entschieden – nicht ungefragt ändern:
   verworfen: Der Supabase-Anon-Key ist ohnehin im Seitenquelltext
   sichtbar (so vorgesehen, geschützt wird über Row Level Security), und
   der Aufwand mit Deploy Keys in hPanel lohnt den Nutzen nicht.
-- **Der Admin-PIN bleibt unverändert.** Er stand vom 17.08. bis
-  26.08.2026 in `README.md` auf `main` und ist daher in der
-  Commit-Historie weiterhin auffindbar. Der Eigentümer hat das
-  abgewogen und akzeptiert. Nicht erneut aufwerfen; auf Wunsch ist der
-  Wechsel in den `owner_*`-Funktionen schnell gemacht.
+- **Der PIN liegt nur als bcrypt-Hash in der Datenbank.** Tabelle
+  `owner_geheim`, fuer `anon` gesperrt; geprueft wird an einer
+  einzigen Stelle in `owner_pin_ok()`, die alle `owner_*`-Funktionen
+  benutzen. Er steht in keiner Funktionsdefinition, keiner Datei und
+  keinem Chat. Geaendert wird er vom Eigentuemer selbst ueber das
+  Formular im persoenlichen Bereich (`owner_set_pin`, mindestens
+  sechs Zeichen). **Claude kennt den PIN nicht und soll ihn auch nicht
+  erfragen.** Der frueher genutzte vierstellige PIN steht bis zum
+  26.08.2026 in der Commit-Historie; nach dem ersten Wechsel ist er
+  wertlos.
 - **Der PIN gehört nicht in Dateien im Repo.** `server.js` liefert
   deshalb keine `.md`-Dateien mehr aus (404).
 - **`assets/aussicht-360.jpg`, `terrasse-360.jpg`, `-v2`, `-v3`

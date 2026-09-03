@@ -189,7 +189,17 @@ Weil die Leserechte namentlich vergeben sind, ist **eine später ergänzte Spalt
 | `owner_update_booking(booking_id, pin, p_guest_name, p_category, p_start_date, p_end_date, p_notes)` | Buchung bearbeiten |
 | `owner_delete_booking(booking_id, pin)` | Buchung löschen |
 
-Der PIN steht bewusst nicht in dieser Datei – siehe `CLAUDE.md`.
+| `owner_list_privat(pin)` | Notizen und Bildbeschreibungen des persönlichen Bereichs |
+| `owner_get_privat_foto(pin, foto_id)` | ein einzelnes Foto als Base64 |
+| `owner_set_pin(alt, neu)` | setzt den PIN neu, mindestens sechs Zeichen |
+
+### Persönlicher Bereich und PIN
+
+`privat.html` ist über das Zahnrad auf der Maison-Seite erreichbar. Die Inhalte – Notizen in `privat_eintraege`, Fotos als Bytes in `privat_fotos` – liegen **nicht** im Repository und **nicht** auf dem Webserver. Beide Tabellen haben RLS aktiv, keine Policies und keine Rechte für `anon`; heraus kommt nur etwas über die beiden `owner_*`-Funktionen, die den PIN prüfen. Auch das Nachladen eines einzelnen Fotos prüft ihn erneut.
+
+Der PIN selbst liegt als **bcrypt-Hash** in `owner_geheim` (für `anon` gesperrt) und wird an einer einzigen Stelle geprüft, in `owner_pin_ok()`. Aus dem Hash lässt er sich nicht zurückrechnen, und jede Prüfung kostet Rechenzeit – Durchprobieren wird dadurch unattraktiv.
+
+**Geändert wird der PIN im Browser**, über das Formular im persönlichen Bereich. So taucht er weder in einer Datei noch in einem SQL-Verlauf noch in einem Chat auf. Wer den PIN setzt, ist der Einzige, der ihn kennt.
 
 ## Deployment
 

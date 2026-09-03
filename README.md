@@ -199,6 +199,8 @@ Weil die Leserechte namentlich vergeben sind, ist **eine später ergänzte Spalt
 
 Der PIN selbst liegt als **bcrypt-Hash** in `owner_geheim` (für `anon` gesperrt) und wird an einer einzigen Stelle geprüft, in `owner_pin_ok()`. Aus dem Hash lässt er sich nicht zurückrechnen, und jede Prüfung kostet Rechenzeit – Durchprobieren wird dadurch unattraktiv.
 
+**Achtung bei Änderungen an den `owner_*`-Funktionen:** Supabase sperrt für seine Webschnittstellen-Rollen `UPDATE` und `DELETE` ohne `WHERE`-Bedingung. Über eine direkte Datenbankverbindung greift die Sperre nicht – ein solcher Fehler fällt deshalb erst im Browser auf, mit der Meldung „UPDATE requires a WHERE clause". Jede schreibende Anweisung braucht eine `WHERE`-Bedingung, auch bei Tabellen mit nur einer Zeile.
+
 **Geändert wird der PIN im Browser**, über das Formular im persönlichen Bereich. So taucht er weder in einer Datei noch in einem SQL-Verlauf noch in einem Chat auf. Wer den PIN setzt, ist der Einzige, der ihn kennt.
 
 ## Deployment

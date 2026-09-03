@@ -1,0 +1,45 @@
+# Haelt das Supabase-Projekt wach.
+#
+# Supabase pausiert Projekte im Free-Tarif, wenn sie sieben Tage lang zu
+# wenig Datenbankaktivitaet zeigen. Passiert das, laedt der Belegungsplan
+# keine Buchungen mehr, bis das Projekt im Supabase-Dashboard wieder
+# aufgeweckt wird. Dieser Ablauf stellt einmal taeglich eine echte
+# Anfrage und verhindert das.
+#
+# Der verwendete Schluessel ist der oeffentliche Anon-Key, der ohnehin im
+# Quelltext von belegung.html steht. Er ist kein Geheimnis.
+
+name: Supabase wachhalten
+
+on:
+  schedule:
+    - cron: "17 6 * * *"   # taeglich 06:17 UTC
+  workflow_dispatch:        # laesst sich auch von Hand ausloesen
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Anfrage an die Datenbank
+        env:
+          URL: https://rtfpduqyrarktmxaiise.supabase.co
+          ANON: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ0ZnBkdXF5cmFya3RteGFpaXNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYyODU2MTcsImV4cCI6MjEwMTg2MTYxN30.-0S-ysuAG3z4T5xueWgzSg1UGjbxL5SjJ2dyQM_kiY4
+        run: |
+          set -euo pipefail
+          antwort=$(curl -sS -w '\n%{http_code}' -X POST \
+            "$URL/rest/v1/rpc/pending_count" \
+            -H "apikey: $ANON" \
+            -H "Authorization: Bearer $ANON" \
+            -H "Content-Type: application/json" \
+            -d '{}')
+          code=$(printf '%s' "$antwort" | tail -n1)
+          inhalt=$(printf '%s' "$antwort" | sed '$d')
+
+          if [ "$code" != "200" ]; then
+            echo "Datenbank antwortet nicht wie erwartet: HTTP $code"
+            echo "$inhalt"
+            echo "Moeglicherweise ist das Projekt bereits pausiert –" \
+                 "im Supabase-Dashboard nachsehen und aufwecken."
+            exit 1
+          fi
+          echo "Datenbank erreichbar. Offene Anfragen: $inhalt"

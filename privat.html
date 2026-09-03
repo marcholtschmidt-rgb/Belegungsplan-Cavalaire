@@ -34,8 +34,9 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:2rem;margin:0;
 .mute{color:var(--mute)}
 .info-section{display:flex;flex-direction:column;gap:16px;margin-top:8px}
 .info-section h2{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.5rem;margin:0}
-.warnung{padding:14px 16px;border:1px solid var(--koralle);border-left-width:4px;border-radius:10px;background:#FFFDF9}
-.warnung p{margin:0;font-size:0.88rem;line-height:1.55}
+.hinweis{padding:14px 16px;border:1px solid var(--line);border-left:4px solid var(--teal);border-radius:10px;background:#FFFDF9;margin-bottom:18px}
+.hinweis p{margin:0;font-size:0.88rem;line-height:1.55}
+.laedt{font-size:0.9rem;color:var(--mute);margin:0}
 .galerie{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
 .galerie figure{margin:0;display:flex;flex-direction:column;gap:6px}
 .galerie img{width:100%;height:auto;border-radius:10px;border:1px solid var(--line);display:block}
@@ -65,42 +66,79 @@ ul.liste{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;f
   </div>
 
   <div id="inhalt" hidden>
-    <div class="warnung">
-      <p><strong>Nicht für Vertrauliches.</strong> Diese Seite liegt im öffentlichen Repository und wird von Hostinger ausgeliefert. Der PIN verhindert, dass jemand zufällig darüber stolpert – er verhindert nicht, dass jemand die Adresse direkt aufruft oder in den Quelltext schaut. Keine Passwörter, Zugangsdaten oder persönlichen Daten Dritter hier ablegen.</p>
+    <div class="hinweis">
+      <p><strong>Inhalte liegen in der Datenbank.</strong> Sie stehen nicht im Repository und nicht auf dem Webserver – ohne richtigen PIN gibt die Datenbank nichts heraus. Zwei Reste bleiben: Der PIN ist in der Git-Historie auffindbar, und die drei Fotos waren vorher im Repository, sind dort also weiterhin in alten Ständen enthalten.</p>
     </div>
 
-    <div class="info-section">
-      <h2>Im Haus gelassen</h2>
-      <div class="karte">
-        <p class="text">Was in Cavalaire bleibt und nicht wieder mit nach Hause muss.</p>
-        <ul class="liste">
-          <li>3 × Matelas (Strandmatten)</li>
-          <li>3 × Flipflops</li>
-          <li>1 × Pareo</li>
-          <li>1 × Tunika (marine)</li>
-          <li>1 × Poncho, Strand</li>
-          <li>1 × Strandtasche, bunt</li>
-          <li>1 × Strandtäschchen mit Perlen</li>
-          <li>1 × Strandportemonnaie, rosa</li>
-        </ul>
-        <div class="galerie">
-          <figure><a href="assets/privat-gelassen-stapel.jpg" target="_blank" rel="noopener"><img src="assets/privat-gelassen-stapel.jpg" alt="Stapel der zurückgelassenen Sachen auf dem Bett" loading="lazy" /></a><figcaption>Der Stapel auf dem Bett</figcaption></figure>
-          <figure><a href="assets/privat-gelassen-taeschchen.jpg" target="_blank" rel="noopener"><img src="assets/privat-gelassen-taeschchen.jpg" alt="Strandtäschchen mit Perlen" loading="lazy" /></a><figcaption>Strandtäschchen mit Perlen</figcaption></figure>
-          <figure><a href="assets/privat-gelassen-liste.jpg" target="_blank" rel="noopener"><img src="assets/privat-gelassen-liste.jpg" alt="Handschriftliche Liste der zurückgelassenen Sachen" loading="lazy" /></a><figcaption>Die handschriftliche Liste</figcaption></figure>
-        </div>
-      </div>
-    </div>
-  </div>
+    <div id="eintraege"></div></div>
 </div>
 
 <script>
 const SUPABASE_URL = "https://rtfpduqyrarktmxaiise.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ0ZnBkdXF5cmFya3RteGFpaXNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYyODU2MTcsImV4cCI6MjEwMTg2MTYxN30.-0S-ysuAG3z4T5xueWgzSg1UGjbxL5SjJ2dyQM_kiY4";
+const kopf = { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}`, "Content-Type": "application/json" };
+const rpc = (name, body) => fetch(`${SUPABASE_URL}/rest/v1/rpc/${name}`, { method: "POST", headers: kopf, body: JSON.stringify(body) });
+
 const tor = document.getElementById("tor");
 const inhalt = document.getElementById("inhalt");
 const feld = document.getElementById("pin");
 const knopf = document.getElementById("oeffnen");
 const fehler = document.getElementById("fehler");
+const behaelter = document.getElementById("eintraege");
+
+// Der PIN bleibt nur im Arbeitsspeicher, nicht in Local- oder SessionStorage.
+let pinImSpeicher = "";
+
+const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+// Zeilen, die mit "- " beginnen, werden zur Liste; alles andere zu Absätzen.
+function textZuHtml(text) {
+  const zeilen = String(text).split("\n");
+  let html = "", inListe = false;
+  for (const z of zeilen) {
+    const t = z.trim();
+    if (t.startsWith("- ")) {
+      if (!inListe) { html += '<ul class="liste">'; inListe = true; }
+      html += `<li>${esc(t.slice(2))}</li>`;
+    } else {
+      if (inListe) { html += "</ul>"; inListe = false; }
+      if (t) html += `<p class="text">${esc(t)}</p>`;
+    }
+  }
+  if (inListe) html += "</ul>";
+  return html;
+}
+
+async function fotoLaden(bild, id) {
+  try {
+    const r = await rpc("owner_get_privat_foto", { pin: pinImSpeicher, foto_id: id });
+    if (!r.ok) throw new Error("Foto");
+    const f = await r.json();
+    bild.src = `data:${f.mime};base64,${f.base64}`;
+    bild.closest("figure").querySelector(".laedt")?.remove();
+  } catch (e) {
+    const p = bild.closest("figure").querySelector(".laedt");
+    if (p) p.textContent = "Foto konnte nicht geladen werden.";
+  }
+}
+
+function zeichnen(daten) {
+  behaelter.innerHTML = "";
+  for (const e of daten.eintraege || []) {
+    const abschnitt = document.createElement("div");
+    abschnitt.className = "info-section";
+    abschnitt.innerHTML = `<h2>${esc(e.titel)}</h2><div class="karte">${textZuHtml(e.inhalt)}` +
+      (e.fotos && e.fotos.length
+        ? '<div class="galerie">' + e.fotos.map((f) =>
+            `<figure><img alt="${esc(f.beschriftung)}" />` +
+            `<p class="laedt">wird geladen …</p>` +
+            `<figcaption>${esc(f.beschriftung)}</figcaption></figure>`).join("") + "</div>"
+        : "") + "</div>";
+    behaelter.appendChild(abschnitt);
+    const bilder = abschnitt.querySelectorAll(".galerie img");
+    (e.fotos || []).forEach((f, i) => bilder[i] && fotoLaden(bilder[i], f.id));
+  }
+}
 
 async function oeffnen() {
   const pin = feld.value.trim();
@@ -108,13 +146,11 @@ async function oeffnen() {
   knopf.disabled = true;
   fehler.hidden = true;
   try {
-    // Die Pruefung macht die Datenbank; der PIN steht nicht in dieser Datei.
-    const r = await fetch(`${SUPABASE_URL}/rest/v1/rpc/owner_list_all`, {
-      method: "POST",
-      headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ pin }),
-    });
-    if (!r.ok) throw new Error("abgelehnt");
+    const r = await rpc("owner_list_privat", { pin });
+    if (!r.ok) throw new Error("PIN");
+    pinImSpeicher = pin;
+    feld.value = "";
+    zeichnen(await r.json());
     tor.hidden = true;
     inhalt.hidden = false;
   } catch (e) {

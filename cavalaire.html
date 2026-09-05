@@ -21,6 +21,16 @@ a:hover{color:#123A4E}
 @keyframes tideDrift{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes dotPulse{0%{transform:scale(1)}50%{transform:scale(1.13)}100%{transform:scale(1)}}
 @keyframes scrollHint{0%,100%{transform:translateY(0);opacity:0.55}50%{transform:translateY(8px);opacity:1}}
+/* Eigene Vergroesserung statt der Vollbild-Funktion des Browsers: Die ist
+   auf iPhone und iPad, besonders bei einer vom Homebildschirm gestarteten
+   App, oft nicht verfuegbar - der Knopf tut dann nichts. Diese Loesung
+   arbeitet nur mit CSS und funktioniert ueberall. */
+.pano-huelle{position:relative;width:100%}
+.pano-huelle.gross{position:fixed;inset:0;z-index:200;width:100vw;height:100dvh;background:#123A4E;border-radius:0}
+.pano-huelle.gross #viewer{height:100%;border-radius:0;border:0}
+.pano-lupe{position:absolute;top:10px;right:10px;z-index:5;width:40px;height:40px;border-radius:999px;border:1.5px solid rgba(255,253,249,.55);background:rgba(18,58,78,.62);color:#FFFDF9;display:grid;place-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.pano-huelle.gross .pano-lupe{top:calc(env(safe-area-inset-top, 0px) + 14px);right:14px}
+.pano-lupe:hover{background:rgba(18,58,78,.85)}
 .icon-toggle{position:fixed;top:calc(env(safe-area-inset-top,0px) + 16px);right:20px;width:44px;height:44px;border-radius:999px;background:#FFFDF9;border:1.5px solid #E7DFCF;display:grid;place-items:center;color:#123A4E;z-index:50;box-shadow:0 2px 10px rgba(18,58,78,.14)}
 .icon-toggle:hover{background:#F5EFE3}
 </style>
@@ -366,7 +376,10 @@ a:hover{color:#123A4E}
       </div>
       <div style="background:radial-gradient(120% 90% at 100% 0%, rgba(47,143,134,0.09) 0%, rgba(47,143,134,0) 55%), linear-gradient(165deg, #FFFDF9 0%, #FAF2E4 100%); border:1px solid #E7DFCF; border-radius:16px; padding:24px; overflow:hidden; display:flex; flex-direction:column; gap:12px">
         <p style="margin:0; font-size:0.94rem; line-height:1.6">Der Rundblick über die Bucht von Cavalaire – zum Umschauen ziehen.</p>
-        <div id="viewer" style="width:100%; height:300px; border-radius:12px; overflow:hidden; background:#123A4E; border:1px solid #E7DFCF"></div>
+        <div class="pano-huelle" id="panoHuelle">
+          <div id="viewer" style="width:100%; height:300px; border-radius:12px; overflow:hidden; background:#123A4E; border:1px solid #E7DFCF"></div>
+          <button type="button" class="pano-lupe" aria-label="Rundblick vergrößern" title="Vergrößern"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="auf" d="M15 3h6v6M21 3l-7 7M9 21H3v-6M3 21l7-7"/><path class="zu" style="display:none" d="M14 10h6M20 10l-6-6M10 14H4M4 14l6 6"/></svg></button>
+        </div>
         <p style="margin:0; font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.05em; color:#7C8B93">Blick vom Aussichtspunkt</p>
       </div>
     </section>
@@ -388,7 +401,7 @@ a:hover{color:#123A4E}
   import { Viewer } from '@photo-sphere-viewer/core';
   import { EquirectangularTilesAdapter } from '@photo-sphere-viewer/equirectangular-tiles-adapter';
 
-  const psvViewer = new Viewer({
+  const psvViewer = window.psvViewer = new Viewer({
     container: document.querySelector('#viewer'),
     adapter: EquirectangularTilesAdapter,
     panorama: {
@@ -398,18 +411,38 @@ a:hover{color:#123A4E}
       baseUrl: 'assets/aussicht-360-low.jpg',
       tileUrl: (col, row) => `assets/tiles/aussicht_${col}_${row}.jpg`,
     },
-    navbar: ['zoom', 'fullscreen'],
+    navbar: ['zoom'],
     defaultZoomLvl: 0,
-  });
-  ['fullscreenchange', 'webkitfullscreenchange'].forEach((evt) => {
-    document.addEventListener(evt, () => {
-      setTimeout(() => {
-        psvViewer.autoSize();
-      }, 150);
-    });
   });
 </script>
 <script>
+// Eigene Vergroesserung statt der Vollbild-Funktion des Browsers: Die ist
+// auf iPhone und iPad, vor allem bei einer vom Homebildschirm gestarteten
+// App, oft nicht verfuegbar - der Knopf tut dann nichts. Diese Loesung
+// braucht nur CSS. Sie liegt bewusst ausserhalb des Modul-Skripts: Laedt
+// die Viewer-Bibliothek einmal nicht, bleibt der Knopf trotzdem bedienbar.
+(function () {
+  const huelle = document.getElementById('panoHuelle');
+  if (!huelle) return;
+  const lupe = huelle.querySelector('.pano-lupe');
+  const auf = lupe.querySelector('.auf'), zu = lupe.querySelector('.zu');
+  const passeAn = () => { try { window.psvViewer && window.psvViewer.autoSize(); } catch (e) {} };
+  const umschalten = (an) => {
+    huelle.classList.toggle('gross', an);
+    document.body.style.overflow = an ? 'hidden' : '';
+    lupe.setAttribute('aria-label', an ? 'Rundblick verkleinern' : 'Rundblick vergrößern');
+    lupe.title = an ? 'Verkleinern' : 'Vergrößern';
+    auf.style.display = an ? 'none' : '';
+    zu.style.display = an ? '' : 'none';
+    setTimeout(passeAn, 60);
+  };
+  lupe.addEventListener('click', () => umschalten(!huelle.classList.contains('gross')));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && huelle.classList.contains('gross')) umschalten(false);
+  });
+  window.addEventListener('resize', () => { if (huelle.classList.contains('gross')) passeAn(); });
+})();
+</script><script>
 (function () {
   var btns = Array.prototype.slice.call(document.querySelectorAll(".beach-btn"));
   function close(btn) {

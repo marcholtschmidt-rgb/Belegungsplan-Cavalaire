@@ -25,9 +25,10 @@ a:hover{color:#123A4E}
    auf iPhone und iPad, besonders bei einer vom Homebildschirm gestarteten
    App, oft nicht verfuegbar - der Knopf tut dann nichts. Diese Loesung
    arbeitet nur mit CSS und funktioniert ueberall. */
+.pano{width:100%;height:300px;border-radius:12px;overflow:hidden;background:#123A4E;border:1px solid #E7DFCF}
 .pano-huelle{position:relative;width:100%}
 .pano-huelle.gross{position:fixed;inset:0;z-index:200;width:100vw;height:100dvh;background:#123A4E;border-radius:0}
-.pano-huelle.gross #viewer{height:100%;border-radius:0;border:0}
+.pano-huelle.gross #viewer{height:100%!important;border-radius:0!important;border:0!important}
 .pano-lupe{position:absolute;top:10px;right:10px;z-index:5;width:40px;height:40px;border-radius:999px;border:1.5px solid rgba(255,253,249,.55);background:rgba(18,58,78,.62);color:#FFFDF9;display:grid;place-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .pano-huelle.gross .pano-lupe{top:calc(env(safe-area-inset-top, 0px) + 14px);right:14px}
 .pano-lupe:hover{background:rgba(18,58,78,.85)}
@@ -377,7 +378,7 @@ a:hover{color:#123A4E}
       <div style="background:radial-gradient(120% 90% at 100% 0%, rgba(47,143,134,0.09) 0%, rgba(47,143,134,0) 55%), linear-gradient(165deg, #FFFDF9 0%, #FAF2E4 100%); border:1px solid #E7DFCF; border-radius:16px; padding:24px; overflow:hidden; display:flex; flex-direction:column; gap:12px">
         <p style="margin:0; font-size:0.94rem; line-height:1.6">Der Rundblick über die Bucht von Cavalaire – zum Umschauen ziehen.</p>
         <div class="pano-huelle" id="panoHuelle">
-          <div id="viewer" style="width:100%; height:300px; border-radius:12px; overflow:hidden; background:#123A4E; border:1px solid #E7DFCF"></div>
+          <div id="viewer" class="pano"></div>
           <button type="button" class="pano-lupe" aria-label="Rundblick vergrößern" title="Vergrößern"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="auf" d="M15 3h6v6M21 3l-7 7M9 21H3v-6M3 21l7-7"/><path class="zu" style="display:none" d="M14 10h6M20 10l-6-6M10 14H4M4 14l6 6"/></svg></button>
         </div>
         <p style="margin:0; font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.05em; color:#7C8B93">Blick vom Aussichtspunkt</p>

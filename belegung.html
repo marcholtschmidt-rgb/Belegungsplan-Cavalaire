@@ -34,12 +34,12 @@ a{color:var(--sea);text-decoration:none}a:hover{color:var(--ink)}
 h1{font-size:clamp(2.1rem,5.5vw,3rem);line-height:1}
 .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--sea);margin:5px 0 0}
 .script{font-family:Caveat,cursive;font-size:1.5rem;line-height:1;color:var(--sea);margin:0 0 2px}
-.hd-top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:20px;position:relative}
+.hd-top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:20px;padding-right:112px;position:relative}
 .brand{display:flex;align-items:center;gap:16px;min-width:0}
-.hd-actions{display:flex;gap:10px;flex-shrink:0}
-.icon-toggle{width:46px;height:46px;border-radius:999px;background:var(--card);border:1px solid var(--line);display:grid;place-items:center;color:var(--ink);flex-shrink:0;transition:opacity .15s ease,background-color .15s ease}
-.hd-actions{margin-right:56px}
-.icon-toggle-fixed{position:fixed;top:calc(env(safe-area-inset-top, 0px) + 31px);right:20px;z-index:50;box-shadow:0 2px 10px rgba(18,58,78,.14)}
+/* Zahnrad und Haus stehen fest oben rechts und scrollen nicht mit -
+   gleiche Position und Reihenfolge wie auf der Maison-Seite. */
+.hd-actions{position:fixed;top:calc(env(safe-area-inset-top, 0px) + 31px);right:20px;z-index:50;display:flex;gap:10px;flex-shrink:0}
+.icon-toggle{width:46px;height:46px;border-radius:999px;background:var(--card);border:1px solid var(--line);display:grid;place-items:center;color:var(--ink);flex-shrink:0;box-shadow:0 2px 10px rgba(18,58,78,.14);transition:opacity .15s ease,background-color .15s ease}
 @media(hover:hover){.icon-toggle:hover{opacity:.75}}
 .icon-toggle[data-active="1"]{background:var(--ink);border-color:var(--ink);color:#FFFDF9}
 .icon-toggle[disabled]{cursor:default;opacity:.45}
@@ -448,9 +448,9 @@ function App() {
                         React.createElement("h1", null, "Belegung"))),
                 React.createElement("div", { className: "hd-actions" },
                     React.createElement("button", { className: "icon-toggle", "data-active": adminOpen ? "1" : "0", onClick: toggleAdmin, "aria-label": "Admin", title: "Admin" },
-                        React.createElement(Icons.Gear, { size: 18 })))),
-        React.createElement("button", { className: "icon-toggle icon-toggle-fixed", onClick: goHome, "aria-label": "Startseite", title: "Startseite" },
-            React.createElement(Icons.Home, { size: 18 }))),
+                        React.createElement(Icons.Gear, { size: 18 })),
+                    React.createElement("button", { className: "icon-toggle", onClick: goHome, "aria-label": "Startseite", title: "Startseite" },
+                        React.createElement(Icons.Home, { size: 18 }))))),
         adminOpen && (React.createElement("div", { className: "card", style: { marginBottom: 16 } },
             React.createElement("h2", null, "Admin"),
             !a.unlocked ? (React.createElement("div", { className: "stack" },

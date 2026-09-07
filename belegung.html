@@ -384,10 +384,12 @@ function useBelegungsplan() {
     const upcoming = bookings.filter((b) => b.start > todayISO);
     const nextArrival = upcoming[0];
     const yearNights = bookings.filter((b) => parseISO(b.start).getFullYear() === today.getFullYear()).reduce((s, b) => s + nights(b.start, b.end), 0);
+    const listeBookings = bookings.filter((b) => b.end >= todayISO);
+    const vergangeneAnzahl = bookings.length - listeBookings.length;
     const cells = useMemo(() => monthCells(viewMonth.getFullYear(), viewMonth.getMonth()), [viewMonth]);
     const shift = (d) => setViewMonth(viewMode === "year" ? new Date(viewMonth.getFullYear() + d, viewMonth.getMonth(), 1) : new Date(viewMonth.getFullYear(), viewMonth.getMonth() + d, 1));
     const goToday = () => setViewMonth(new Date(today.getFullYear(), today.getMonth(), 1));
-    return { today, todayISO, loading, bookings, error, setError, saving, sent, form, setForm, sel, setHover, dayState, selectDay, clearSel, submit, reset, editingId, startEdit, viewMonth, setViewMonth, viewMode, setViewMode, cells, shift, goToday, pin, setPin, unlocked, setUnlocked, ownerError, ownerBusy, unlock, requests, confirmRequest, rejectRequest, deleteBooking, pendingCount, todaysBooking, nextArrival, yearNights, bookingFor };
+    return { today, todayISO, loading, bookings, listeBookings, vergangeneAnzahl, error, setError, saving, sent, form, setForm, sel, setHover, dayState, selectDay, clearSel, submit, reset, editingId, startEdit, viewMonth, setViewMonth, viewMode, setViewMode, cells, shift, goToday, pin, setPin, unlocked, setUnlocked, ownerError, ownerBusy, unlock, requests, confirmRequest, rejectRequest, deleteBooking, pendingCount, todaysBooking, nextArrival, yearNights, bookingFor };
 }
 const CAT = { eigen: { label: "Eigennutzung", color: "#2F8F86" }, freunde: { label: "Familie & Freunde", color: "#D97748" } };
 const INK = "#123A4E", SUN = "#E3A857";
@@ -545,8 +547,8 @@ function App() {
                             React.createElement(Icons.Clock, { size: 12 }),
                             a.pendingCount,
                             " offen")),
-                    a.bookings.length === 0 && React.createElement("p", { className: "note", style: { margin: 0 } }, "Noch keine Buchungen eingetragen."),
-                    React.createElement("div", { className: "stack", style: { maxHeight: 340, overflowY: "auto" } }, a.bookings.map((b) => (React.createElement("div", { key: b.id, className: "row" },
+                    a.listeBookings.length === 0 && React.createElement("p", { className: "note", style: { margin: 0 } }, a.vergangeneAnzahl > 0 ? "Keine laufenden oder kommenden Buchungen." : "Noch keine Buchungen eingetragen."),
+                    React.createElement("div", { className: "stack", style: { maxHeight: 340, overflowY: "auto" } }, a.listeBookings.map((b) => (React.createElement("div", { key: b.id, className: "row" },
                         React.createElement("span", { style: { width: 10, height: 10, borderRadius: 99, background: cat(b.category).color, flexShrink: 0 } }),
                         React.createElement("div", { style: { flex: 1, minWidth: 0 } },
                             React.createElement("p", { className: "nm", style: { margin: 0 } }, b.guestName),
@@ -560,7 +562,8 @@ function App() {
                         a.unlocked && React.createElement("button", { className: "iconbtn", onClick: () => a.startEdit(b), "aria-label": "Bearbeiten" },
                             React.createElement(Icons.Pencil, { size: 15 })),
                         a.unlocked && React.createElement("button", { className: "iconbtn", onClick: () => a.deleteBooking(b.id), "aria-label": "L\u00F6schen" },
-                            React.createElement(Icons.Trash, { size: 15 }))))))))),
+                            React.createElement(Icons.Trash, { size: 15 })))))),
+                    a.vergangeneAnzahl > 0 && React.createElement("p", { className: "note", style: { margin: "10px 0 0" } }, a.vergangeneAnzahl === 1 ? "1 vergangene Buchung wird nicht mehr angezeigt." : a.vergangeneAnzahl + " vergangene Buchungen werden nicht mehr angezeigt.")))),
         React.createElement("p", { className: "foot" }, "Neue Buchungen werden als Anfrage gespeichert und erscheinen erst nach Best\u00E4tigung im Kalender. Bearbeiten und L\u00F6schen nur im Admin-Bereich.")));
 }
 ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(App, null));

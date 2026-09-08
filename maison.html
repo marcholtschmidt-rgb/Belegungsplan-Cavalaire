@@ -37,6 +37,14 @@ p{margin:0;line-height:1.6;color:var(--mute)}
 .route-kopf{font-family:'IBM Plex Mono',monospace;font-size:0.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin:0}
 .route-liste{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:0.94rem;line-height:1.55;color:var(--ink)}
 .route-fuss{margin:0;font-size:0.875rem;line-height:1.5;color:var(--mute)}
+.klapp{display:flex;flex-direction:column}
+.klapp-btn{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:13px 15px;border:1px solid var(--line);border-radius:12px;background:#FFFDF9;color:var(--ink);font:inherit;font-size:0.94rem;font-weight:500;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background-color .15s ease}
+.klapp-btn:hover{background:var(--bg)}
+.klapp-btn[aria-expanded="true"]{border-radius:12px 12px 0 0}
+.klapp-chev{flex:none;color:var(--teal);transition:transform .15s ease}
+.klapp-btn[aria-expanded="true"] .klapp-chev{transform:rotate(180deg)}
+.klapp-inhalt{display:flex;flex-direction:column;gap:14px;padding:14px 15px 16px;border:1px solid var(--line);border-top:0;border-radius:0 0 12px 12px;background:#FFFDF9}
+.klapp-inhalt[hidden]{display:none}
 .pano{width:100%;height:300px;border-radius:12px;overflow:hidden;background:#123A4E;border:1px solid var(--line)}
 /* Eigene Vergroesserung statt der Vollbild-Funktion des Browsers: Die ist
    auf iPhone und iPad, besonders bei einer vom Homebildschirm gestarteten
@@ -109,31 +117,40 @@ p{margin:0;line-height:1.6;color:var(--mute)}
     <h2>Ankunft</h2>
   </div>
   <div class="section-card">
-    <p class="section-text">Cavalaire liegt südlich der A8. Von der Autobahn geht es auf Landstraßen weiter – rechne je nach Richtung mit 45 bis 60 Minuten für den letzten Abschnitt. Er ist kurvig, und im Hochsommer staut es sich rund um den Kreisel La Foux.</p>
+    <div class="klapp">
+      <button type="button" class="klapp-btn" aria-expanded="false" aria-controls="anreise-auto">
+        <span>Anreise mit dem Auto</span>
+        <svg class="klapp-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="klapp-inhalt" id="anreise-auto" hidden>
+        <p class="section-text">Cavalaire liegt südlich der A8. Von der Autobahn geht es auf Landstraßen weiter – rechne je nach Richtung mit 45 bis 60 Minuten für den letzten Abschnitt. Er ist kurvig, und im Hochsommer staut es sich rund um den Kreisel La Foux.</p>
 
-    <div class="route">
-      <p class="route-kopf">Von Nizza · A8 Richtung Aix-en-Provence</p>
-      <ol class="route-liste">
-        <li>Ausfahrt <strong>Le Muy</strong> (Sortie 36), Schildern nach <strong>Sainte-Maxime</strong> folgen</li>
-        <li>Auf der <strong>D25</strong> über die Hügel nach Sainte-Maxime ans Meer</li>
-        <li>Dort auf die Küstenstraße <strong>D559</strong> Richtung Saint-Tropez / Cogolin</li>
-        <li>Am Kreisel <strong>Carrefour de la Foux</strong> nicht nach Saint-Tropez abbiegen, sondern auf der D559 bleiben – über Cogolin und La Croix-Valmer nach <strong>Cavalaire</strong></li>
-      </ol>
-      <p class="route-fuss">rund 110 km ab Nizza · etwa 1½ Stunden ohne Stau</p>
+        <div class="route">
+          <p class="route-kopf">Von Nizza · A8 Richtung Aix</p>
+          <ol class="route-liste">
+            <li>Ausfahrt <strong>Le Muy</strong> (Sortie 36), Schildern nach <strong>Sainte-Maxime</strong> folgen</li>
+            <li>Auf der <strong>D25</strong> über die Hügel nach Sainte-Maxime ans Meer</li>
+            <li>Dort auf die Küstenstraße <strong>D559</strong> Richtung Saint-Tropez / Cogolin</li>
+            <li>Am Kreisel <strong>Carrefour de la Foux</strong> nicht nach Saint-Tropez abbiegen, sondern auf der D559 bleiben – über Cogolin und La Croix-Valmer nach <strong>Cavalaire</strong></li>
+          </ol>
+          <p class="route-fuss">rund 110 km ab Nizza · etwa 1½ Stunden ohne Stau</p>
+        </div>
+
+        <div class="route">
+          <p class="route-kopf">Von Marseille · A8 Richtung Nizza</p>
+          <ol class="route-liste">
+            <li>Bei Aix-en-Provence auf die A8, dann bis zur Ausfahrt <strong>Le Cannet-des-Maures / Le Luc</strong> (Sortie 13)</li>
+            <li>Auf der <strong>D558</strong> Richtung <strong>La Garde-Freinet</strong> – enge, kurvige Passstraße durch das Massif des Maures</li>
+            <li>Weiter über <strong>Grimaud</strong> bis zum Kreisel <strong>Carrefour de la Foux</strong></li>
+            <li>Dort auf die <strong>D559</strong> Richtung Cavalaire, über Cogolin und La Croix-Valmer</li>
+          </ol>
+          <p class="route-fuss">rund 150 km ab Marseille · etwa 2 Stunden ohne Stau</p>
+        </div>
+
+        <p class="section-hint">Im Hochsommer lohnt von Westen die Alternative über die A57 bis Hyères und dann die Küstenstraße D98 über Le Lavandou – landschaftlich schöner und ohne den Engpass bei La Foux.</p>
+      </div>
     </div>
 
-    <div class="route">
-      <p class="route-kopf">Von Marseille · A8 Richtung Nizza</p>
-      <ol class="route-liste">
-        <li>Bei Aix-en-Provence auf die A8, dann bis zur Ausfahrt <strong>Le Cannet-des-Maures / Le Luc</strong> (Sortie 13)</li>
-        <li>Auf der <strong>D558</strong> Richtung <strong>La Garde-Freinet</strong> – enge, kurvige Passstraße durch das Massif des Maures</li>
-        <li>Weiter über <strong>Grimaud</strong> bis zum Kreisel <strong>Carrefour de la Foux</strong></li>
-        <li>Dort auf die <strong>D559</strong> Richtung Cavalaire, über Cogolin und La Croix-Valmer</li>
-      </ol>
-      <p class="route-fuss">rund 150 km ab Marseille · etwa 2 Stunden ohne Stau</p>
-    </div>
-
-    <p class="section-hint">Im Hochsommer lohnt von Westen die Alternative über die A57 bis Hyères und dann die Küstenstraße D98 über Le Lavandou – landschaftlich schöner und ohne den Engpass bei La Foux.</p>
     <p class="section-hint">Schlüssel und Parken – folgt.</p>
   </div>
 </div>
@@ -262,6 +279,20 @@ p{margin:0;line-height:1.6;color:var(--mute)}
     if (e.key === 'Escape' && huelle.classList.contains('gross')) umschalten(false);
   });
   window.addEventListener('resize', () => { if (huelle.classList.contains('gross')) passeAn(); });
+})();
+</script>
+<script>
+// Aufklappbare Bereiche in den Rubriken (derzeit: Anreise mit dem Auto).
+(function () {
+  document.querySelectorAll('.klapp-btn').forEach(function (btn) {
+    var inhalt = document.getElementById(btn.getAttribute('aria-controls'));
+    if (!inhalt) return;
+    btn.addEventListener('click', function () {
+      var offen = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', offen ? 'false' : 'true');
+      inhalt.hidden = offen;
+    });
+  });
 })();
 </script></body>
 </html>

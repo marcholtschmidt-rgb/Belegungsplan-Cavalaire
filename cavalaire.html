@@ -95,6 +95,13 @@ a:hover{color:#123A4E}
       <g id="icNotrufDots" fill="#F5EFE3"><circle cx="13.4" cy="16.4" r="1.3"></circle><circle cx="34.6" cy="16.4" r="1.3"></circle><circle cx="15.4" cy="26.4" r="1.1"></circle><circle cx="32.6" cy="26.4" r="1.1"></circle><circle cx="24" cy="36.4" r="1.1"></circle></g>
       <path id="icNotrufKreuz" fill="#E3A857" d="M21.4 13.6 L26.6 13.6 L26.6 19.6 L32.6 19.6 L32.6 24.8 L26.6 24.8 L26.6 30.8 L21.4 30.8 L21.4 24.8 L15.4 24.8 L15.4 19.6 L21.4 19.6 Z"></path>
 
+      <g id="icBus" fill="url(#rgGrad)" stroke="url(#rgGrad)" stroke-width="2.2" stroke-linejoin="round">
+        <path d="M13.4 6.6 L34.6 6.6 Q39.4 6.6 39.4 11.4 L39.4 32.6 Q39.4 36.2 35.8 36.2 L12.2 36.2 Q8.6 36.2 8.6 32.6 L8.6 11.4 Q8.6 6.6 13.4 6.6 Z"></path>
+        <circle cx="15.4" cy="39.4" r="3"></circle>
+        <circle cx="32.6" cy="39.4" r="3"></circle>
+      </g>
+      <g id="icBusDots" fill="#F5EFE3"><circle cx="15.2" cy="14.4" r="1.5"></circle><circle cx="19.6" cy="14.4" r="1.5"></circle><circle cx="24" cy="14.4" r="1.6"></circle><circle cx="28.4" cy="14.4" r="1.5"></circle><circle cx="32.8" cy="14.4" r="1.5"></circle><circle cx="17.4" cy="22.6" r="1.2"></circle><circle cx="24" cy="22.6" r="1.3"></circle><circle cx="30.6" cy="22.6" r="1.2"></circle><circle cx="20.4" cy="30.2" r="1.1"></circle><circle cx="27.6" cy="30.2" r="1.1"></circle></g>
+
       <g id="icGlobus" fill="url(#rgGrad)" stroke="url(#rgGrad)" stroke-width="2.2" stroke-linejoin="round">
         <circle cx="24" cy="24" r="18.4"></circle>
       </g>
@@ -324,7 +331,56 @@ a:hover{color:#123A4E}
 
     <section style="display:flex; flex-direction:column; gap:16px">
       <div style="display:flex; align-items:center; gap:14px">
-        <svg viewBox="0 0 48 48" style="width:64px; height:64px; flex:none"><use href="#icNotruf"></use><use href="#icNotrufDots" opacity="0.92" style="transform-box:fill-box; transform-origin:center; animation:dotPulse 4.5s ease-in-out 1.6s infinite"></use><use href="#icNotrufKreuz"></use></svg>
+        <svg viewBox="0 0 48 48" style="width:64px; height:64px; flex:none"><use href="#icBus"></use><use href="#icBusDots" opacity="0.92" style="transform-box:fill-box; transform-origin:center; animation:dotPulse 4.5s ease-in-out 1.6s infinite"></use></svg>
+        <h2 style="font-family:Fraunces, Georgia, serif; font-weight:600; font-size:1.9rem; line-height:1.05; margin:0">Unterwegs</h2>
+      </div>
+      <div style="background:radial-gradient(120% 90% at 100% 0%, rgba(47,143,134,0.09) 0%, rgba(47,143,134,0) 55%), linear-gradient(165deg, #FFFDF9 0%, #FAF2E4 100%); border:1px solid #E7DFCF; border-radius:16px; padding:24px; overflow:hidden; display:flex; flex-direction:column; gap:18px">
+        <p style="margin:0; font-size:0.94rem; line-height:1.6; text-wrap:pretty">Im Sommer geht in Cavalaire vieles ohne Auto: Vier kostenlose Navette-Linien fahren durch alle Viertel, Regionalbusse halten mitten im Ort, und vom Hafen legen Boote zu den Îles d'Or ab.</p>
+        <div style="display:flex; flex-direction:column; gap:16px">
+          <div style="display:flex; flex-direction:column; gap:4px">
+            <h3 style="font-family:Fraunces, Georgia, serif; font-weight:600; font-size:1.1rem; margin:0">Navette – der kostenlose Ortsbus</h3>
+            <p style="margin:0; font-size:0.94rem; line-height:1.6">Von Anfang Juli bis Ende August fahren vier Linien kostenlos durch die ganze Gemeinde – Zentrum, Hafen, Strände und die Wohnviertel am Hang; Linie 1 startet schon Ende Juni. Tagsüber etwa 9 bis 19 Uhr, in der Hochsaison zusätzlich am Abend, dann ohne die Haltestellen Pompiers, Mannes, Treille und Bonporteau. Wo der nächste Bus gerade ist, zeigt die App <em>Pysae</em>. Luftmatratzen und aufblasbares Spielzeug dürfen nicht mit.</p>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:4px">
+            <h3 style="font-family:Fraunces, Georgia, serif; font-weight:600; font-size:1.1rem; margin:0">Regionalbusse ab der Halte Routière</h3>
+            <p style="margin:0; font-size:0.94rem; line-height:1.6">Vom Busbahnhof im Zentrum fahren die Linien des Netzes <em>Zou&nbsp;!</em>: die 878 in der einen Richtung nach Saint-Tropez, in der anderen über Le Lavandou nach Toulon, die 874 über Sainte-Maxime nach Saint-Raphaël. Eine Einzelfahrt kostet 2,20 €, beim Fahrer im Bus 2,60 €. Auskunft unter 0 809 400 013, täglich 7 bis 20 Uhr.</p>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:4px">
+            <h3 style="font-family:Fraunces, Georgia, serif; font-weight:600; font-size:1.1rem; margin:0">Mit dem Boot</h3>
+            <p style="margin:0; font-size:0.94rem; line-height:1.6">In der Saison fahren die <em>Vedettes Îles d'Or</em> vom Hafen Cavalaire nach Port-Cros und Porquerolles, Hin- und Rückfahrt ab rund 39 €. Zwanzig Minuten vor Abfahrt am Schalter sein. Die Bootsshuttles nach Saint-Tropez (<em>Les Bateaux Verts</em>) starten dagegen nicht hier, sondern in Sainte-Maxime und Port Grimaud.</p>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:4px">
+            <h3 style="font-family:Fraunces, Georgia, serif; font-weight:600; font-size:1.1rem; margin:0">Rad, Roller, Taxi</h3>
+            <p style="margin:0; font-size:0.94rem; line-height:1.6">Mehrere Anbieter im Ort vermieten Fahrräder, E-Bikes, Roller und E-Scooter; Tagespreise beginnen bei etwa 12 €. Für den Radweg V65 vor der Haustür siehe „Wandern &amp; Radfahren". In Cavalaire selbst sind nur zwei Taxiunternehmen zugelassen – in der Saison besser vorbestellen.</p>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:4px">
+            <h3 style="font-family:Fraunces, Georgia, serif; font-weight:600; font-size:1.1rem; margin:0">Parken</h3>
+            <p style="margin:0; font-size:0.94rem; line-height:1.6">Von November bis Ende Mai ist das Parken frei. Von Juni bis September sind Centre-Ville und Rivage täglich 9 bis 20 Uhr gebührenpflichtig – rote und grüne Zone, Automat oder die Apps EasyPark und PayByPhone, die erste Stunde bleibt frei. Ganzjährig kostenlos sind das Parking de l'Église und das Parking Maison de la Nature. Der Strandparkplatz Pardigon kostet 5 € für den Tag, ab 14 Uhr 3 €.</p>
+          </div>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:12px">
+          <div style="background:#FFFDF9; border:1px solid #E7DFCF; border-radius:12px; padding:16px; display:flex; flex-direction:column; gap:6px">
+            <div style="font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase; color:#2F8F86">Bahn</div>
+            <h3 style="font-family:Fraunces, Georgia, serif; font-weight:600; font-size:1.05rem; margin:0">Kein Bahnhof im Ort</h3>
+            <p style="margin:0; font-size:0.875rem; line-height:1.55">Der alte Bahnhof ist heute Ausstellungshalle. Nächste SNCF-Bahnhöfe: Toulon, Hyères und Saint-Raphaël, von dort weiter mit dem Zou-Bus. Les Arcs-Draguignan (TGV) liegt rund 37 km entfernt.</p>
+          </div>
+          <div style="background:#FFFDF9; border:1px solid #E7DFCF; border-radius:12px; padding:16px; display:flex; flex-direction:column; gap:6px">
+            <div style="font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase; color:#2F8F86">Flug</div>
+            <h3 style="font-family:Fraunces, Georgia, serif; font-weight:600; font-size:1.05rem; margin:0">Toulon-Hyères, 27 km</h3>
+            <p style="margin:0; font-size:0.875rem; line-height:1.55">Mit dem Auto etwa 50 Minuten, mit dem Bus rund eine Stunde, per Taxi grob 90 bis 110 €. Nizza liegt etwa 120 km entfernt, anderthalb bis zwei Stunden Fahrt.</p>
+          </div>
+        </div>
+        <p style="margin:0; font-size:0.94rem; line-height:1.6; text-wrap:pretty">Fahrpläne und aktuelle Preise: <a href="https://www.cavalairesurmer.fr/en-pratique/se-deplacer/" target="_blank" rel="noopener">Se déplacer</a> beim Tourismusbüro, <a href="https://www.cavalaire.fr/actus/cet-ete-prenez-la-navette" target="_blank" rel="noopener">die Navette</a> und <a href="https://www.cavalaire.fr/stationnement-et-parkings" target="_blank" rel="noopener">das Parken</a> bei der Gemeinde, Regionalbusse bei <a href="https://zou.maregionsud.fr/" target="_blank" rel="noopener">zou.maregionsud.fr</a>.</p>
+        <div style="border-top:1px solid #E7DFCF; padding-top:16px; display:flex; gap:12px; align-items:baseline">
+          <span style="font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase; color:#D97748; flex:none; width:92px">Hochsaison</span>
+          <span style="font-size:0.875rem; line-height:1.55">Im Juli und August sind Zufahrt und Strandparkplätze schon am Vormittag voll. Die Navette ist dann meist die schnellere Wahl.</span>
+        </div>
+      </div>
+    </section>
+
+    <section style="display:flex; flex-direction:column; gap:16px">
+      <div style="display:flex; align-items:center; gap:14px">
+        <svg viewBox="0 0 48 48" style="width:64px; height:64px; flex:none"><use href="#icNotruf"></use><use href="#icNotrufDots" opacity="0.92" style="transform-box:fill-box; transform-origin:center; animation:dotPulse 4.5s ease-in-out 2s infinite"></use><use href="#icNotrufKreuz"></use></svg>
         <h2 style="font-family:Fraunces, Georgia, serif; font-weight:600; font-size:1.9rem; line-height:1.05; margin:0">Notrufnummern</h2>
       </div>
       <div style="background:radial-gradient(120% 90% at 100% 0%, rgba(47,143,134,0.09) 0%, rgba(47,143,134,0) 55%), linear-gradient(165deg, #FFFDF9 0%, #FAF2E4 100%); border:1px solid #E7DFCF; border-radius:16px; padding:24px; overflow:hidden; display:flex; flex-direction:column">
@@ -372,7 +428,7 @@ a:hover{color:#123A4E}
 
     <section style="display:flex; flex-direction:column; gap:16px">
       <div style="display:flex; align-items:center; gap:14px">
-        <svg viewBox="0 0 48 48" style="width:64px; height:64px; flex:none"><use href="#icGlobus"></use><use href="#icGlobusDots" opacity="0.92" style="transform-box:fill-box; transform-origin:center; animation:dotPulse 4.5s ease-in-out 2s infinite"></use></svg>
+        <svg viewBox="0 0 48 48" style="width:64px; height:64px; flex:none"><use href="#icGlobus"></use><use href="#icGlobusDots" opacity="0.92" style="transform-box:fill-box; transform-origin:center; animation:dotPulse 4.5s ease-in-out 2.4s infinite"></use></svg>
         <h2 style="font-family:Fraunces, Georgia, serif; font-weight:600; font-size:1.9rem; line-height:1.05; margin:0">360°-Eindrücke</h2>
       </div>
       <div style="background:radial-gradient(120% 90% at 100% 0%, rgba(47,143,134,0.09) 0%, rgba(47,143,134,0) 55%), linear-gradient(165deg, #FFFDF9 0%, #FAF2E4 100%); border:1px solid #E7DFCF; border-radius:16px; padding:24px; overflow:hidden; display:flex; flex-direction:column; gap:12px">

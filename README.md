@@ -9,7 +9,7 @@ Diese Datei beschreibt **was** die App ist und wie sie aufgebaut ist. Wie in die
 | Datei | Inhalt |
 |---|---|
 | `index.html` | Startseite: Animation (Seestern, Haus, Kalender), Live-Wetter, drei Links |
-| `cavalaire.html` | Reiseführer: Strände, Wassersport, Touren, Essen, Notrufnummern, 360°-Rundblick |
+| `cavalaire.html` | Reiseführer: Strände, Wassersport, Touren, Essen, Unterwegs, Notrufnummern, 360°-Rundblick |
 | `maison.html` | Rund ums Haus: Ankunft, Internet, Geräte, Müll, Abreise, Kontakte, 360°-Rundblick |
 | `belegung.html` | Belegungsplan: Kalender, Buchungsanfragen, Admin-Bereich |
 | `ofen.html` | Kurzanleitung für den Ofen, verlinkt aus dem Geräte-Abschnitt |
@@ -52,7 +52,9 @@ Sieben Abschnitte in einheitlichem Aufbau: Icon 64 × 64 px links, Überschrift 
 
 ## Funktionen (Cavalaire-Reiseführer / `cavalaire.html`)
 
-Hero-Header mit Frankreich-Umriss und Seestern-Ortsmarke. Sechs Rubriken: Strände (alle fünf mit aufklappbaren Fotokarten und eingebetteter offizieller Strandkarte), Wassersport, Wandern & Radfahren, Essen & Trinken, Notrufnummern, 360°-Rundblick vom Aussichtspunkt.
+Hero-Header mit Frankreich-Umriss und Seestern-Ortsmarke. Sieben Rubriken: Strände (alle fünf mit aufklappbaren Fotokarten und eingebetteter offizieller Strandkarte), Wassersport, Wandern & Radfahren, Essen & Trinken, Unterwegs, Notrufnummern, 360°-Rundblick vom Aussichtspunkt.
+
+Die Rubrik **Unterwegs** fasst die Mobilität vor Ort zusammen: kostenlose Sommer-Navette, Zou-Regionalbusse ab der Halte Routière, Boote zu den Îles d'Or, Rad- und Rollerverleih, Parkregeln sowie zwei Karten zu Bahnhöfen und Flughäfen. Quellen sind die Seiten des Tourismusbüros und der Gemeinde; Preise und Fahrpläne ändern sich jede Saison und sind deshalb auf die Originalseiten verlinkt.
 
 ## 360°-Panoramafotos
 

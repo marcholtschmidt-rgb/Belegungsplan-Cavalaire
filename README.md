@@ -129,7 +129,7 @@ Alle Seiten nutzen dieselbe Design-Sprache ("Cavalaire Design System"):
 
 Schriften: **Fraunces** (Überschriften), **Inter** (Fließtext), **IBM Plex Mono** (kleine Beschriftungen und Zahlen).
 
-Entworfen über **Claude Design** (claude.ai/design), dann im Chat in eigenständige, direkt lauffähige HTML-Dateien integriert – kein Build-Schritt.
+Gebaut und weiterentwickelt wird die App in **Claude Code**, in der Sitzung „Cavalaire Belegungsplan Datenzuordnung". Einzelne Entwürfe und Symbole sind über **Claude Design** (claude.ai/design) entstanden und wurden von dort als `.dc.html` übernommen. Beides fließt in eigenständige, direkt lauffähige HTML-Dateien – kein Build-Schritt.
 
 ## Technischer Aufbau
 

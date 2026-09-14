@@ -73,6 +73,16 @@ Diese Punkte sind bewusst so entschieden – nicht ungefragt ändern:
   pausiert nach sieben ruhigen Tagen;
   `.github/workflows/supabase-wachhalten.yml` stellt deshalb taeglich
   eine Anfrage. Nicht als "unnoetige Automatik" entfernen.
+- **Orts- und Verkehrsangaben nur mit Beleg.** Auf den Rubriken
+  Anreise und Nahverkehr (`cavalaire.html`) stehen nur Angaben aus
+  offiziellen Quellen: Stadt Cavalaire, Fahrplan von Zou!, VINCI
+  Autoroutes, Flughafen Nizza. Geschaetzte Entfernungen, Fahrzeiten
+  und eigene Bewertungen gehoeren nicht dorthin. Angaben des
+  Eigentuemers aus eigener Ortskenntnis haben Vorrang vor den
+  offiziellen Seiten und werden im Text als solche kenntlich
+  gemacht. `cavalaire.fr` und `cavalairesurmer.fr` sind aus der
+  Arbeitsumgebung nicht erreichbar - Links dorthin kann Claude nicht
+  selbst pruefen.
 - **Keine eigene Domain.** Der Hinweis in hPanel ist bekannt; die
   `hostingersite.com`-Adresse genügt vorerst.
 

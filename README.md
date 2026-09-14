@@ -9,12 +9,14 @@ Diese Datei beschreibt **was** die App ist und wie sie aufgebaut ist. Wie in die
 | Datei | Inhalt |
 |---|---|
 | `index.html` | Startseite: Animation (Seestern, Haus, Kalender), Live-Wetter, drei Links |
-| `cavalaire.html` | Reiseführer: Strände, Wassersport, Touren, Essen, Notrufnummern, 360°-Rundblick |
+| `cavalaire.html` | Reiseführer: Anreise, Strände, Wassersport, Touren, Nahverkehr, Essen, Notrufnummern, 360°-Rundblick |
 | `maison.html` | Rund ums Haus: Ankunft, Internet, Geräte, Müll, Abreise, Kontakte, 360°-Rundblick |
 | `belegung.html` | Belegungsplan: Kalender, Buchungsanfragen, Admin-Bereich |
 | `ofen.html` | Kurzanleitung für den Ofen, verlinkt aus dem Geräte-Abschnitt |
 
-**Navigation:** Auf jeder Unterseite sitzt oben rechts ein fest positionierter Home-Button (44 × 44 px, bei `right: 20px`), der beim Scrollen stehen bleibt und zur Startseite führt. Auf `ofen.html` steht links daneben zusätzlich ein Zurück-Pfeil nach `maison.html`; der Home-Button behält dabei seine Position, damit er beim Seitenwechsel nicht springt. Auf `belegung.html` gibt es zusätzlich das Zahnrad für den Admin-Bereich.
+**Arbeitsteilung der beiden Inhaltsseiten:** `cavalaire.html` beschreibt den **Ort** – wie man hinkommt und was es dort gibt. `maison.html` beschreibt das **Haus** – alles ab der Haustür. Die Anreise stand zunächst auf der Maison-Seite und wurde am 8. September 2026 nach Cavalaire verschoben, weil sie dort hingehört.
+
+**Navigation:** Auf jeder Unterseite sitzt oben rechts ein fest positionierter Home-Button (44 × 44 px, bei `right: 20px`), der beim Scrollen stehen bleibt und zur Startseite führt. Auf `ofen.html` steht links daneben zusätzlich ein Zurück-Pfeil nach `maison.html`; der Home-Button behält dabei seine Position, damit er beim Seitenwechsel nicht springt. Auf `belegung.html` sitzt das Zahnrad für den Admin-Bereich links neben dem Home-Button in derselben festen Gruppe, damit beide beim Scrollen stehen bleiben.
 
 Die Start-Animation läuft nur beim ersten Öffnen einer Sitzung; kommt man von einer Unterseite zurück, erscheint sofort der fertige Zustand (`sessionStorage`-Merker).
 
@@ -29,6 +31,7 @@ Die Start-Animation läuft nur beim ersten Öffnen einer Sitzung; kommt man von 
 - **Zwei Status-Kacheln** "Heute" und "Anreise" im Salbeiton `#A9BFB7`
 - **Installierbar als App** (PWA)
 - **Sofort sichtbar**: Kalendergerüst rendert beim Laden, Buchungen werden nachgeladen
+- **Vergangene Buchungen** verschwinden aus der Liste, sobald der Abreisetag vorbei ist. Gelöscht wird nichts: Im Kalender bleiben sie sichtbar, und unter der Liste steht, wie viele ausgeblendet sind
 
 Wetterdaten stehen **nicht** hier, sondern auf der Startseite.
 
@@ -42,7 +45,7 @@ Sieben Abschnitte in einheitlichem Aufbau: Icon 64 × 64 px links, Überschrift 
 
 | Abschnitt | Stand |
 |---|---|
-| Ankunft | Platzhalter |
+| Ankunft | Verweist auf die Anreise-Rubrik der Cavalaire-Seite. Der Weg vom Ortszentrum zum Haus, Schlüssel und Parken fehlen noch |
 | Internet | Hinweis, dass die WLAN-Daten nach bestätigter Buchung persönlich mitgeteilt werden, plus Link zum Belegungsplan |
 | Geräte | Link auf `ofen.html`; Heizung, Klimaanlage, Waschmaschine fehlen noch |
 | Müll | Platzhalter |
@@ -52,7 +55,28 @@ Sieben Abschnitte in einheitlichem Aufbau: Icon 64 × 64 px links, Überschrift 
 
 ## Funktionen (Cavalaire-Reiseführer / `cavalaire.html`)
 
-Hero-Header mit Frankreich-Umriss und Seestern-Ortsmarke. Sechs Rubriken: Strände (alle fünf mit aufklappbaren Fotokarten und eingebetteter offizieller Strandkarte), Wassersport, Wandern & Radfahren, Essen & Trinken, Notrufnummern, 360°-Rundblick vom Aussichtspunkt.
+Hero-Header mit Frankreich-Umriss und Seestern-Ortsmarke. Acht Rubriken in dieser Reihenfolge: **Anreise**, Strände (alle fünf mit aufklappbaren Fotokarten und eingebetteter offizieller Strandkarte), Wassersport, Wandern & Radfahren, **Nahverkehr**, Essen & Trinken, Notrufnummern, 360°-Rundblick vom Aussichtspunkt.
+
+### Anreise
+
+Vier aufklappbare Bereiche – Auto, Flugzeug, Zug, Bus –, damit die Kachel zugeklappt kurz bleibt und erst beim Antippen wächst. Technisch dieselbe Mechanik wie die Strand-Kacheln: ein `<button>` mit `aria-expanded` schaltet das `hidden`-Attribut des zugehörigen Blocks um; das Skript steht unten in der Datei neben dem der Strand-Kacheln.
+
+Inhaltlich:
+
+- **Auto** – zwei Wege von der A8 (Sortie 36 Le Muy über Sainte-Maxime und die D559, Sortie 13 Le Cannet-des-Maures über die D558 und La Garde-Freinet) sowie die Küstenstraße RD559
+- **Flugzeug** – die vier Flughäfen der Region, dazu der Weg vom Flughafen Nizza ohne Auto: Tram 2 zum Bahnhof Nice-Saint-Augustin, Zug nach Saint-Raphaël, Zou!-Bus 874 nach Cavalaire
+- **Zug** – kein Bahnhof in Cavalaire; TGV nach Toulon, Hyères oder Saint-Raphaël, weiter mit dem Bus
+- **Bus** – Zou!-Linie 874 (Saint-Raphaël – Sainte-Maxime – Cogolin – Cavalaire – Le Lavandou) und Linie 878 (Toulon – Le Lavandou – Saint-Tropez), beide in beide Richtungen
+
+### Nahverkehr
+
+Vier kostenlose Navette-Linien im Ort, Zeitraum, die App **Pysae** für Live-Abfahrten (Links zu App Store und Google Play) und Links auf die Fahrplanseiten. Bewusst **kein** direkter Link auf eine Saison-PDF: Die Stadt nimmt den Sommer-Faltplan nach dem 31. August vom Netz, ein fest verdrahteter Dateilink ist im Folgejahr tot. Verwiesen wird stattdessen auf die Seiten, die den jeweils gültigen Plan führen.
+
+### Quellen für Orts- und Verkehrsangaben
+
+Vereinbarung vom 8. September 2026: Auf den Anreise- und Nahverkehr-Rubriken stehen **nur Angaben, die sich offiziell belegen lassen** – Stadt Cavalaire, Fahrplan von Zou!, VINCI Autoroutes als Betreiber der A8, Flughafen Nizza. Selbst geschätzte Entfernungen, Fahrzeiten und Bewertungen wurden wieder entfernt. Angaben des Eigentümers aus eigener Ortskenntnis haben Vorrang vor den offiziellen Seiten – so führt die D25 laut Stadt über die N98, tatsächlich geht es ab Sainte-Maxime direkt auf der D559 weiter.
+
+Die Seiten `cavalaire.fr` und `cavalairesurmer.fr` sind aus der Claude-Arbeitsumgebung **nicht erreichbar** (Netzwerksperre). Inhalte von dort müssen über die Websuche ermittelt oder vom Eigentümer geliefert werden; Links dorthin kann Claude nicht selbst prüfen.
 
 ## 360°-Panoramafotos
 
@@ -130,6 +154,8 @@ CLAUDE.md                     Arbeitsweise und getroffene Entscheidungen
 tools/fernbedienung.py        Generator für die Fernbedienungs-Grafik
 assets/                       Fotos, Panorama-Kacheln, SVG-Grafiken
 ```
+
+**Hover auf Touchgeräten:** Nach einem Antippen bleibt `:hover` auf iPhone und iPad am zuletzt berührten Element hängen – ein Knopf sieht dann aus, als wäre er noch aktiv. Einfärbungen beim Überfahren gehören deshalb in `@media (hover:hover)`.
 
 `server.js` ist ein einfacher Dateiserver ohne Anwendungslogik. Er liefert jede angefragte Datei aus, mit zwei Ausnahmen: Pfade außerhalb des Ordners werden mit 403 abgelehnt, und **`.md`-Dateien werden mit 404 beantwortet** – Dokumentation gehört nicht auf die öffentliche Webseite. Unbekannte Pfade fallen auf `index.html` zurück.
 
@@ -219,11 +245,11 @@ Dagegen läuft `.github/workflows/supabase-wachhalten.yml`: täglich um 06:17 UT
 
 ## Bekannte Einschränkungen
 
-- Der PIN wird im Klartext in einer Datenbankfunktion verglichen – ausreichend für einen privaten Familienkalender, kein Hochsicherheitsstandard
 - Der PIN stand vom 17. bis 26. August 2026 in dieser Datei auf `main` und ist daher in der Commit-Historie weiterhin auffindbar
 - Die Seite ist über Zertifikats-Transparenz-Protokolle auffindbar, auch ohne Verlinkung. "Nur an Familie weitergeben" macht sie nicht privat
 - Wetterdaten von Open-Meteo sind Modellschätzung, keine Messung vor Ort
 - Das Centre-Ville-Strandfoto trägt ein fremdes Wasserzeichen ("Cavalaire ProvenceWeb")
-- `maison.html` ist inhaltlich erst zum Teil ausgebaut: Ankunft, Müll und Abreise sind Platzhalter
+- `maison.html` ist inhaltlich erst zum Teil ausgebaut: Müll und Abreise sind Platzhalter, bei Ankunft fehlen der Weg vom Ortszentrum zum Haus, Schlüssel und Parken
 - Eine Fernseher-Anleitung ist vorbereitet (Grafiken liegen bereit), aber noch nicht geschrieben
 - Es gibt keine eigene Domain; die `hostingersite.com`-Adresse wird genutzt
+- Der Navette-Faltplan könnte als PDF unter `assets/` liegen und direkt verlinkt werden – dann wäre er auch ohne Netz in der App. Dafür muss der Eigentümer die Datei liefern, Claude kommt nicht an sie heran

@@ -241,6 +241,8 @@ Supabase pausiert Projekte im Free-Tarif, wenn sie über sieben Tage zu wenig Da
 
 Dagegen läuft `.github/workflows/supabase-wachhalten.yml`: täglich um 06:17 UTC ein Aufruf von `pending_count()` über die REST-Schnittstelle. Das zählt als Nutzeranfrage und genügt. Antwortet die Datenbank nicht mit 200, schlägt der Ablauf fehl und GitHub schickt eine Mail – ein bereits pausiertes Projekt fällt so auf. Der Ablauf lässt sich unter *Actions* auch von Hand starten.
 
+Seit dem 19. Oktober 2026 läuft er **viermal täglich** (00:17, 06:17, 12:17, 18:17 UTC) und stellt pro Lauf **drei** Anfragen. Grund: Trotz des täglichen Pings kamen Warnmails von Supabase. Supabase verlangt laut [eigener Dokumentation](https://supabase.com/docs/guides/platform/free-project-pausing) "a few user requests to the database each day" – eine einzige Anfrage pro Tag lag offenbar unter der Schwelle. Die höhere Frequenz fängt zusätzlich ab, dass GitHub geplante Abläufe bei hoher Last verschiebt oder ersatzlos streicht.
+
 **Ein Haken:** GitHub schaltet geplante Abläufe ab, wenn ein Repository 60 Tage ohne Aktivität bleibt, und meldet das per Mail. Wird hier längere Zeit nichts committet, muss der Ablauf unter *Actions* wieder eingeschaltet werden.
 
 ## Bekannte Einschränkungen

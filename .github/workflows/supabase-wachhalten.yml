@@ -3,8 +3,17 @@
 # Supabase pausiert Projekte im Free-Tarif, wenn sie sieben Tage lang zu
 # wenig Datenbankaktivitaet zeigen. Passiert das, laedt der Belegungsplan
 # keine Buchungen mehr, bis das Projekt im Supabase-Dashboard wieder
-# aufgeweckt wird. Dieser Ablauf stellt einmal taeglich eine echte
-# Anfrage und verhindert das.
+# aufgeweckt wird.
+#
+# Supabase schreibt dazu: "Typically a few user requests to the database
+# each day over the previous week is enough to keep the project from
+# being paused." Eine einzige Anfrage pro Tag war offenbar zu wenig -
+# es kamen trotzdem Warnmails. Dieser Ablauf laeuft deshalb viermal
+# taeglich und stellt pro Lauf drei verschiedene Anfragen.
+#
+# Mehr hilft hier auch gegen ausgefallene Laeufe: GitHub verschiebt oder
+# verwirft geplante Ablaeufe bei hoher Last, ein einzelner Lauf pro Tag
+# faellt dann ersatzlos aus.
 #
 # Der verwendete Schluessel ist der oeffentliche Anon-Key, der ohnehin im
 # Quelltext von belegung.html steht. Er ist kein Geheimnis.
@@ -13,7 +22,7 @@ name: Supabase wachhalten
 
 on:
   schedule:
-    - cron: "17 6 * * *"   # taeglich 06:17 UTC
+    - cron: "17 */6 * * *"   # alle sechs Stunden: 00:17, 06:17, 12:17, 18:17 UTC
   workflow_dispatch:        # laesst sich auch von Hand ausloesen
 
 jobs:
@@ -26,20 +35,32 @@ jobs:
           ANON: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ0ZnBkdXF5cmFya3RteGFpaXNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYyODU2MTcsImV4cCI6MjEwMTg2MTYxN30.-0S-ysuAG3z4T5xueWgzSg1UGjbxL5SjJ2dyQM_kiY4
         run: |
           set -euo pipefail
-          antwort=$(curl -sS -w '\n%{http_code}' -X POST \
-            "$URL/rest/v1/rpc/pending_count" \
-            -H "apikey: $ANON" \
-            -H "Authorization: Bearer $ANON" \
-            -H "Content-Type: application/json" \
-            -d '{}')
-          code=$(printf '%s' "$antwort" | tail -n1)
-          inhalt=$(printf '%s' "$antwort" | sed '$d')
 
-          if [ "$code" != "200" ]; then
-            echo "Datenbank antwortet nicht wie erwartet: HTTP $code"
-            echo "$inhalt"
-            echo "Moeglicherweise ist das Projekt bereits pausiert –" \
-                 "im Supabase-Dashboard nachsehen und aufwecken."
-            exit 1
-          fi
-          echo "Datenbank erreichbar. Offene Anfragen: $inhalt"
+          frage() {
+            # $1 = Beschreibung, $2 = Pfad, $3 = Methode (GET oder POST)
+            if [ "$3" = "POST" ]; then
+              antwort=$(curl -sS -w '\n%{http_code}' -X POST "$URL$2" \
+                -H "apikey: $ANON" -H "Authorization: Bearer $ANON" \
+                -H "Content-Type: application/json" -d '{}')
+            else
+              antwort=$(curl -sS -w '\n%{http_code}' "$URL$2" \
+                -H "apikey: $ANON" -H "Authorization: Bearer $ANON")
+            fi
+            code=$(printf '%s' "$antwort" | tail -n1)
+            inhalt=$(printf '%s' "$antwort" | sed '$d')
+
+            if [ "$code" != "200" ]; then
+              echo "$1: Datenbank antwortet nicht wie erwartet (HTTP $code)"
+              echo "$inhalt"
+              echo "Moeglicherweise ist das Projekt pausiert –" \
+                   "im Supabase-Dashboard nachsehen und aufwecken."
+              exit 1
+            fi
+            echo "$1: ok – $inhalt"
+          }
+
+          frage "Offene Anfragen" "/rest/v1/rpc/pending_count" POST
+          sleep 5
+          frage "Naechste Buchungen" "/rest/v1/bookings?select=id,start_date,end_date&order=start_date.asc&limit=5" GET
+          sleep 5
+          frage "Anzahl Buchungen" "/rest/v1/bookings?select=id&limit=1" GET
